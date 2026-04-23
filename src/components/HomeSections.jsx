@@ -1,5 +1,9 @@
 import React from "react";
 
+function cn(...parts) {
+  return parts.filter(Boolean).join(" ");
+}
+
 function useInView(options = {}) {
   const ref = React.useRef(null);
   const [isInView, setIsInView] = React.useState(false);
@@ -43,7 +47,9 @@ function SectionHeading({
   return (
     <div className={`max-w-3xl ${alignment}`}>
       <p className={kickerTone}>{eyebrow}</p>
-      <h2 className={`mt-5 font-display text-5xl leading-none md:text-6xl ${titleTone}`}>
+      <h2
+        className={`mt-5 font-display text-5xl leading-[1.24] tracking-[-0.01em] md:text-6xl md:leading-[1.2] ${titleTone}`}
+      >
         {title}
       </h2>
       {description ? (
@@ -210,7 +216,7 @@ export function Header({ solid = false }) {
             : "border-none bg-[linear-gradient(180deg,rgba(18,14,12,0.42),rgba(18,14,12,0.2))] shadow-none backdrop-blur-[7px]"
         }`}
       >
-        <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between shell-px py-5">
+        <div className="mx-auto flex w-full max-w-site items-center justify-between shell-px py-5">
           <a href="/" className="inline-flex items-center">
             <img
               src="/ybera-logo.webp"
@@ -540,6 +546,9 @@ export function HeroSection({ stats, visuals }) {
     .map((id) => statsById.get(id))
     .filter(Boolean);
 
+  const heroStatProductHref = (stat) =>
+    stat.productHref ?? "/produto/oleo-de-mirra-reparador";
+
   return (
     <section id="hero" className="relative isolate overflow-hidden bg-[#13100e] text-white">
       <div className="absolute inset-0">
@@ -565,15 +574,15 @@ export function HeroSection({ stats, visuals }) {
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,10,9,0.18)_0%,rgba(12,10,9,0.12)_38%,rgba(12,10,9,0.68)_100%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_46%,rgba(0,0,0,0.28),transparent_32%),radial-gradient(circle_at_82%_18%,rgba(255,255,255,0.05),transparent_18%)]" />
 
-      <div className="relative mx-auto flex min-h-screen w-full max-w-[1440px] items-end px-0 pb-12 pt-28 lg:pb-20">
-        <div className="hero-content max-w-[84rem] w-full px-4 pb-4 pt-6 [text-shadow:0_2px_24px_rgba(0,0,0,0.38)] sm:px-0 md:pb-8 md:pt-0">
+      <div className="relative mx-auto flex min-h-screen w-full max-w-site items-end shell-px py-[84px]">
+        <div className="hero-content max-w-[84rem] w-full pb-4 pt-6 [text-shadow:0_2px_24px_rgba(0,0,0,0.38)] md:pb-8 md:pt-0">
           <div className="inline-flex items-center gap-3">
             <span className="h-px w-10 bg-white/35" aria-hidden="true" />
             <p className="text-[11px] font-medium uppercase tracking-[0.26em] text-white/58">
               Jeito Ybera de ser
             </p>
           </div>
-          <h1 className="mt-5 max-md:max-w-[16ch] text-balance font-display text-[clamp(32px,8vw,56px)] leading-[1.05] text-white md:max-w-6xl md:text-[6.1rem] md:leading-[0.84] xl:text-[7.9rem]">
+          <h1 className="mt-5 max-md:max-w-[16ch] text-balance font-display text-[clamp(32px,8vw,56px)] leading-[1.16] tracking-[-0.008em] text-white md:max-w-6xl md:text-[6.1rem] md:leading-[1.12] xl:text-[7.9rem] xl:leading-[1.1]">
             <span className="block md:whitespace-nowrap">Revelar a beleza</span>
             <span className="block md:whitespace-nowrap">que já existe</span>
             <span className="block md:whitespace-nowrap">em você</span>
@@ -611,37 +620,40 @@ export function HeroSection({ stats, visuals }) {
                   const isLeading = index === 0;
 
                   return (
-                    <button
+                    <a
                       key={stat.id}
                       ref={isLeading ? mobileLeadCardRef : null}
-                      type="button"
-                      onClick={() => {
-                        if (!isLeading && !mobileIsSliding) {
-                          startMobileSlide();
-                        }
-                      }}
-                      className={`group relative flex h-auto w-[calc(100vw-5.5rem)] max-w-[24rem] shrink-0 flex-col overflow-hidden px-4 py-4 text-left backdrop-blur-[10px] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)] transition-all duration-500 ease-out ${
+                      href={heroStatProductHref(stat)}
+                      className={`group/cta relative flex min-h-[52px] w-[min(24rem,calc(100vw-4.5rem))] shrink-0 cursor-pointer flex-col overflow-hidden px-4 py-4 text-left no-underline [-webkit-tap-highlight-color:transparent] transition-[background-color,backdrop-filter,box-shadow,opacity,filter] duration-[250ms] ease-out focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#13100e] ${
                         isLeading
-                          ? "scale-[1.02] bg-[rgba(255,255,255,0.085)] opacity-100"
-                          : "scale-100 bg-[rgba(255,255,255,0.03)] opacity-72"
+                          ? "scale-[1.02] bg-[rgba(255,255,255,0.052)] opacity-100 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.075),0_4px_22px_rgba(0,0,0,0.07)] backdrop-blur-[9px] hover:bg-[rgba(255,255,255,0.078)] hover:backdrop-blur-[12px] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.11),0_10px_36px_rgba(0,0,0,0.12)] hover:brightness-[1.04]"
+                          : "scale-100 bg-[rgba(255,255,255,0.028)] opacity-90 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.055),0_2px_14px_rgba(0,0,0,0.05)] backdrop-blur-[8px] hover:bg-[rgba(255,255,255,0.045)] hover:opacity-100 hover:backdrop-blur-[10px] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.085),0_8px_28px_rgba(0,0,0,0.09)] hover:brightness-[1.03]"
                       }`}
-                      aria-label={`${stat.label}: ${stat.value}`}
+                      aria-label={`${stat.label}: ${stat.value}. Ver produto em destaque`}
                     >
-                      <div>
-                        <p
-                          className={`text-[9px] uppercase tracking-editorial transition-colors duration-300 ${
-                            isLeading ? "text-white/52" : "text-white/32"
-                          }`}
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0 flex-1">
+                          <p
+                            className={`text-[9px] uppercase tracking-editorial transition-colors duration-[250ms] ease-out group-hover/cta:text-white/54 ${
+                              isLeading ? "text-white/48" : "text-white/36"
+                            }`}
+                          >
+                            {stat.label}
+                          </p>
+                          <p
+                            className={`mt-3 max-w-none text-[0.95rem] font-normal leading-6 transition-colors duration-[250ms] ease-out group-hover/cta:text-white ${
+                              isLeading ? "text-white/86" : "text-white/66"
+                            }`}
+                          >
+                            {stat.value}
+                          </p>
+                        </div>
+                        <span
+                          className="pointer-events-none shrink-0 self-start pt-0.5 text-[12px] font-normal leading-none text-white/50 transition-transform duration-[250ms] ease-out group-hover/cta:translate-x-[3px] group-focus-visible:translate-x-[3px]"
+                          aria-hidden="true"
                         >
-                          {stat.label}
-                        </p>
-                        <p
-                          className={`mt-3 max-w-none text-[0.95rem] leading-6 transition-colors duration-300 ${
-                            isLeading ? "text-white/96" : "text-white/72"
-                          }`}
-                        >
-                          {stat.value}
-                        </p>
+                          →
+                        </span>
                       </div>
                       {isLeading ? (
                         <div className="mt-5 h-px w-full overflow-hidden bg-white/8">
@@ -651,7 +663,7 @@ export function HeroSection({ stats, visuals }) {
                           />
                         </div>
                       ) : null}
-                    </button>
+                    </a>
                   );
                 })}
               </div>
@@ -660,9 +672,9 @@ export function HeroSection({ stats, visuals }) {
 
           <div className="hidden max-w-[78rem] grid-cols-3 gap-4 sm:mt-14 sm:grid lg:gap-5">
             {stats.map((stat) => (
-              <button
+              <a
                 key={stat.id}
-                type="button"
+                href={heroStatProductHref(stat)}
                 onMouseEnter={() => {
                   setIsPaused(true);
                   activateHero(stat.id);
@@ -673,29 +685,36 @@ export function HeroSection({ stats, visuals }) {
                   activateHero(stat.id);
                 }}
                 onBlur={() => setIsPaused(false)}
-                onClick={() => activateHero(stat.id)}
-                className={`group relative flex h-auto flex-col overflow-hidden px-5 py-5 text-left backdrop-blur-[10px] transition-all duration-500 ease-out lg:px-6 lg:py-6 ${
+                className={`group/cta relative flex min-h-[52px] cursor-pointer flex-col overflow-hidden px-5 py-5 text-left no-underline [-webkit-tap-highlight-color:transparent] transition-[background-color,backdrop-filter,box-shadow,opacity,filter] duration-[250ms] ease-out focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#13100e] lg:px-6 lg:py-6 ${
                   activeHeroId === stat.id
-                    ? "scale-[1.02] bg-[rgba(255,255,255,0.085)] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12)] opacity-100"
-                    : "scale-100 bg-[rgba(255,255,255,0.022)] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)] opacity-72 hover:bg-[rgba(255,255,255,0.03)] hover:opacity-86"
+                    ? "scale-[1.02] bg-[rgba(255,255,255,0.052)] opacity-100 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.075),0_6px_26px_rgba(0,0,0,0.08)] backdrop-blur-[9px] hover:bg-[rgba(255,255,255,0.078)] hover:backdrop-blur-[12px] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.11),0_12px_40px_rgba(0,0,0,0.11)] hover:brightness-[1.04]"
+                    : "scale-100 bg-[rgba(255,255,255,0.028)] opacity-90 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.055),0_2px_16px_rgba(0,0,0,0.06)] backdrop-blur-[8px] hover:bg-[rgba(255,255,255,0.045)] hover:opacity-100 hover:backdrop-blur-[10px] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.085),0_8px_30px_rgba(0,0,0,0.09)] hover:brightness-[1.03]"
                 }`}
-                aria-label={`${stat.label}: ${stat.value}`}
+                aria-label={`${stat.label}: ${stat.value}. Ver produto em destaque`}
               >
-                <div>
-                  <p
-                    className={`text-[10px] uppercase tracking-editorial transition-colors duration-300 ${
-                      activeHeroId === stat.id ? "text-white/52" : "text-white/32"
-                    }`}
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0 flex-1">
+                    <p
+                      className={`text-[10px] uppercase tracking-editorial transition-colors duration-[250ms] ease-out group-hover/cta:text-white/54 ${
+                        activeHeroId === stat.id ? "text-white/48" : "text-white/36"
+                      }`}
+                    >
+                      {stat.label}
+                    </p>
+                    <p
+                      className={`mt-4 max-w-none text-[1.02rem] font-normal leading-7 transition-colors duration-[250ms] ease-out group-hover/cta:text-white md:text-[1.08rem] lg:text-[1.18rem] ${
+                        activeHeroId === stat.id ? "text-white/86" : "text-white/66"
+                      }`}
+                    >
+                      {stat.value}
+                    </p>
+                  </div>
+                  <span
+                    className="pointer-events-none shrink-0 self-start pt-0.5 text-[12px] font-normal leading-none text-white/50 transition-transform duration-[250ms] ease-out group-hover/cta:translate-x-[3px] group-focus-visible:translate-x-[3px]"
+                    aria-hidden="true"
                   >
-                    {stat.label}
-                  </p>
-                  <p
-                    className={`mt-4 max-w-none text-[1.02rem] leading-7 transition-colors duration-300 md:text-[1.08rem] lg:text-[1.18rem] ${
-                      activeHeroId === stat.id ? "text-white/96" : "text-white/72"
-                    }`}
-                  >
-                    {stat.value}
-                  </p>
+                    →
+                  </span>
                 </div>
                 {activeHeroId === stat.id ? (
                   <div className="mt-8 h-px w-full overflow-hidden bg-white/8">
@@ -705,7 +724,7 @@ export function HeroSection({ stats, visuals }) {
                     />
                   </div>
                 ) : null}
-              </button>
+              </a>
             ))}
           </div>
 
@@ -723,7 +742,7 @@ export function HeroSection({ stats, visuals }) {
 export function SensoryBlock() {
   return (
     <div className="bg-halo">
-      <div className="mx-auto max-w-5xl shell-px pb-8 pt-28 text-center lg:pb-12 lg:pt-36">
+      <div className="mx-auto max-w-5xl shell-px py-[84px] text-center">
         <p className="section-kicker mx-auto justify-center">RESULTADO REAL</p>
         <p className="mt-8 font-display text-4xl leading-tight text-ink md:text-6xl">
           O resultado aparece. E permanece.
@@ -738,12 +757,12 @@ export function SensoryBlock() {
 
 export function ManifestoSection() {
   return (
-    <section className="bg-[#F6F4F2] px-0 py-24 text-ink lg:py-32 xl:py-40">
+    <section className="bg-[#F6F4F2] px-0 py-[84px] text-ink">
       <div className="mx-auto max-w-5xl shell-px text-center">
         <p className="section-kicker mx-auto justify-center text-ink/48 before:bg-ink/24">
           Manifesto
         </p>
-        <h2 className="mx-auto mt-10 max-w-4xl font-display text-5xl leading-[1.02] tracking-[-0.03em] text-ink md:text-7xl">
+        <h2 className="mx-auto mt-10 max-w-4xl font-display text-5xl leading-[1.22] tracking-[-0.016em] text-ink md:text-7xl md:leading-[1.18]">
           A beleza começa no <em className="italic">cuidado</em>.
           <br />
           O brilho é a memória dele.
@@ -816,10 +835,10 @@ export function ResultsSection({ items }) {
     <section
       id="resultado"
       ref={sectionRef}
-      className="bg-[#0B0B0B] text-white"
+      className="bg-[#0B0B0B] py-[84px] text-white"
       style={{ backgroundColor: "#0B0B0B", backgroundImage: "none", boxShadow: "none" }}
     >
-      <div className="mx-auto w-full max-w-[1440px] shell-px pt-16 xl:pt-44">
+      <div className="mx-auto w-full max-w-site shell-px">
         <div
           className={`transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             isInView ? "translate-y-0 opacity-100 blur-0" : "translate-y-6 opacity-0 blur-[6px]"
@@ -893,7 +912,7 @@ export function ResultsSection({ items }) {
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-[1440px] shell-px pb-16 pt-8 lg:pb-30 lg:pt-12 xl:pb-44">
+      <div className="mx-auto w-full max-w-site shell-px pt-8">
         <div
           className={`text-center transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             isInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
@@ -1120,8 +1139,8 @@ export function ProductRailSection({
   }, [isPaused, snapToIndex]);
 
   return (
-    <section id="produtos" className="bg-white">
-      <div className="mx-auto w-full max-w-[1440px] shell-px pb-10 pt-18 lg:pb-12 lg:pt-20 xl:pb-14 xl:pt-24">
+    <section id="produtos" className="bg-white py-[84px]">
+      <div className="mx-auto w-full max-w-site shell-px">
         <div className="max-w-3xl">
           <p className="section-kicker">{eyebrow}</p>
           <h2 className="mt-5 font-display text-5xl leading-[0.96] text-ink md:text-6xl">
@@ -1133,7 +1152,7 @@ export function ProductRailSection({
         </div>
       </div>
 
-      <div className="relative left-1/2 mt-7 w-screen -translate-x-1/2 pb-14 lg:mt-8 lg:pb-16 xl:pb-20">
+      <div className="relative left-1/2 mt-7 w-screen -translate-x-1/2 lg:mt-8">
         <div className="absolute inset-y-0 left-0 z-[3] flex items-center pl-3 sm:pl-4 lg:pl-5 xl:pl-6">
           <button
             type="button"
@@ -1216,149 +1235,207 @@ export function ProductRailSection({
   );
 }
 
-export function LaunchesSection({ items }) {
-  const leftProduct = {
-    name: "Shampoo Multifuncional Cuidados Profundos",
-    note: "Remove excessos, prepara a fibra e deixa o cabelo pronto para absorver tratamento de verdade.",
-  };
+const launchEditorialItems = [
+  {
+    name: "Shampoo Multifuncional",
+    concept: "O primeiro passo que respira.",
+    functional: "Limpa com precisão e prepara o fio para o que vem depois.",
+    href: "/produto/shampoo-multifuncao-cuidados-profundos",
+    cta: "EXPLORAR",
+    image: "/images/27.jpg.webp",
+    imageAlt: "Resultado no cabelo com brilho, textura e movimento",
+    imageHoverClass: "group-hover:scale-[1.025]",
+    overlayClass:
+      "pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(17,13,11,0.04),rgba(17,13,11,0.16))]",
+    mobileShell: "group relative min-h-[24rem] overflow-hidden sm:min-h-[28rem]",
+    desktopShell:
+      "group relative min-h-[28rem] overflow-hidden sm:min-h-[34rem] lg:min-h-[40rem] xl:min-h-[46rem]",
+  },
+  {
+    name: "Óleo de Mirra Reparador",
+    concept: "Um brilho que se revela no movimento.",
+    functional: "Finaliza com leveza e prolonga o alinhamento ao longo do dia.",
+    href: "/produto/oleo-de-mirra-reparador",
+    cta: "CONHECER",
+    image: "/images/13.png",
+    imageAlt: "Óleo de Mirra Reparador",
+    imageHoverClass: "group-hover:scale-[1.02]",
+    overlayClass:
+      "pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(18,14,12,0.04),rgba(18,14,12,0.12))]",
+    mobileShell: "group relative min-h-[24rem] overflow-hidden bg-[#e8ddd2] sm:min-h-[28rem]",
+    desktopShell:
+      "group relative min-h-[28rem] overflow-hidden bg-[#e8ddd2] sm:min-h-[34rem] lg:min-h-[40rem] xl:min-h-[46rem]",
+  },
+];
 
-      return (
-    <section className="bg-[#ffffff] pt-24 lg:pt-28 xl:pt-32">
-      <div className="mx-auto w-full max-w-[1440px] shell-px pb-10 lg:pb-12">
+function LaunchEditorialCta({ href, label, align = "center", emphasis = "soft" }) {
+  const wrap =
+    align === "start"
+      ? emphasis === "strong"
+        ? "self-start pt-8"
+        : "self-start pt-9"
+      : align === "end"
+        ? emphasis === "strong"
+          ? "self-end pt-8"
+          : "self-end pt-9"
+        : emphasis === "strong"
+          ? "self-center pt-8"
+          : "self-center pt-9";
+  const linkClass = cn(
+    "inline-flex items-baseline gap-1.5 border-0 bg-transparent p-0 text-[10px] font-medium uppercase tracking-[0.24em] no-underline transition-[color,opacity] duration-300 ease-out focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ink/14 focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:text-[11px] sm:tracking-[0.26em]",
+    emphasis === "strong"
+      ? "text-[#1a1a1a]/82 hover:text-[#0a0a0a]"
+      : "text-ink/40 hover:text-ink/62",
+  );
+  const arrowClass = cn(
+    "text-[11px] font-light leading-none sm:text-xs",
+    emphasis === "strong" ? "text-[#1a1a1a]/68" : "text-ink/32",
+  );
+  return (
+    <div className={wrap}>
+      <a href={href} className={linkClass}>
+        <span>{label}</span>
+        <span className={arrowClass} aria-hidden>
+          →
+        </span>
+      </a>
+    </div>
+  );
+}
+
+/** `columnIndex` 0 = protagonista (esquerda); 1 = direita com mais contraste e ritmo alinhado à imagem. */
+function LaunchProductBlock({ item, headingClass, columnIndex = 0 }) {
+  const isLeft = columnIndex === 0;
+
+  const root = cn(
+    "flex w-full flex-col pt-1",
+    isLeft
+      ? "max-w-[min(100%,44rem)] items-start text-left lg:ml-[clamp(0.25rem,3vw,2.75rem)] lg:pt-8"
+      : "max-w-[min(100%,44rem)] items-end text-right lg:mr-[clamp(0.25rem,2.5vw,2rem)] lg:pt-5",
+  );
+
+  const title = cn(
+    "w-full text-pretty font-display leading-[1.06] tracking-[-0.02em]",
+    headingClass,
+    isLeft
+      ? "max-w-[min(100%,38rem)] sm:max-w-[min(100%,40rem)] lg:max-w-[min(100%,42rem)]"
+      : "max-w-[min(100%,37rem)] sm:max-w-[min(100%,39rem)] lg:max-w-[min(100%,41rem)]",
+  );
+
+  const body = cn(
+    "w-full",
+    isLeft ? "mt-8 sm:mt-10" : "mt-6 sm:mt-7",
+    isLeft
+      ? "max-w-[min(100%,30rem)] sm:max-w-[min(100%,34rem)] lg:max-w-[min(100%,36rem)]"
+      : "max-w-[min(100%,29rem)] sm:max-w-[min(100%,33rem)] lg:max-w-[min(100%,35rem)]",
+  );
+
+  const conceptTone = cn(
+    "text-[0.84375rem] font-light leading-[1.72] sm:text-[0.90625rem] sm:leading-[1.74]",
+    isLeft ? "text-ink/42" : "text-[#1f1f1f]/78",
+  );
+  const functionalTone = cn(
+    "text-[0.84375rem] font-light leading-[1.72] sm:text-[0.90625rem] sm:leading-[1.74]",
+    isLeft ? "mt-4 text-ink/34" : "mt-3 text-[#1f1f1f]/64 sm:mt-3.5",
+  );
+
+  const ctaAlign = isLeft ? "start" : "end";
+  const ctaEmphasis = isLeft ? "soft" : "strong";
+
+  return (
+    <div className={root}>
+      <h3 className={title}>{item.name}</h3>
+      <div className={body}>
+        <p className={conceptTone}>{item.concept}</p>
+        <p className={functionalTone}>{item.functional}</p>
+      </div>
+      <LaunchEditorialCta href={item.href} label={item.cta} align={ctaAlign} emphasis={ctaEmphasis} />
+    </div>
+  );
+}
+
+export function LaunchesSection({ items }) {
+  void items;
+
+  const titleHeadingLeft =
+    "font-light text-ink text-[2.08rem] sm:text-[2.18rem] md:text-[2.32rem] xl:text-[2.46rem]";
+  const titleHeadingRight =
+    "font-normal text-[#0a0a0a] text-[2.06rem] sm:text-[2.14rem] md:text-[2.3rem] xl:text-[2.44rem]";
+  const desktopHeadingLeft =
+    "font-light text-ink text-[2.14rem] md:text-[2.3rem] xl:text-[2.44rem]";
+  const desktopHeadingRight =
+    "font-normal text-[#080808] text-[2.12rem] md:text-[2.28rem] xl:text-[2.42rem]";
+
+  return (
+    <section className="bg-[#ffffff] py-[84px]">
+      <div className="mx-auto w-full max-w-site shell-px pb-10 lg:pb-12">
         <div className="max-w-4xl">
           <p className="section-kicker">LANÇAMENTOS</p>
-          <h2 className="mt-6 font-display text-5xl leading-[0.96] text-ink md:text-6xl">
+          <h2 className="mt-6 font-display text-5xl font-light leading-[0.96] text-ink md:text-6xl">
             O que chegou para mudar o seu cabelo
           </h2>
-          <p className="mt-6 max-w-2xl text-base leading-8 text-ink/64 md:text-lg">
-            Novos produtos que entregam resultado desde o primeiro uso — no brilho, no toque e no controle do fio.
+          <p className="mt-6 max-w-2xl text-base font-light leading-[1.75] text-ink/54 md:text-[1.0625rem]">
+            Novidades no ritual — um gesto para preparar o fio, outro para revelar o brilho.
           </p>
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-[1440px] shell-px pb-20 lg:hidden">
+      <div className="mx-auto w-full max-w-site shell-px pb-0 lg:hidden">
         <div className="space-y-12">
-          <article className="space-y-6">
-            <div className="group relative min-h-[24rem] overflow-hidden bg-[#e8ddd2]">
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,13,11,0.04),rgba(17,13,11,0.16))]" />
-              <img
-                src="/images/27.jpg.webp"
-                alt="Resultado no cabelo com brilho, textura e movimento"
-                className="h-full w-full object-cover object-center transition duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025]"
-              />
-            </div>
-            <div className="flex flex-col">
-              <h3 className="font-display text-[1.85rem] leading-[0.98] text-ink">
-                {leftProduct.name}
-              </h3>
-              <p className="pt-5 text-sm leading-7 text-ink/56">
-                {leftProduct.note}
-              </p>
-              <div className="pt-5">
-                <a href={leftProduct.href ?? "/produto/oleo-de-mirra-reparador"} className="button-editorial">
-                  COMPRAR PRODUTO
-                  <span className="text-base leading-none transition duration-300">
-                    →
-                  </span>
-                </a>
+          {launchEditorialItems.map((item, index) => (
+            <article key={item.name} className="space-y-8 sm:space-y-10">
+              <div className={item.mobileShell}>
+                <div className={item.overlayClass} aria-hidden />
+                <img
+                  src={item.image}
+                  alt={item.imageAlt}
+                  className={`h-full w-full object-cover object-center transition duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${item.imageHoverClass}`}
+                />
               </div>
-            </div>
-          </article>
-
-          <article className="space-y-6">
-            <div className="group relative min-h-[24rem] overflow-hidden bg-[#e8ddd2]">
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,14,12,0.04),rgba(18,14,12,0.12))]" />
-              <img
-                src="/images/13.png"
-                alt="Óleo de Mirra Reparador"
-                className="h-full w-full object-cover object-center transition duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
-              />
-            </div>
-            <div className="flex flex-col">
-              <h3 className="font-display text-[1.85rem] leading-[0.98] text-ink">
-                Óleo de Mirra Reparador
-              </h3>
-              <p className="pt-5 text-sm leading-7 text-ink/56">
-                Finaliza sem pesar, reduz o frizz e mantém o alinhamento ao longo do dia.
-              </p>
-              <div className="pt-5">
-                <a href="/produto/oleo-de-mirra-reparador" className="button-editorial">
-                  COMPRAR PRODUTO
-                  <span className="text-base leading-none transition duration-300">
-                    →
-                  </span>
-                </a>
+              <div className="px-1 sm:px-2">
+                <LaunchProductBlock
+                  item={item}
+                  headingClass={index === 0 ? titleHeadingLeft : titleHeadingRight}
+                  columnIndex={index}
+                />
               </div>
-            </div>
-          </article>
+            </article>
+          ))}
         </div>
       </div>
 
       <div className="relative left-1/2 hidden w-screen -translate-x-1/2 lg:block">
         <div className="grid lg:grid-cols-2">
-          <div className="group relative min-h-[28rem] overflow-hidden sm:min-h-[34rem] lg:min-h-[40rem] xl:min-h-[46rem]">
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,13,11,0.04),rgba(17,13,11,0.16))]" />
-            <img
-              src="/images/27.jpg.webp"
-              alt="Resultado no cabelo com brilho, textura e movimento"
-              className="h-full w-full object-cover object-center transition duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025]"
-            />
-          </div>
-
-          <div className="group relative min-h-[28rem] overflow-hidden bg-[#e8ddd2] sm:min-h-[34rem] lg:min-h-[40rem] xl:min-h-[46rem]">
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,14,12,0.04),rgba(18,14,12,0.12))]" />
-            <img
-              src="/images/13.png"
-              alt="Óleo de Mirra Reparador"
-              className="h-full w-full object-cover object-center transition duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
-            />
-          </div>
+          {launchEditorialItems.map((item) => (
+            <div key={item.name} className={item.desktopShell}>
+              <div className={item.overlayClass} aria-hidden />
+              <img
+                src={item.image}
+                alt={item.imageAlt}
+                className={`h-full w-full object-cover object-center transition duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${item.imageHoverClass}`}
+              />
+            </div>
+          ))}
         </div>
       </div>
 
-      <div className="relative left-1/2 hidden w-screen -translate-x-1/2 pb-20 pt-8 lg:block lg:pb-24 lg:pt-10 xl:pb-28">
-        <div className="grid items-start gap-8 lg:grid-cols-2">
-          <div className="flex flex-col px-0 lg:px-0 xl:px-0">
-            <div>
-              <h3 className="font-display text-[1.85rem] leading-[0.98] text-ink md:text-[1.95rem] xl:text-[2rem]">
-                {leftProduct.name}
-              </h3>
+      <div className="relative left-1/2 hidden w-screen -translate-x-1/2 pt-6 lg:block lg:pt-10">
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-10 xl:gap-12">
+          {launchEditorialItems.map((item, index) => (
+            <div
+              key={item.name}
+              className={cn(
+                "flex w-full flex-col px-6 pb-12 sm:px-10 lg:px-12 lg:pb-14 xl:px-16",
+                index === 0 ? "items-start" : "items-end",
+              )}
+            >
+              <LaunchProductBlock
+                item={item}
+                headingClass={index === 0 ? desktopHeadingLeft : desktopHeadingRight}
+                columnIndex={index}
+              />
             </div>
-            <div className="pt-5">
-              <p className="text-sm leading-7 text-ink/56 md:text-[0.98rem]">
-                {leftProduct.note}
-              </p>
-            </div>
-            <div className="pt-5">
-              <a href={leftProduct.href ?? "/produto/oleo-de-mirra-reparador"} className="button-editorial">
-                COMPRAR PRODUTO
-                <span className="text-base leading-none transition duration-300">
-                  →
-                </span>
-              </a>
-            </div>
-          </div>
-
-          <div className="flex flex-col px-0 lg:px-0 xl:px-0">
-            <div>
-              <h3 className="font-display text-[1.85rem] leading-[0.98] text-ink md:text-[1.95rem] xl:text-[2rem]">
-                Óleo de Mirra Reparador
-              </h3>
-            </div>
-            <div className="pt-5">
-              <p className="text-sm leading-7 text-ink/56 md:text-[0.98rem]">
-                Finaliza sem pesar, reduz o frizz e mantém o alinhamento ao longo do dia.
-              </p>
-            </div>
-            <div className="pt-5">
-              <a href="/produto/oleo-de-mirra-reparador" className="button-editorial">
-                COMPRAR PRODUTO
-                <span className="text-base leading-none transition duration-300">
-                  →
-                </span>
-              </a>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
@@ -1393,8 +1470,8 @@ export function RoutineSection({ steps }) {
   const currentVisual = visualStates[activeStep] ?? visualStates[0];
 
   return (
-    <section id="rotina" className="bg-white">
-      <div className="mx-auto w-full max-w-[1440px] shell-px py-16 lg:py-24 xl:py-32">
+    <section id="rotina" className="bg-white py-[84px]">
+      <div className="mx-auto w-full max-w-site shell-px">
         <div className="lg:hidden">
           <p className="section-kicker">O método Ybera</p>
           <h2 className="mt-3 font-display text-5xl leading-[0.94] text-ink">
@@ -1489,187 +1566,10 @@ export function RoutineSection({ steps }) {
   );
 }
 
-export function ProductHighlightsSection({ items }) {
-  const essentials = items.slice(0, 3);
-  const heroProduct = essentials[0];
-  const shampooProduct = essentials[1];
-  const soroProduct = essentials[2];
-  const mascaraProduct = items[3] ?? soroProduct;
-
-  const editorialTitle = "Os mais escolhidos para começar.";
-  const editorialDescription = "Seleção pensada para cada momento do cuidado.";
-
-  const strongCardOverlay =
-    "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.1), transparent)";
-  const soroCardOverlay =
-    "linear-gradient(to top, rgba(0,0,0,0.45), rgba(0,0,0,0.15), transparent)";
-
-  if (!heroProduct || !shampooProduct || !soroProduct) {
-    return null;
-  }
-
-  return (
-    <section className="bg-pearl">
-      <div className="mx-auto w-full max-w-[1440px] shell-px py-14 md:py-20 xl:py-28">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <SectionHeading
-            eyebrow="Escolhas essenciais"
-            title={editorialTitle}
-            description={editorialDescription}
-          />
-          <a href="#produtos" className="button-editorial hidden shrink-0 md:inline-flex">
-            Ver produtos
-            <span className="text-base leading-none">→</span>
-          </a>
-        </div>
-        <a
-          href="#produtos"
-          className="mt-6 inline-flex md:hidden button-editorial-compact"
-        >
-          Ver produtos
-          <span className="text-sm leading-none">→</span>
-        </a>
-
-        <div className="mt-12 flex min-w-0 flex-col gap-[16px] md:mt-14 lg:mt-16">
-          <div className="grid min-w-0 grid-cols-1 gap-[16px] lg:grid-cols-[minmax(0,60%)_minmax(0,40%)] lg:items-start">
-          <article className="group relative min-h-[16rem] w-full min-w-0 overflow-hidden bg-[#161412] sm:min-h-[17.5rem] lg:h-[360px] lg:min-h-[360px] lg:max-h-[360px]">
-            <img
-              src={heroProduct.image}
-              alt={heroProduct.name}
-              className="absolute inset-0 z-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.03]"
-            />
-            <div
-              className="pointer-events-none absolute inset-0 z-[1]"
-              style={{ backgroundImage: strongCardOverlay }}
-              aria-hidden="true"
-            />
-            <div className="pointer-events-none absolute bottom-6 left-6 right-6 z-[2] text-left sm:bottom-6 sm:left-6 sm:right-6">
-              <p className="font-display text-[clamp(36px,4.8vw,56px)] font-medium leading-[0.94] tracking-[-0.02em] text-white line-clamp-2">
-                Escova progressiva
-              </p>
-              <p className="mt-1 line-clamp-2 max-w-full font-sans text-[11px] font-normal leading-[1.45] text-white/90 sm:text-[12px]">
-                {heroProduct.note}
-              </p>
-            </div>
-          </article>
-
-          <div className="flex min-h-0 w-full min-w-0 flex-col gap-[16px] lg:h-[360px] lg:min-h-[360px] lg:max-h-[360px]">
-            <article className="group relative min-h-[9rem] w-full shrink-0 overflow-hidden bg-[#141210] lg:h-[172px] lg:min-h-[172px] lg:max-h-[172px]">
-              <img
-                src="/images/12.png"
-                alt="Mirra"
-                className="absolute inset-0 z-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.04]"
-              />
-              <div
-                className="pointer-events-none absolute inset-0 z-[1]"
-                style={{ backgroundImage: strongCardOverlay }}
-                aria-hidden="true"
-              />
-              <div className="pointer-events-none absolute bottom-6 left-6 right-6 z-[2] text-left sm:bottom-6 sm:left-6 sm:right-6">
-                <p className="font-display text-[clamp(28px,3vw,44px)] font-medium leading-[0.95] tracking-[-0.02em] text-white line-clamp-2">
-                  Mirra
-                </p>
-                <p className="mt-1 line-clamp-2 max-w-full font-sans text-[11px] font-normal leading-[1.45] text-white/90 sm:text-[12px]">
-                  {shampooProduct.note}
-                </p>
-              </div>
-            </article>
-
-            <article className="group relative min-h-[9rem] w-full shrink-0 overflow-hidden bg-[#141210] lg:h-[172px] lg:min-h-[172px] lg:max-h-[172px]">
-              <img
-                src={shampooProduct.image}
-                alt={shampooProduct.name}
-                className="absolute inset-0 z-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.04]"
-              />
-              <div
-                className="pointer-events-none absolute inset-0 z-[1]"
-                style={{ backgroundImage: strongCardOverlay }}
-                aria-hidden="true"
-              />
-              <div className="pointer-events-none absolute bottom-6 left-6 right-6 z-[2] text-left sm:bottom-6 sm:left-6 sm:right-6">
-                <p className="font-display text-[clamp(28px,3vw,44px)] font-medium leading-[0.95] tracking-[-0.02em] text-white line-clamp-2">
-                  {shampooProduct.name}
-                </p>
-                <p className="mt-1 line-clamp-2 max-w-full font-sans text-[11px] font-normal leading-[1.45] text-white/90 sm:text-[12px]">
-                  {shampooProduct.note}
-                </p>
-              </div>
-            </article>
-          </div>
-          </div>
-
-          <div className="grid min-w-0 grid-cols-1 gap-[16px] lg:grid-cols-3 lg:items-start">
-          <div className="flex h-full min-h-0 min-w-0 w-full flex-col justify-between overflow-hidden bg-[#0F0E0D] px-7 py-8 text-white md:px-8 md:py-8 lg:h-[360px] lg:min-h-[360px] lg:max-h-[360px] lg:shrink-0">
-            <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-              <p className="mb-6 shrink-0 font-sans text-[12px] font-medium uppercase leading-none tracking-[0.14em] text-white/70 md:tracking-[0.18em]">
-                — Sobre a seleção
-              </p>
-              <div className="flex min-h-0 min-w-0 flex-1 flex-col justify-center">
-                <blockquote className="m-0 min-w-0 border-none p-0 font-display text-[clamp(28px,2.6vw,36px)] font-normal leading-[1.1] tracking-[-0.02em] text-[#F5F3EE]">
-                  <span className="text-[0.95em] text-white/45" aria-hidden="true">
-                    &ldquo;
-                  </span>
-                  Menos produto, mais <em className="font-display italic">desejo</em>. A curadoria é um filtro — e um convite.
-                  <span className="text-[0.95em] text-white/45" aria-hidden="true">
-                    &rdquo;
-                  </span>
-                </blockquote>
-              </div>
-            </div>
-            <p className="mt-auto shrink-0 pt-6 font-sans text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-white/50 sm:text-[12px]">
-              Direção de marca · Ybera
-            </p>
-          </div>
-
-          <article className="group relative flex min-h-[9rem] w-full min-w-0 shrink-0 flex-row overflow-hidden bg-[#F0E9E0] lg:h-[172px] lg:min-h-[172px] lg:max-h-[172px]">
-            <div className="flex w-[44%] min-w-0 max-w-[50%] shrink-0 flex-col justify-end gap-0.5 py-4 pl-4 pr-2 text-left sm:w-[42%] sm:pl-5 sm:pr-3 sm:py-4 lg:py-5">
-              <p className="font-display text-[26px] font-medium leading-tight tracking-[-0.01em] text-[#141210] sm:text-[28px] md:text-[30px] line-clamp-2">
-                Máscara
-              </p>
-              <p className="line-clamp-3 max-w-full font-sans text-[10px] font-normal leading-[1.45] text-[#141210]/82 sm:text-[11px] md:line-clamp-2 md:text-[12px]">
-                {mascaraProduct.note}
-              </p>
-            </div>
-            <div className="relative flex h-full min-h-0 min-w-0 flex-1 items-center justify-center self-stretch py-2 pr-3 pl-0 sm:py-2.5 sm:pr-4">
-              <img
-                src="/images/18.png"
-                alt="Máscara"
-                className="h-[94%] max-h-[94%] w-auto max-w-full object-contain object-center transition duration-700 ease-out group-hover:scale-[1.03]"
-              />
-            </div>
-          </article>
-
-          <article className="group relative min-h-[9rem] w-full min-w-0 shrink-0 overflow-hidden bg-[#141210] lg:h-[172px] lg:min-h-[172px] lg:max-h-[172px]">
-            <img
-              src={soroProduct.image}
-              alt={soroProduct.name}
-              className="absolute inset-0 z-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.04]"
-            />
-            <div
-              className="pointer-events-none absolute inset-0 z-[1]"
-              style={{ backgroundImage: soroCardOverlay }}
-              aria-hidden="true"
-            />
-            <div className="pointer-events-none absolute bottom-6 left-6 right-6 z-[2] text-left sm:bottom-6 sm:left-6 sm:right-6">
-              <p className="font-display text-[clamp(28px,3vw,44px)] font-medium leading-[0.95] tracking-[-0.02em] text-[#FFFFFF] line-clamp-2">
-                {soroProduct.name}
-              </p>
-              <p className="mt-1 line-clamp-2 max-w-full font-sans text-[11px] font-normal leading-[1.45] text-[#FFFFFF] sm:text-[12px]">
-                {soroProduct.note}
-              </p>
-            </div>
-          </article>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function TestimonialsSection({ items }) {
   return (
-    <section id="depoimentos" className="bg-white">
-      <div className="mx-auto w-full max-w-[1440px] shell-px py-16 md:py-24 xl:py-32">
+    <section id="depoimentos" className="bg-white py-[84px]">
+      <div className="mx-auto w-full max-w-site shell-px">
         <div className="max-w-3xl">
           <p className="section-kicker text-ink/48 before:bg-ink/24">Experiência real</p>
           <h2 className="mt-5 font-display text-5xl leading-none text-[#1A1A1A] md:text-6xl">
@@ -1864,8 +1764,8 @@ export function RealStoriesSection({ items }) {
   }, [isStoryInteracting, items.length, scrollToStoryIndex]);
 
   return (
-    <section className="bg-[#FFFFFF] pb-32 xl:pb-40">
-      <div className="mx-auto w-full max-w-[1440px] shell-px py-28 xl:py-36">
+    <section className="bg-[#FFFFFF] py-[84px]">
+      <div className="mx-auto w-full max-w-site shell-px">
         <div className="max-w-3xl">
           <SectionHeading
             eyebrow="Histórias reais"
@@ -1949,8 +1849,8 @@ export function RealStoriesSection({ items }) {
 
 export function ProfessionalSection() {
   return (
-    <section id="profissionais" className="bg-[#0B0B0B] px-0 py-16 text-white lg:py-32">
-      <div className="mx-auto grid w-full max-w-[1440px] shell-px gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-14">
+    <section id="profissionais" className="bg-[#0B0B0B] px-0 py-[84px] text-white">
+      <div className="mx-auto grid w-full max-w-site shell-px gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-14">
         <div className="overflow-hidden">
           <img
             src="/images/28.jpg.webp"
@@ -2001,9 +1901,9 @@ export function FinalCtaSection({ cta }) {
   const titleLines = String(cta.title).split("\n");
 
   return (
-    <section className="relative overflow-hidden bg-[#15110e] text-white">
+    <section className="relative overflow-hidden bg-[#15110e] py-[84px] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(255,255,255,0.06),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.02),transparent_32%)]" />
-      <div className="mx-auto max-w-5xl shell-px py-32 text-center xl:py-44">
+      <div className="mx-auto max-w-5xl shell-px text-center">
         <p className="section-kicker mx-auto justify-center text-white/50 before:bg-white/32">
           {cta.eyebrow}
         </p>
@@ -2042,7 +1942,7 @@ export function FooterSection() {
     <footer className="bg-[#15110e] text-white">
       <div
         ref={footerRef}
-        className={`mx-auto w-full max-w-[1440px] shell-px pb-8 pt-16 transition-all duration-700 ease-out lg:pb-8 lg:pt-28 ${
+        className={`mx-auto w-full max-w-site shell-px py-[84px] transition-all duration-700 ease-out ${
           footerInView ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
         }`}
       >

@@ -9,6 +9,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Largura editorial máxima (90rem ≈ 1440px a 16px) — use com max-w-site (min + viewport). */
+  --site-max: 90rem;
 }
 
 html {
@@ -36,6 +38,47 @@ body::before {
 
 #root {
   min-height: 100vh;
+}
+
+/* Vitrine 3 — entrada em camadas (conteúdo direita), easing editorial */
+@keyframes vitrine3-rise-fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes vitrine3-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes vitrine3-hero-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.03);
+  }
+}
+
+@keyframes vitrine3-hero-in {
+  from {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 * {
@@ -105,16 +148,19 @@ button {
 }
 
 @layer utilities {
-  .shell-px {
-    padding-left: 1.125rem;
-    padding-right: 1.125rem;
+  /* Playfair Display: leve ajuste de rastreio e ligaduras para português */
+  .font-display {
+    letter-spacing: -0.004em;
+    font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
   }
 
-  @media (min-width: 768px) {
-    .shell-px {
-      padding-left: 0;
-      padding-right: 0;
-    }
+  /**
+   * Margem horizontal do “frame” editorial (nunca 0 em desktop —
+   * antes md+ zerava e o layout colava nos cantos da viewport).
+   */
+  .shell-px {
+    padding-left: clamp(1.125rem, 0.65rem + 2.8vw, 3.25rem);
+    padding-right: clamp(1.125rem, 0.65rem + 2.8vw, 3.25rem);
   }
 }
 

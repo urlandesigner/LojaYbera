@@ -14,6 +14,10 @@ export default {
       full: "0px",
     },
     extend: {
+      maxWidth: {
+        /** Alinha ao token --site-max; nunca ultrapassa a viewport (evita “quebra” com 1440px fixo). */
+        site: "min(100%, var(--site-max))",
+      },
       colors: {
         pearl: "#f6f1ea",
         sand: "#ddd1c2",
@@ -22,7 +26,7 @@ export default {
         mist: "#f9f6f2",
       },
       fontFamily: {
-        display: ['"Cormorant Garamond"', "serif"],
+        display: ['"Playfair Display"', "serif"],
         sans: ['"Manrope"', "sans-serif"],
       },
       boxShadow: {

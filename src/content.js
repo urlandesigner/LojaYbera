@@ -6,6 +6,7 @@ export const heroStats = [
     image:
       "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80",
     alt: "Retrato de estúdio com foco em cabelos lisos, alinhados e brilhantes",
+    productHref: "/produto/oleo-de-mirra-reparador",
   },
   {
     id: "toque",
@@ -13,13 +14,15 @@ export const heroStats = [
     value: "Maciez que não pesa",
     image: "/images/5.png",
     alt: "Produto Ybera em composição premium",
+    productHref: "/produto/oleo-de-mirra-reparador",
   },
   {
     id: "resultado",
     label: "RESULTADO",
     value: "Alinhado do início ao fim",
     image: "/images/27.jpg.webp",
-    alt: "Shampoo Multifunção Cuidados Profundos em composição de lançamento",
+    alt: "Shampoo Multifunção em composição de lançamento",
+    productHref: "/produto/shampoo-multifuncao-cuidados-profundos",
   },
 ];
 
@@ -93,24 +96,108 @@ export const routineSteps = [
 
 export const productHighlights = [
   {
-    name: "Leveza desde o primeiro passo",
-    note: "Remove o excesso sem pesar e prepara o fio para o que vem depois.",
+    name: "Escova progressiva",
+    note: "Alinha e trata em um ritual contínuo, com acabamento limpo e fio leve ao longo do dia.",
     image: "/images/29.jpg.webp",
+    href: "#produtos",
   },
   {
     name: "Shampoo",
-    note: "Recupera a textura do fio e devolve presença ao cabelo.",
+    note: "Limpeza que equilibra sem ressecar e prepara o cabelo para cada próximo passo.",
     image: "/images/27.jpg.webp",
+    href: "/produto/shampoo-multifuncao-cuidados-profundos",
   },
   {
-    name: "Soro Vello",
-    note: "Controla o frizz e mantém o movimento com naturalidade.",
-    image: "/images/30.jpg.webp",
+    name: "Mirra",
+    note: "Óleo reparador com resina de mirra: brilho visível e toque memorável no fio.",
+    image: "/images/12.png",
+    href: "/produto/oleo-de-mirra-reparador",
   },
   {
     name: "Máscara",
-    note: "Sela o cuidado e prolonga um acabamento limpo e leve.",
-    image: "/images/18.png",
+    note: "Nutre a fibra, melhora a textura e prolonga o cuidado sem pesar.",
+    image: "/images/32.png.webp",
+    href: "#produtos",
+  },
+  {
+    name: "Soro Vello",
+    note: "Disciplina o fio, controla o frizz e mantém o movimento natural.",
+    image: "/images/30.jpg.webp",
+    href: "#produtos",
+  },
+];
+
+/** Vitrine 3 — editorial premium (uma peça por vez). */
+export const vitrine3Items = [
+  {
+    editorialImage: "/images/mirra5.jpg.webp",
+    overlayEyebrow: "Assinatura",
+    overlayTitle: "Luz contida",
+    overlayBody:
+      "Resina de mirra em concentração íntima: o fio guarda silêncio e memória antes de deixar o brilho aparecer.",
+    rightEyebrow: "Assinatura",
+    name: "Óleo De Mirra Reparador",
+    description:
+      "Um brilho que não se impõe — se revela.\nNutre profundamente, deixando no fio um toque que permanece.",
+    packshot: "/images/21.png",
+    price: "A partir de R$ 69,90",
+    href: "/produto/oleo-de-mirra-reparador",
+  },
+  {
+    editorialImage: "/images/10.jpg",
+    overlayEyebrow: "Gestos essenciais",
+    overlayTitle: "O alinhamento começa no gesto.",
+    overlayBody:
+      "Disciplina o fio com leveza, revelando um acabamento contínuo — sem excesso, sem peso.",
+    rightEyebrow: "Essencial",
+    name: "Escova Progressiva",
+    description:
+      "Disciplina o fio com leveza, revelando um acabamento contínuo — sem excesso, sem peso.",
+    packshot: "/images/2.png",
+    price: "A partir de R$ 99,90",
+    href: "#produtos",
+  },
+  {
+    editorialImage: "/images/27.jpg.webp",
+    overlayEyebrow: "Ritmo",
+    overlayTitle: "O primeiro gesto que importa",
+    overlayBody:
+      "Equilíbrio entre retirar o excesso e deixar o fio respirar — preparado para o que vem depois, sem tensão.",
+    rightEyebrow: "Novo",
+    name: "Shampoo Protect Control",
+    description:
+      "Limpeza que respeita o ritmo do fio.\nRemove o excesso, preserva a estrutura.",
+    packshot: "/images/24.jpg.webp",
+    price: "A partir de R$ 107,90",
+    href: "/produto/shampoo-multifuncao-cuidados-profundos",
+  },
+  {
+    editorialImage: "/images/32.png.webp",
+    overlayEyebrow: "Permanência",
+    overlayTitle: "Textura que demora",
+    overlayBody:
+      "Cada aplicação soma camadas de cuidado — o tempo reconhece no toque o que o fio passou a sustentar.",
+    rightEyebrow: "Favorito",
+    name: "Máscara 2 em 1 Protect Control",
+    description:
+      "Onde o cuidado se torna permanência.\nRecompõe, nutre e sustenta o que o fio precisa ao longo do tempo.",
+    packshot: "/images/18.png",
+    price: "A partir de R$ 107,90",
+    href: "#produtos",
+  },
+  {
+    editorialImage: "/images/30.jpg.webp",
+    overlayEyebrow: "Ar e movimento",
+    overlayTitle: "Controle sem aprisionar",
+    overlayBody:
+      "O frizz se acalma em silêncio; o movimento segue visível, quase imperceptível no ar.",
+    rightEyebrow: "Diário",
+    name: "Soro Vello Alfa-Lactobaby",
+    description:
+      "Movimento com intenção.\nControla o frizz sem interromper a leveza natural do cabelo.",
+    packshot: "/images/19.png",
+    price: "A partir de R$ 249,90",
+    href: "#produtos",
   },
 ];
 
