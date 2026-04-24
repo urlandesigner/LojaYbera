@@ -11,6 +11,11 @@
   -moz-osx-font-smoothing: grayscale;
   /* Largura editorial máxima (90rem ≈ 1440px a 16px) — use com max-w-site (min + viewport). */
   --site-max: 90rem;
+  /* Header fixo (alinhado ao offset usado na PDP / catálogo). */
+  --header-height: calc(5rem + 1px);
+  /* Coluna de compra sticky na PDP (desktop). */
+  --pdp-sticky-top: calc(var(--header-height) + 32px);
+  --pdp-sticky-max-h: calc(100dvh - var(--header-height) - 48px);
 }
 
 html {
@@ -78,6 +83,59 @@ body::before {
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+/** Método Ybera — highlight leve ao focar um step (opacity + translateY). */
+@keyframes routine-metodo-step-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .animate-routine-metodo-step-reveal {
+    animation: routine-metodo-step-reveal 180ms ease-out both;
+  }
+
+  .animate-routine-metodo-label-reveal {
+    animation: routine-metodo-step-reveal 200ms ease-in-out both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-routine-metodo-step-reveal,
+  .animate-routine-metodo-label-reveal {
+    animation: none !important;
+  }
+}
+
+/** Catálogo — entrada suave ao trocar filtro (fade + scale). */
+@keyframes catalog-filter-reveal {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@layer utilities {
+  .animate-catalog-filter-reveal {
+    animation: catalog-filter-reveal 260ms ease-out both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-catalog-filter-reveal {
+    animation: none !important;
   }
 }
 

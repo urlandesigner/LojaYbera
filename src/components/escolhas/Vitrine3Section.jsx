@@ -171,9 +171,9 @@ export function Vitrine3Section({ items = [] }) {
       onFocusCapture={onSectionFocusIn}
       onBlurCapture={onSectionFocusOut}
     >
-      <div className="flex min-h-0 flex-col lg:min-h-[80vh] lg:flex-row lg:items-stretch">
-        {/* Coluna imagem 55% */}
-        <div className="group/imageCol relative w-full min-h-[52svh] shrink-0 overflow-hidden lg:min-h-[80vh] lg:w-[55%]">
+      <div className="grid min-h-0 grid-cols-1 grid-rows-[auto_auto_auto_auto] lg:min-h-[80vh] lg:grid-cols-[55%_45%] lg:grid-rows-[minmax(0,1fr)_auto]">
+        {/* Coluna imagem 55% — mobile: altura fixa compacta; ordem 1 no grid */}
+        <div className="group/imageCol relative row-start-1 max-lg:h-[400px] max-lg:min-h-[360px] max-lg:max-h-[440px] w-full shrink-0 overflow-hidden lg:col-start-1 lg:row-start-1 lg:h-auto lg:max-h-none lg:min-h-[80vh] lg:w-full">
           {/* Hero idle ou reduced motion */}
           {idleHero ? (
             <div className="absolute inset-0 z-[1]" aria-hidden={false}>
@@ -181,7 +181,7 @@ export function Vitrine3Section({ items = [] }) {
                 src={idleHero.editorialImage}
                 alt=""
                 role="presentation"
-                className="h-full min-h-[52svh] w-full scale-100 object-cover lg:min-h-[80vh]"
+                className="h-full min-h-0 w-full scale-100 object-cover lg:min-h-[80vh]"
                 decoding="async"
               />
               <div
@@ -207,7 +207,7 @@ export function Vitrine3Section({ items = [] }) {
                 alt=""
                 role="presentation"
                 decoding="async"
-                className="h-full min-h-[52svh] w-full object-cover lg:min-h-[80vh]"
+                className="h-full min-h-0 w-full object-cover lg:min-h-[80vh]"
                 style={
                   heroPhase === "zoom"
                     ? {
@@ -234,7 +234,7 @@ export function Vitrine3Section({ items = [] }) {
                 alt=""
                 role="presentation"
                 decoding="async"
-                className="h-full min-h-[52svh] w-full object-cover motion-reduce:scale-100 motion-reduce:opacity-100 lg:min-h-[80vh]"
+                className="h-full min-h-0 w-full object-cover motion-reduce:scale-100 motion-reduce:opacity-100 lg:min-h-[80vh]"
                 style={
                   reduceMotion
                     ? undefined
@@ -288,51 +288,15 @@ export function Vitrine3Section({ items = [] }) {
           ) : null}
         </div>
 
-        {/* Coluna produto 45% */}
-        <div className="relative flex w-full min-h-0 flex-1 flex-col items-center justify-center bg-[#f2efe8] px-4 py-16 sm:px-5 lg:min-h-[80vh] lg:w-[45%] lg:px-14 lg:py-20 xl:px-16">
-          <div className="relative mx-auto flex w-full max-w-[460px] min-h-[20rem] flex-1 flex-col items-center justify-center px-1 sm:px-2 lg:min-h-0">
-            {/* Bloco em fade-out (zoom + out) */}
-            {heroPhase === "zoom" || heroPhase === "out" ? (
-              <div
-                key={`out-${heroFrom}`}
-                className="flex w-full max-w-[460px] flex-col items-center justify-center text-center"
-                style={{
-                  opacity: rightFadeOut ? 0 : 1,
-                  transition: `opacity ${D_OUT}ms ${EASE}`,
-                }}
-              >
-                <RightProductBlock item={list[heroFrom]} revealMotion={false} />
-              </div>
-            ) : null}
-
-            {/* Conteúdo ativo + entrada em camadas na fase "in" */}
-            {heroPhase === "in" || heroPhase === "idle" ? (
-              <div
-                key={heroPhase === "idle" ? `idle-${idleSlideIndex}` : `in-${heroTo}`}
-                className={cn(
-                  "flex w-full max-w-[460px] flex-col items-center justify-center text-center",
-                  heroPhase === "in" && !reduceMotion ? "relative z-[1]" : "relative z-[1]",
-                )}
-              >
-                <RightProductBlock
-                  item={list[heroPhase === "idle" ? idleSlideIndex : heroTo]}
-                  revealMotion={revealMotion}
-                />
-              </div>
-            ) : null}
-          </div>
-        </div>
-      </div>
-
       <nav
-        className="border-t border-ink/[0.06] bg-pearl"
+        className="row-start-2 border-t border-ink/[0.06] bg-pearl lg:col-span-2 lg:col-start-1 lg:row-start-2"
         aria-label="Selecionar produto na vitrine"
       >
-        <div className="mx-auto flex w-full max-w-site flex-col items-center gap-6 py-4 shell-px sm:py-5 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:py-5">
-          <div className="flex w-full min-w-0 justify-center overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] lg:flex-1 lg:overflow-visible [&::-webkit-scrollbar]:hidden">
+        <div className="mx-auto flex w-full max-w-site flex-col items-stretch gap-0 py-2.5 max-lg:px-4 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:py-5 lg:shell-px">
+          <div className="flex w-full min-w-0 justify-start overflow-x-auto overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] lg:flex-1 lg:justify-center lg:overflow-visible [&::-webkit-scrollbar]:hidden">
             <div
               role="tablist"
-              className="mx-auto flex max-w-[960px] flex-nowrap items-center justify-center gap-x-1 text-center sm:gap-x-2"
+              className="flex max-w-none min-w-min flex-nowrap items-center justify-start gap-x-1 text-center sm:gap-x-2 lg:mx-auto lg:max-w-[960px] lg:justify-center"
             >
               {list.map((item, index) => {
                 const isActive = activeIndex === index;
@@ -348,7 +312,7 @@ export function Vitrine3Section({ items = [] }) {
                         "focus-visible:ring-1 focus-visible:ring-ink/25 focus-visible:ring-offset-2 focus-visible:ring-offset-pearl",
                         "transition-[color,font-weight,transform] duration-300 ease-out",
                         isActive
-                          ? "origin-center scale-[1.02] font-medium text-[#0a0a0a] after:w-[70%] after:opacity-[0.58] hover:after:w-[83%] hover:after:opacity-[0.66]"
+                          ? "origin-center scale-[1.02] font-medium text-[#0a0a0a] after:w-[76%] after:opacity-50 max-lg:after:w-[78%] max-lg:after:opacity-[0.55] hover:after:w-[83%] hover:after:opacity-[0.66]"
                           : "origin-center scale-100 font-light text-[#0a0a0a]/[0.52] after:w-[64%] after:opacity-0 hover:text-[#0a0a0a]/[0.78] hover:after:w-[82%] hover:after:opacity-[0.5]",
                       )}
                       onClick={(e) => {
@@ -381,12 +345,60 @@ export function Vitrine3Section({ items = [] }) {
 
           <a
             href="/catalogo"
-            className="inline-flex shrink-0 items-center whitespace-nowrap border-b border-ink/18 pb-0.5 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/45 transition duration-200 hover:border-ink/32 hover:text-ink/78 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ink/22 focus-visible:ring-offset-2 focus-visible:ring-offset-pearl"
+            className="hidden shrink-0 cursor-pointer items-center justify-center whitespace-nowrap border-b border-[#0a0a0a]/20 pb-0.5 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0a0a0a] opacity-90 transition-opacity duration-300 ease-out hover:opacity-60 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0a0a0a]/25 focus-visible:ring-offset-2 focus-visible:ring-offset-pearl lg:inline-flex"
           >
             Ver todo o catálogo<span aria-hidden> →</span>
           </a>
         </div>
       </nav>
+
+        {/* Coluna produto 45% — mobile: após nav (row 3); desktop: coluna direita */}
+        <div className="relative row-start-3 flex w-full min-h-0 flex-col items-center justify-center bg-[#f2efe8] px-4 py-4 sm:px-5 lg:col-start-2 lg:row-start-1 lg:min-h-[80vh] lg:w-full lg:px-14 lg:py-20 xl:px-16">
+          <div className="relative mx-auto flex w-full max-w-[460px] min-h-0 flex-col items-center justify-center px-1 sm:px-2 lg:min-h-[20rem] lg:flex-1">
+            {/* Bloco em fade-out (zoom + out) */}
+            {heroPhase === "zoom" || heroPhase === "out" ? (
+              <div
+                key={`out-${heroFrom}`}
+                className="flex w-full max-w-[460px] flex-col items-center justify-center text-center"
+                style={{
+                  opacity: rightFadeOut ? 0 : 1,
+                  transition: `opacity ${D_OUT}ms ${EASE}`,
+                }}
+              >
+                <RightProductBlock item={list[heroFrom]} revealMotion={false} />
+              </div>
+            ) : null}
+
+            {/* Conteúdo ativo + entrada em camadas na fase "in" */}
+            {heroPhase === "in" || heroPhase === "idle" ? (
+              <div
+                key={heroPhase === "idle" ? `idle-${idleSlideIndex}` : `in-${heroTo}`}
+                className={cn(
+                  "flex w-full max-w-[460px] flex-col items-center justify-center text-center",
+                  heroPhase === "in" && !reduceMotion ? "relative z-[1]" : "relative z-[1]",
+                )}
+              >
+                <RightProductBlock
+                  item={list[heroPhase === "idle" ? idleSlideIndex : heroTo]}
+                  revealMotion={revealMotion}
+                />
+              </div>
+            ) : null}
+          </div>
+        </div>
+
+      <div className="row-start-4 border-t border-ink/[0.06] bg-pearl lg:hidden">
+        <div className="mx-auto flex w-full max-w-site justify-center px-4 pb-5 pt-8">
+          <a
+            href="/catalogo"
+            className="inline-flex shrink-0 cursor-pointer items-center justify-center whitespace-nowrap border-b border-[#0a0a0a]/20 pb-0.5 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0a0a0a] opacity-90 transition-opacity duration-300 ease-out hover:opacity-60 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0a0a0a]/25 focus-visible:ring-offset-2 focus-visible:ring-offset-pearl"
+          >
+            Ver todo o catálogo<span aria-hidden> →</span>
+          </a>
+        </div>
+      </div>
+
+      </div>
 
     </section>
   );
@@ -402,21 +414,21 @@ function EditorialOverlayCard({ item, animateCard, reduceMotion }) {
       : undefined;
 
   return (
-    <div className="pointer-events-auto absolute inset-x-0 bottom-0 z-[2] px-4 pb-8 pt-12 sm:px-5 lg:px-10 lg:pb-10 lg:pt-16">
+    <div className="pointer-events-auto absolute inset-x-0 bottom-0 z-[2] px-4 pb-4 pt-6 sm:px-5 lg:px-10 lg:pb-10 lg:pt-16">
       <div
         className={cn(
-          "max-w-[24rem] -translate-x-2 -translate-y-5 rounded-lg border border-white/15 bg-[rgba(255,255,255,0.6)] px-6 py-6 shadow-none backdrop-blur-[8px] sm:-translate-x-3 sm:px-7 sm:py-7 lg:-translate-x-4 lg:rounded-xl lg:px-7 lg:py-7",
+          "w-full max-w-[min(24rem,calc(100%-2rem))] translate-x-0 translate-y-0 rounded-md border border-white/15 bg-[rgba(255,255,255,0.6)] px-3.5 py-3 text-left shadow-none backdrop-blur-[8px] lg:max-w-[24rem] lg:-translate-x-4 lg:-translate-y-5 lg:rounded-xl lg:px-7 lg:py-7",
           animateCard && !reduceMotion && "motion-reduce:animate-none",
         )}
         style={fadeIn}
       >
-        <p className="text-[13px] font-medium uppercase leading-[1.4] tracking-[0.26em] text-ink/45 md:text-[10px] md:leading-normal">
+        <p className="text-[10px] font-medium uppercase leading-[1.35] tracking-[0.2em] text-ink/45 lg:text-[13px] lg:leading-[1.4] lg:tracking-[0.26em]">
           {item.overlayEyebrow}
         </p>
-        <h2 className="mt-3 font-display text-[22px] font-light leading-[1.3] tracking-[-0.035em] text-[#0a0a0a] sm:text-[1.6rem] sm:leading-snug lg:text-[1.75rem]">
+        <h2 className="mt-1.5 font-display text-[17px] font-light leading-[1.25] tracking-[-0.03em] text-[#0a0a0a] lg:mt-3 lg:text-[1.75rem] lg:leading-snug">
           {item.overlayTitle}
         </h2>
-        <p className="mt-3 max-w-[32ch] text-[16px] font-light leading-[1.5] text-[#4a4a4a] sm:text-[0.9375rem] sm:leading-[1.55]">
+        <p className="mt-1.5 max-w-[32ch] text-[13px] font-light leading-[1.45] text-[#4a4a4a] lg:mt-3 lg:text-[0.9375rem] lg:leading-[1.55]">
           {item.overlayBody}
         </p>
       </div>
@@ -430,7 +442,7 @@ function RightProductBlock({ item, revealMotion }) {
       <div className="flex w-full max-w-[440px] flex-col items-center">
         <p
           className={cn(
-            "text-[13px] font-medium uppercase leading-[1.4] tracking-[0.26em] text-ink/40 md:text-[10px] md:leading-normal",
+            "text-[10px] font-medium uppercase leading-[1.35] tracking-[0.2em] text-ink/40 lg:text-[13px] lg:leading-[1.4] lg:tracking-[0.26em]",
             revealMotion && "motion-reduce:animate-none",
           )}
           style={
@@ -444,7 +456,7 @@ function RightProductBlock({ item, revealMotion }) {
         >
           {item.rightEyebrow}
         </p>
-        <div className="mt-4 w-full sm:max-w-[448px]">
+        <div className="mt-2 w-full max-lg:mt-1.5 lg:mt-4 lg:max-w-[448px]">
           {/* Animação no wrapper: evita que keyframes `transform` anulem o `-translate-x-2` do título (salto horizontal). */}
           <div
             className={cn("w-full", revealMotion && "motion-reduce:animate-none")}
@@ -457,13 +469,13 @@ function RightProductBlock({ item, revealMotion }) {
                 : undefined
             }
           >
-            <h3 className="-translate-x-2 font-display text-[22px] font-light leading-[1.3] tracking-[-0.045em] text-[#0a0a0a] sm:text-[2.05rem] sm:leading-[1.12] lg:text-[2.15rem]">
+            <h3 className="-translate-x-1 font-display text-[1.125rem] font-light leading-[1.28] tracking-[-0.04em] text-[#0a0a0a] lg:-translate-x-2 lg:text-[2.15rem] lg:leading-[1.12]">
               {item.name}
             </h3>
           </div>
           <p
             className={cn(
-              "mt-3 whitespace-pre-line text-[16px] font-light leading-[1.5] text-[#5c5c5c] sm:text-[0.9375rem] sm:leading-[1.48] lg:text-[1rem]",
+              "mt-2 max-lg:mt-1.5 whitespace-pre-line text-[14px] font-light leading-[1.48] text-[#5c5c5c] lg:mt-3 lg:text-[1rem] lg:leading-[1.48]",
               revealMotion && "motion-reduce:animate-none",
             )}
             style={
@@ -480,7 +492,7 @@ function RightProductBlock({ item, revealMotion }) {
         </div>
       </div>
 
-      <div className="mt-8 flex w-full justify-center">
+      <div className="mt-2.5 flex w-full justify-center lg:mt-8">
         <div
           className={cn("flex w-full max-w-[460px] justify-center", revealMotion && "motion-reduce:animate-none")}
           style={
@@ -496,16 +508,16 @@ function RightProductBlock({ item, revealMotion }) {
             src={item.packshot}
             alt=""
             role="presentation"
-            className="max-h-[438px] w-auto max-w-full object-contain object-bottom sm:max-h-[500px]"
+            className="max-h-[200px] w-auto max-w-full object-contain object-bottom lg:max-h-[500px]"
             decoding="async"
           />
         </div>
       </div>
 
-      <div className="mt-7 flex w-full max-w-[440px] flex-col items-stretch gap-8 sm:max-w-[448px] sm:gap-10">
+      <div className="mt-2.5 flex w-full max-w-[440px] flex-col items-stretch gap-2.5 lg:mt-7 lg:max-w-[448px] lg:gap-10">
         <p
           className={cn(
-            "text-center text-[15px] font-normal leading-[1.6] tracking-wide text-black sm:text-[0.9375rem] sm:leading-snug md:text-base lg:text-[1.0625rem]",
+            "text-center text-[14px] font-normal leading-[1.45] tracking-wide text-black lg:text-[1.0625rem] lg:leading-snug",
             revealMotion && "motion-reduce:animate-none",
           )}
           style={
@@ -522,7 +534,7 @@ function RightProductBlock({ item, revealMotion }) {
         <a
           href={item.href}
           className={cn(
-            "flex w-full items-center justify-center border-0 bg-[#000] px-14 py-4 text-[11px] font-medium uppercase tracking-[0.18em] text-[#fff] transition-opacity duration-200 ease-out hover:bg-[#000] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fff]/30 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f2efe8]",
+            "mx-auto flex w-[70%] max-w-full items-center justify-center border-0 bg-[#000] px-14 py-4 text-[11px] font-medium uppercase tracking-[0.18em] text-[#fff] transition-opacity duration-200 ease-out hover:bg-[#000] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fff]/30 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f2efe8] lg:mx-0 lg:w-full",
             revealMotion && "motion-reduce:animate-none",
           )}
           style={

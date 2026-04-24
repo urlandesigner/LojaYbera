@@ -1,5 +1,6 @@
 import React from "react";
 import { productRailItems } from "../content";
+import ProductEditorialDescription from "./ProductEditorialDescription";
 import { FooterSection, Header, ProductRailSection } from "./HomeSections";
 
 const product = {
@@ -54,110 +55,192 @@ const product = {
     },
   ],
   results: ["Brilho intenso", "Controle do frizz", "Toque macio"],
-  details: [
-    {
-      title: "Para que serve",
-      text: "Finalização com brilho, menos frizz e fio com acabamento mais alinhado.",
-    },
-    {
-      title: "Como usar",
-      text: "Poucas gotas nas mãos; espalhe no comprimento e nas pontas, úmido ou seco.",
-    },
-    {
-      title: "Quando usar",
-      text: "Na finalização ou quando o fio pedir mais brilho, maciez e controle.",
-    },
-  ],
 };
 
-const categories = [
-  {
-    name: "Lisos e Alisados",
-    image: "/images/frente1.png",
-  },
-  {
-    name: "Cacheados e ondulados",
-    image: "/images/24.jpg.webp",
-  },
-  {
-    name: "Loiros e grisalhos",
-    image: "/images/23.jpg.webp",
-  },
-  {
-    name: "Secos e Ressecados",
-    image: "/images/mirra5.jpg.webp",
-  },
-  {
-    name: "Oleosos e Mistos",
-    image: "/images/frente2.png",
-  },
-  {
-    name: "Danificados e Quebradiços",
-    image: "/images/27.jpg.webp",
-  },
-  {
-    name: "Coloridos",
-    image: "/images/26.jpg.webp",
-  },
-  {
-    name: "Finos e Fragilizados",
-    image: "/images/28.jpg.webp",
-  },
-];
+const THUMB_GAP_PX = 20;
 
-const fullDescription = [
-  "Textura leve que penetra sem pesar e devolve luminosidade — com a sensação de cuidado concentrado que só um óleo bem formulado entrega.",
-  "Nutrição profunda aliada à ação antioxidante: ajuda a fortalecer o fio, prolongar o efeito de outros tratamentos e manter o brilho por mais tempo.",
-  "Protege contra o desgaste do dia a dia — sol, poluição, calor do secador — e rende muito: poucas gotas bastam para um acabamento limpo.",
-  "A mirra atravessa séculos de rituais de beleza; na Ybera vira um óleo reparador para quem busca resultado visível e um toque memorável.",
-  "Conteúdo: 01 Óleo de Mirra Reparador 15ml — Ybera Paris.",
-];
+function ChevronGallery({ direction, disabled, label, onClick }) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      disabled={disabled}
+      onClick={onClick}
+      className={`hidden h-full min-h-[3.25rem] w-9 shrink-0 items-center justify-center text-ink transition lg:flex ${
+        disabled ? "cursor-default opacity-25" : "opacity-45 hover:opacity-80"
+      }`}
+    >
+      <span className="sr-only">{label}</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0">
+        {direction === "prev" ? (
+          <path d="M14 6l-6 6 6 6" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+        ) : (
+          <path d="M10 6l6 6-6 6" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+        )}
+      </svg>
+    </button>
+  );
+}
 
 function ProductGallery() {
-  const [activeImage, setActiveImage] = React.useState(product.images[0]);
+  const images = product.images;
+  const [activeImage, setActiveImage] = React.useState(images[0]);
+  const scrollRef = React.useRef(null);
+  const viewportRef = React.useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = React.useState(false);
+  const [canScrollRight, setCanScrollRight] = React.useState(false);
+  const [thumbSize, setThumbSize] = React.useState(0);
+
+  const needsArrows = images.length > 5;
+
+  const updateScrollState = React.useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    setCanScrollLeft(scrollLeft > 2);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 2);
+  }, []);
+
+  React.useLayoutEffect(() => {
+    const vp = viewportRef.current;
+    if (!vp) return;
+
+    const measure = () => {
+      if (typeof window === "undefined") return;
+      const wide = window.matchMedia("(min-width: 1024px)").matches;
+      if (wide && needsArrows) {
+        const w = vp.clientWidth;
+        const tw = Math.max(64, Math.floor((w - 4 * THUMB_GAP_PX) / 5));
+        setThumbSize(tw);
+      } else {
+        setThumbSize(0);
+      }
+    };
+
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(vp);
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [needsArrows]);
+
+  React.useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    updateScrollState();
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+    return () => el.removeEventListener("scroll", updateScrollState);
+  }, [images.length, thumbSize, updateScrollState]);
+
+  const scrollThumbs = React.useCallback(
+    (dir) => {
+      const el = scrollRef.current;
+      if (!el) return;
+      const gap = THUMB_GAP_PX;
+      const firstBtn = el.querySelector("button");
+      const step =
+        thumbSize > 0 ? thumbSize + gap : (firstBtn?.offsetWidth ?? 72) + THUMB_GAP_PX;
+      el.scrollBy({ left: dir * step, behavior: "smooth" });
+    },
+    [thumbSize],
+  );
+
+  const onSelectThumb = React.useCallback((image, index) => {
+    setActiveImage(image);
+    requestAnimationFrame(() => {
+      const root = scrollRef.current;
+      if (!root) return;
+      const btn = root.querySelector(`button[data-thumb-idx="${index}"]`);
+      btn?.scrollIntoView({ behavior: "smooth", inline: "nearest", block: "nearest" });
+    });
+  }, []);
 
   return (
-    <div className="mt-0 min-w-0 w-full max-w-full space-y-3 sm:space-y-3.5 lg:sticky lg:top-28 lg:space-y-4 lg:self-start">
+    <div className="mt-0 min-w-0 w-full max-w-full space-y-4 lg:space-y-5">
       <div className="relative mt-0 aspect-square w-full max-w-full overflow-hidden border-y border-black/[0.07] bg-mist shadow-[0_1px_0_rgba(255,255,255,0.85)_inset,0_22px_48px_-28px_rgba(24,21,18,0.11)] sm:border sm:border-black/[0.08] sm:bg-white sm:shadow-[0_1px_0_rgba(255,255,255,0.9)_inset,0_28px_56px_-32px_rgba(24,21,18,0.12)]">
         <div
           className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_58%,rgba(24,21,18,0.035)_100%)]"
           aria-hidden="true"
         />
-        <img
-          key={activeImage.src}
-          src={activeImage.src}
-          alt={activeImage.alt}
-          className={`relative z-[1] h-full w-full object-top transition duration-500 ease-out ${
-            activeImage.fit === "contain" ? "object-contain" : "object-cover"
-          }`}
-        />
+        <div className="absolute inset-0 z-[1]">
+          <img
+            key={activeImage.src}
+            src={activeImage.src}
+            alt={activeImage.alt}
+            className={`h-full w-full object-center transition duration-500 ease-out ${
+              activeImage.fit === "contain" ? "object-contain" : "object-cover"
+            }`}
+          />
+        </div>
       </div>
 
       <div
-        className="flex min-h-[3.25rem] min-w-0 max-w-full snap-x snap-mandatory gap-2.5 overflow-x-auto overscroll-x-contain px-4 pb-1 pt-0.5 [-ms-overflow-style:none] [scrollbar-width:none] sm:grid sm:grid-cols-4 sm:gap-3 sm:overflow-visible sm:px-0 sm:pb-0 sm:pt-0 sm:snap-none [&::-webkit-scrollbar]:hidden"
-        role="tablist"
-        aria-label="Galeria de imagens do produto"
+        className={`flex min-w-0 max-w-full items-stretch ${needsArrows ? "gap-1 lg:gap-2" : ""}`}
+        role="region"
+        aria-label="Miniaturas da galeria"
       >
-        {product.images.map((image) => {
-          const isActive = activeImage.src === image.src;
-          return (
-            <button
-              key={image.src}
-              type="button"
-              role="tab"
-              aria-selected={isActive}
-              aria-label={`Ver imagem: ${image.alt}`}
-              onClick={() => setActiveImage(image)}
-              className={`aspect-square w-[4.125rem] shrink-0 snap-start overflow-hidden border bg-white transition duration-300 sm:min-h-0 sm:w-auto sm:min-w-0 ${
-                isActive
-                  ? "border-ink/45 ring-1 ring-ink/15"
-                  : "border-black/[0.08] opacity-[0.78] hover:border-black/14 hover:opacity-100"
-              } focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink/25`}
-            >
-              <img src={image.src} alt="" className="h-full w-full object-cover" />
-            </button>
-          );
-        })}
+        {needsArrows ? (
+          <ChevronGallery
+            direction="prev"
+            disabled={!canScrollLeft}
+            label="Ver miniaturas anteriores"
+            onClick={() => scrollThumbs(-1)}
+          />
+        ) : null}
+
+        <div ref={viewportRef} className="min-w-0 flex-1 overflow-hidden">
+          <div
+            ref={scrollRef}
+            role="tablist"
+            aria-label="Galeria de imagens do produto"
+            className="flex flex-nowrap gap-4 overflow-x-auto overscroll-x-contain pb-0.5 pt-0.5 [-ms-overflow-style:none] [scrollbar-width:none] lg:gap-5 [&::-webkit-scrollbar]:hidden"
+          >
+            {images.map((image, index) => {
+              const isActive = activeImage.src === image.src;
+              const thumbStyle =
+                thumbSize > 0
+                  ? { width: thumbSize, height: thumbSize, flexShrink: 0 }
+                  : undefined;
+              const sizeClass =
+                thumbSize > 0
+                  ? ""
+                  : needsArrows
+                    ? "h-[3.25rem] w-[3.25rem] shrink-0 sm:h-14 sm:w-14"
+                    : "aspect-square min-h-0 w-[3.25rem] shrink-0 sm:w-16 lg:min-w-0 lg:flex-1 lg:basis-0";
+              return (
+                <button
+                  key={image.src}
+                  type="button"
+                  role="tab"
+                  data-thumb-idx={index}
+                  aria-selected={isActive}
+                  aria-label={`Ver imagem: ${image.alt}`}
+                  style={thumbStyle}
+                  onClick={() => onSelectThumb(image, index)}
+                  className={`aspect-square overflow-hidden border bg-white transition-[border-color,opacity] duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink/25 ${sizeClass} ${
+                    isActive
+                      ? "border-ink/55"
+                      : "border-black/[0.1] opacity-[0.82] hover:border-black/20 hover:opacity-100"
+                  }`}
+                >
+                  <img src={image.src} alt="" className="h-full w-full object-cover object-center" />
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {needsArrows ? (
+          <ChevronGallery
+            direction="next"
+            disabled={!canScrollRight}
+            label="Ver próximas miniaturas"
+            onClick={() => scrollThumbs(1)}
+          />
+        ) : null}
       </div>
     </div>
   );
@@ -183,35 +266,12 @@ function ProductInfo({ onBuy }) {
           {product.description}
         </p>
 
-        <p className="mt-4">
-          <a
-            href="/experiencia"
-            className="inline-flex border-b border-ink/20 pb-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/48 transition hover:border-ink/40 hover:text-ink"
-          >
-            Ler a experiência editorial
-          </a>
-        </p>
-
         <p className="mt-5 max-w-full text-pretty text-[10px] font-semibold uppercase leading-[1.55] tracking-[0.18em] text-ink/44 sm:mt-6 sm:max-w-xl sm:leading-relaxed sm:tracking-[0.2em]">
           {product.results.join(" · ")}
         </p>
       </div>
 
-      <ul className="order-5 mt-8 w-full max-w-full divide-y divide-black/[0.055] max-lg:space-y-0 max-lg:border-t max-lg:border-black/[0.06] max-lg:pt-2 lg:order-2 lg:mt-10 lg:space-y-3.5 lg:divide-y-0 lg:border-l lg:border-t-0 lg:border-mocha/38 lg:pl-5 lg:pt-0">
-        {product.details.map((detail) => (
-          <li
-            key={detail.title}
-            className="min-w-0 max-w-full py-4 first:pt-3 last:pb-1 sm:max-w-xl sm:first:pt-4 lg:py-0 lg:first:pt-0 lg:last:pb-0"
-          >
-            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-mocha/88">
-              {detail.title}
-            </p>
-            <p className="mt-1.5 break-words text-[0.9375rem] leading-relaxed text-ink/74">{detail.text}</p>
-          </li>
-        ))}
-      </ul>
-
-      <div className="order-2 mt-7 min-w-0 max-w-full pt-6 max-lg:border-t max-lg:border-black/[0.06] lg:order-3 lg:mt-9 lg:border-t lg:border-black/10">
+      <div className="order-2 mt-7 min-w-0 max-w-full pt-6 max-lg:border-t max-lg:border-black/[0.06] lg:mt-9 lg:border-t lg:border-black/10">
         <div className="flex min-w-0 flex-col gap-3 lg:gap-3.5">
           <div className="flex min-w-0 flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-end lg:gap-x-5 lg:gap-y-0.5">
             <p className="shrink-0 font-display text-[22px] leading-[1.3] tracking-[-0.012em] text-ink sm:text-[2.25rem] sm:leading-[1.08] md:text-[2.65rem] md:leading-[1.14] lg:text-5xl lg:leading-[1.12]">
@@ -227,7 +287,7 @@ function ProductInfo({ onBuy }) {
         </div>
       </div>
 
-      <div className="order-3 mt-6 lg:order-4 lg:mt-8">
+      <div className="order-3 mt-6 lg:mt-8">
         <button
           type="button"
           onClick={onBuy}
@@ -243,7 +303,7 @@ function ProductInfo({ onBuy }) {
         </button>
       </div>
 
-      <div className="order-4 mt-7 min-w-0 max-w-full border border-black/[0.08] bg-white/75 p-4 lg:order-5 lg:mt-9">
+      <div className="order-4 mt-7 min-w-0 max-w-full border border-black/[0.08] bg-white/75 p-4 lg:mt-9">
         <label
           htmlFor="shipping-zip"
           className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-ink/48"
@@ -447,81 +507,6 @@ function CartDrawer({ isOpen, onClose }) {
   );
 }
 
-function CategorySection() {
-  return (
-    <section className="bg-white px-0 section-y-cards">
-      <div className="mx-auto w-full max-w-site shell-px border-t border-black/[0.07] pt-0">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl">
-            <p className="section-kicker">Categorias</p>
-            <h2 className="mt-6 font-display text-[28px] leading-[1.2] text-ink md:text-6xl md:leading-[0.96]">
-              Escolha pelo que o seu cabelo pede.
-            </h2>
-          </div>
-          <p className="max-w-sm text-sm leading-7 text-ink/58">
-            Uma leitura simples para encontrar o cuidado certo pelo tipo e momento do fio.
-          </p>
-        </div>
-
-        <div className="mt-14 grid grid-cols-2 gap-x-3 gap-y-9 md:grid-cols-4 lg:gap-x-4 lg:gap-y-12">
-          {categories.map((category) => (
-            <a
-              key={category.name}
-              href="#"
-              className="group block"
-            >
-              <div className="aspect-square overflow-hidden bg-[#F6F4F2]">
-                <img
-                  src={category.image}
-                  alt={category.name}
-                  className="h-full w-full object-cover object-center transition duration-700 ease-out group-hover:scale-[1.035]"
-                />
-              </div>
-              <h3 className="mt-4 font-display text-2xl leading-none text-ink transition duration-300 group-hover:text-mocha md:text-3xl">
-                {category.name}
-              </h3>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ProductDescriptionSection() {
-  return (
-    <section className="bg-white px-0 section-y">
-      <div className="mx-auto grid w-full max-w-site shell-px gap-8 pt-0 sm:gap-10 lg:grid-cols-[0.42fr_0.58fr] lg:gap-20">
-        <div>
-          <p className="section-kicker">Descrição do produto</p>
-          <h2 className="mt-5 max-w-md font-display text-[28px] leading-[1.2] text-ink sm:mt-6 md:text-6xl md:leading-[0.96]">
-            O cuidado completo em poucas gotas.
-          </h2>
-        </div>
-
-        <div className="max-w-3xl">
-          <div className="space-y-4 text-base leading-[1.7] text-ink/70 sm:space-y-5 sm:leading-8">
-            {fullDescription.map((paragraph, index) => (
-              <p
-                key={paragraph}
-                className={
-                  index === 0
-                    ? "font-display text-3xl leading-tight text-ink md:text-4xl"
-                    : index === fullDescription.length - 1
-                      ? "text-sm leading-7 text-ink/55"
-                      : ""
-                }
-              >
-                {paragraph}
-              </p>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export default function ProductPage() {
   const [isCartOpen, setIsCartOpen] = React.useState(false);
 
@@ -529,16 +514,16 @@ export default function ProductPage() {
     <div className="min-h-screen bg-white text-ink">
       <Header solid />
       <main className="mt-0">
-        <section className="overflow-x-clip bg-mist px-0 pb-10 pt-[80px] max-lg:px-0 max-lg:pt-[calc(5rem+1px+80px)] md:pb-[120px]">
+        <section className="overflow-x-clip bg-mist px-0 pb-10 pt-[calc(5rem+1px+24px)] max-lg:px-0 lg:pt-[calc(5rem+1px+80px)] md:pb-[120px]">
           <div className="mx-auto mt-0 grid min-w-0 w-full max-w-site shell-px grid-cols-1 items-start gap-y-5 gap-x-0 md:gap-8 lg:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)] lg:gap-x-10 lg:gap-y-0 xl:gap-x-12">
             <ProductGallery />
-            <div className="min-w-0 px-0">
+            <div className="min-h-0 min-w-0 px-0 lg:sticky lg:top-[var(--pdp-sticky-top)] lg:self-start lg:max-h-[var(--pdp-sticky-max-h)] lg:overflow-x-hidden lg:overflow-y-auto lg:overscroll-y-contain">
               <ProductInfo onBuy={() => setIsCartOpen(true)} />
             </div>
           </div>
         </section>
 
-        <ProductDescriptionSection />
+        <ProductEditorialDescription />
 
         <ProductRailSection
           items={productRailItems}
@@ -546,8 +531,6 @@ export default function ProductPage() {
           title="Produtos relacionados"
           description="Outros cuidados Ybera para completar sua rotina com brilho, leveza e movimento."
         />
-
-        <CategorySection />
       </main>
       <FooterSection />
       <CartDrawer

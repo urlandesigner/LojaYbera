@@ -183,7 +183,7 @@ function CurationSection() {
                     className="group/row grid min-w-0 gap-4 py-6 md:grid-cols-[15.5rem_minmax(0,1fr)_2rem] md:items-start md:gap-x-8 md:gap-y-0"
                   >
                     <h3
-                      className={`min-w-0 font-display text-4xl leading-[1.05] transition-[color,font-weight,transform] duration-[230ms] ease-out motion-reduce:transform-none md:text-5xl ${
+                      className={`min-w-0 font-display text-4xl leading-[1.05] transition-[color,font-weight,transform] duration-[230ms] ease-out motion-reduce:transform-none md:text-5xl lg:text-[2rem] lg:leading-[1.06] ${
                         isActive
                           ? "font-medium text-ink -translate-y-px"
                           : "font-normal text-ink/[0.56] group-hover/row:text-ink/[0.64] group-hover/row:-translate-y-px"
@@ -243,9 +243,9 @@ export default function App() {
       <Header />
       <main>
         <HeroSection stats={heroStats} visuals={heroVisuals} />
-        <LaunchesSection items={productRailItems} />
-        <ManifestoSection />
         <ProductRailSection items={productRailItems} />
+        <ManifestoSection />
+        <LaunchesSection items={productRailItems} />
         <section id="curadoria" className="bg-[#f7f2ec] section-y-cards">
           {showResultadoRealSection && <SensoryBlock />}
           <CurationSection />

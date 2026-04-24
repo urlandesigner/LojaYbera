@@ -80,17 +80,20 @@ export const routineSteps = [
   {
     step: "01",
     title: "Preparar",
-    description: "Equilibra o fio para a etapa seguinte.",
+    description: "Você prepara o fio para receber o tratamento.",
+    productHint: "Shampoo",
   },
   {
     step: "02",
     title: "Tratar",
-    description: "Trata a fibra e melhora a textura.",
+    description: "Você transforma a textura — e a forma como o cabelo responde ao toque.",
+    productHint: "Máscara",
   },
   {
     step: "03",
     title: "Sustentar",
-    description: "Mantém brilho, toque e movimento.",
+    description: "Você mantém o resultado visível ao longo do dia.",
+    productHint: "Finalizador · Óleo",
   },
 ];
 

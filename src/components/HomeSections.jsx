@@ -36,6 +36,8 @@ function SectionHeading({
   description,
   align = "left",
   invert = false,
+  titleClassName = "",
+  descriptionClassName = "",
 }) {
   const alignment = align === "center" ? "mx-auto text-center" : "";
   const titleTone = invert ? "text-white" : "text-ink";
@@ -48,12 +50,21 @@ function SectionHeading({
     <div className={`max-w-3xl ${alignment}`}>
       <p className={kickerTone}>{eyebrow}</p>
       <h2
-        className={`mt-4 font-display text-[28px] leading-[1.2] tracking-[-0.01em] md:text-6xl md:leading-[1.2] ${titleTone}`}
+        className={cn(
+          "mt-4 font-display text-[28px] leading-[1.2] tracking-[-0.01em] md:text-6xl md:leading-[1.2]",
+          titleTone,
+          titleClassName,
+        )}
       >
         {title}
       </h2>
       {description ? (
-        <p className={`mt-4 text-[16px] leading-[1.5] md:text-lg md:leading-8 ${bodyTone}`}>
+        <p
+          className={cn(
+            "mt-4 text-[16px] leading-[1.5] md:text-lg md:leading-8",
+            descriptionClassName || bodyTone,
+          )}
+        >
           {description}
         </p>
       ) : null}
@@ -914,21 +925,6 @@ export function ResultsSection({ items }) {
           </article>
         </div>
       </div>
-
-      <div className="mx-auto w-full max-w-site shell-px pt-12">
-        <div
-          className={`text-center transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-            isInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-          }`}
-          style={{ transitionDelay: isInView ? "180ms" : "0ms" }}
-        >
-          <p className="mb-0 font-display text-[28px] leading-[1.2] text-white/74 md:text-[1.9rem] md:leading-[1.08] lg:text-[2.3rem]">
-            <span className="block">Brilho que aparece.</span>
-            <span className="block">Toque que muda.</span>
-            <span className="block">Movimento que permanece.</span>
-          </p>
-        </div>
-      </div>
     </section>
   );
 }
@@ -1428,50 +1424,82 @@ export function LaunchesSection({ items }) {
   );
 }
 
+const ROUTINE_VISUAL_SRCS = [
+  "/images/costas.png",
+  "/images/32.png.webp",
+  "/images/frente1.png",
+];
+
 export function RoutineSection({ steps }) {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const visualStates = [
-    {
-      label: "Preparar",
-      src: "/images/frente2.png",
-      alt: "Cabelo com leveza, limpeza e movimento natural",
-      imageClass: "scale-[1.01] brightness-[0.98] contrast-[0.98] saturate-[0.96]",
-      overlayClass: "bg-[linear-gradient(180deg,rgba(14,11,9,0.08),rgba(14,11,9,0.2)_72%,rgba(14,11,9,0.34))]",
-    },
-    {
-      label: "Tratar",
-      src: "/images/27.jpg.webp",
-      alt: "Cabelo com mais corpo, densidade e tratamento visível",
-      imageClass: "scale-[1.025] brightness-[1.02] contrast-[1.04] saturate-[1.02]",
-      overlayClass: "bg-[linear-gradient(180deg,rgba(14,11,9,0.06),rgba(14,11,9,0.18)_72%,rgba(14,11,9,0.3))]",
-    },
-    {
-      label: "Sustentar",
-      src: "/images/frente1.png",
-      alt: "Cabelo com brilho, alinhamento e acabamento final",
-      imageClass: "scale-[1.035] brightness-[1.06] contrast-[1.06] saturate-[1.06]",
-      overlayClass: "bg-[linear-gradient(180deg,rgba(14,11,9,0.04),rgba(14,11,9,0.14)_68%,rgba(14,11,9,0.26))]",
-    },
-  ];
+  const [activeStep, setActiveStep] = React.useState(2);
+  const [stepRevealKey, setStepRevealKey] = React.useState(0);
+  const skipRevealOnMount = React.useRef(true);
+
+  const visualStates = React.useMemo(
+    () => [
+      {
+        label: "Preparar",
+        src: "/images/costas.png",
+        alt: "Cabelo em estado natural, antes do ritual de tratamento",
+        overlayClass:
+          "bg-[linear-gradient(180deg,rgba(14,11,9,0.08),rgba(14,11,9,0.2)_72%,rgba(14,11,9,0.34))]",
+      },
+      {
+        label: "Tratar",
+        src: "/images/32.png.webp",
+        alt: "Textura em transformação — tratamento e resposta do fio",
+        overlayClass:
+          "bg-[linear-gradient(180deg,rgba(14,11,9,0.06),rgba(14,11,9,0.18)_72%,rgba(14,11,9,0.3))]",
+      },
+      {
+        label: "Sustentar",
+        src: "/images/frente1.png",
+        alt: "Resultado final com brilho, alinhamento e movimento",
+        overlayClass:
+          "bg-[linear-gradient(180deg,rgba(14,11,9,0.04),rgba(14,11,9,0.14)_68%,rgba(14,11,9,0.26))]",
+      },
+    ],
+    [],
+  );
+
   const currentVisual = visualStates[activeStep] ?? visualStates[0];
+
+  React.useEffect(() => {
+    ROUTINE_VISUAL_SRCS.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
+  React.useEffect(() => {
+    if (skipRevealOnMount.current) {
+      skipRevealOnMount.current = false;
+      return;
+    }
+    setStepRevealKey((k) => k + 1);
+  }, [activeStep]);
+
+  const activateStep = React.useCallback((index) => {
+    setActiveStep(index);
+  }, []);
 
   return (
     <section id="rotina" className="bg-white section-y">
       <div className="mx-auto w-full max-w-site shell-px">
         <div className="lg:hidden section-lead">
           <p className="section-kicker">O método Ybera</p>
-          <h2 className="mt-4 font-display text-[28px] leading-[1.2] text-ink lg:text-5xl lg:leading-[0.94]">
-            O que sustenta o <em className="italic">resultado</em>.
+          <h2 className="mt-4 mb-3 font-display text-[28px] leading-[1.22] tracking-[-0.02em] text-ink lg:text-5xl lg:leading-[0.94]">
+            O resultado não acontece por acaso.
           </h2>
-          <p className="mt-4 max-w-xl text-[16px] leading-[1.5] text-ink/66 lg:text-base lg:leading-7">
-            Começa no primeiro uso. Continua no que você faz depois.
+          <p className="mt-0 max-w-xl text-[16px] leading-[1.55] text-ink/[0.74] lg:text-base lg:leading-7">
+            Ele começa no primeiro passo e se constrói na sequência.
           </p>
         </div>
 
-        <div className="mt-0 grid gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-start xl:gap-20">
-          <div className="order-1 lg:sticky lg:top-28">
-            <article className="relative overflow-hidden bg-[#ebe4dc]">
-              <div className="relative h-[18rem] overflow-hidden sm:min-h-[36rem] lg:min-h-[44rem] xl:min-h-[48rem]">
+        <div className="mt-0 grid gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-stretch xl:gap-20">
+          <div className="order-1 lg:sticky lg:top-28 lg:h-full">
+            <article className="relative h-full overflow-hidden bg-[#ebe4dc] lg:min-h-0">
+              <div className="relative h-[18rem] overflow-hidden sm:min-h-[36rem] lg:h-full lg:min-h-[44rem] xl:min-h-[48rem]">
                 {visualStates.map((visual, index) => {
                   const isActive = activeStep === index;
 
@@ -1480,17 +1508,26 @@ export function RoutineSection({ steps }) {
                       key={visual.label}
                       src={visual.src}
                       alt={visual.alt}
-                      className={`absolute inset-0 h-full w-full object-cover object-center transition-all duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                        isActive ? `opacity-100 ${visual.imageClass}` : "scale-[1.01] opacity-0"
-                      }`}
+                      loading="eager"
+                      decoding="async"
+                      className={cn(
+                        "pointer-events-none absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-300 ease-in-out",
+                        isActive ? "opacity-100" : "opacity-0",
+                      )}
                     />
                   );
                 })}
                 <div
-                  className={`absolute inset-0 transition duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${currentVisual.overlayClass}`}
+                  className={cn(
+                    "pointer-events-none absolute inset-0",
+                    currentVisual.overlayClass,
+                  )}
                 />
-                <div className="absolute left-6 top-6 md:left-8 md:top-8">
-                  <p className="text-[13px] uppercase leading-[1.4] tracking-[0.24em] text-white/52 md:text-[10px] md:leading-normal">
+                <div className="pointer-events-none absolute left-6 top-6 md:left-8 md:top-8">
+                  <p
+                    key={currentVisual.label}
+                    className="animate-routine-metodo-label-reveal text-[13px] uppercase leading-[1.4] tracking-[0.24em] text-white/52 md:text-[10px] md:leading-normal"
+                  >
                     {currentVisual.label}
                   </p>
                 </div>
@@ -1498,56 +1535,95 @@ export function RoutineSection({ steps }) {
             </article>
           </div>
 
-          <div className="order-2">
-            <div className="hidden lg:block section-lead">
+          <div className="order-2 flex min-h-0 flex-col lg:h-full">
+            <div className="hidden shrink-0 lg:block lg:pb-6 xl:pb-8">
               <SectionHeading
                 eyebrow="O método Ybera"
-                title={
-                  <>
-                    O que sustenta o <em className="italic">resultado</em>.
-                  </>
-                }
-                description="Começa no primeiro uso. Continua no que você faz depois."
+                title="O resultado não acontece por acaso."
+                description="Ele começa no primeiro passo e se constrói na sequência."
+                titleClassName="mb-3 lg:mb-4"
+                descriptionClassName="mt-0 text-[16px] leading-[1.5] text-ink/[0.74] md:text-lg md:leading-7"
               />
             </div>
 
-            <div className="mt-0 divide-y divide-black/8 border-y border-black/8">
+            <div className="flex min-h-0 flex-1 flex-col justify-between lg:min-h-0">
+              <div
+              className="min-h-0"
+              role="tablist"
+              aria-label="Etapas do método Ybera"
+            >
               {steps.map((step, index) => {
                 const isActive = activeStep === index;
+                const productHint = step.productHint;
 
                 return (
                   <article
                     key={step.step}
-                    className={`grid cursor-pointer gap-3 px-1 py-5 transition-colors duration-300 md:grid-cols-[110px_1fr] md:items-start md:px-0 md:py-8 ${
-                      isActive ? "opacity-100" : "opacity-78"
-                    }`}
-                    onMouseEnter={() => setActiveStep(index)}
-                    onFocus={() => setActiveStep(index)}
-                    onClick={() => setActiveStep(index)}
+                    role="tab"
+                    aria-selected={isActive}
                     tabIndex={0}
+                    className={cn(
+                      "grid cursor-pointer gap-3 py-4 pl-1 pr-1 transition-[color,opacity] duration-200 ease-out md:grid-cols-[110px_1fr] md:items-start md:px-0 lg:py-5",
+                      isActive ? "opacity-100" : "opacity-[0.52]",
+                    )}
+                    onMouseEnter={() => activateStep(index)}
+                    onFocus={() => activateStep(index)}
+                    onClick={() => activateStep(index)}
                   >
                     <p
-                      className={`font-display text-5xl leading-none transition-colors duration-300 md:text-6xl ${
-                        isActive ? "text-ink" : "text-mocha/74"
-                      }`}
+                      className={cn(
+                        "font-display text-5xl leading-none transition-[color,font-weight] duration-200 ease-out md:text-6xl",
+                        isActive ? "font-medium text-[#0a0a0a]" : "font-light text-ink",
+                      )}
                     >
                       {step.step}
                     </p>
                     <div className="max-w-xl">
-                      <h3
-                        className={`font-display text-[22px] leading-[1.3] transition-colors duration-300 md:text-3xl md:leading-none lg:text-4xl ${
-                          isActive ? "text-ink" : "text-ink/84"
-                        }`}
-                      >
-                        {step.title}
-                      </h3>
-                      <p className="mt-2 text-[15px] leading-[1.6] text-ink/66 md:text-sm md:leading-7 lg:text-base">
-                        {step.description}
-                      </p>
+                      {isActive ? (
+                        <div
+                          key={`${activeStep}-${stepRevealKey}`}
+                          className="animate-routine-metodo-step-reveal"
+                        >
+                          <h3 className="font-display text-[22px] font-bold leading-[1.28] text-[#0a0a0a] md:text-3xl md:leading-none lg:text-4xl">
+                            {step.title}
+                          </h3>
+                          <p className="mt-2 text-[16px] leading-[1.58] text-ink md:text-[15px] md:leading-7 lg:mt-2.5 lg:text-base lg:leading-relaxed">
+                            {step.description}
+                          </p>
+                          {productHint ? (
+                            <p className="mt-2.5 text-xs font-medium uppercase leading-normal tracking-[0.11em] text-ink/[0.92] md:tracking-[0.12em]">
+                              {productHint}
+                            </p>
+                          ) : null}
+                        </div>
+                      ) : (
+                        <>
+                          <h3 className="font-display text-[22px] font-normal leading-[1.28] text-ink md:text-3xl md:leading-none lg:text-4xl">
+                            {step.title}
+                          </h3>
+                          <p className="mt-2 text-[16px] leading-[1.58] text-ink md:text-[15px] md:leading-7 lg:mt-2.5 lg:text-base lg:leading-relaxed">
+                            {step.description}
+                          </p>
+                          {productHint ? (
+                            <p className="mt-2.5 text-xs font-medium uppercase leading-normal tracking-[0.11em] text-ink md:tracking-[0.12em]">
+                              {productHint}
+                            </p>
+                          ) : null}
+                        </>
+                      )}
                     </div>
                   </article>
                 );
               })}
+              </div>
+              <div className="shrink-0 pt-6 lg:pt-8">
+                <a href="#produtos" className="button-editorial">
+                  Montar meu cuidado
+                  <span className="text-base leading-none" aria-hidden="true">
+                    →
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -1773,12 +1849,19 @@ export function SocialProofEditorialSection({ stories = [] }) {
 
 export function ProfessionalSection() {
   return (
-    <section id="profissionais" className="bg-[#0B0B0B] px-0 section-y text-white">
-      <div className="mx-auto grid w-full max-w-site shell-px gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-14">
+    <section
+      id="profissionais"
+      className="relative overflow-hidden bg-[#0B0B0B] bg-[url('/images/bg-pro.png')] bg-cover bg-center bg-no-repeat px-0 section-y text-white"
+    >
+      <div
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/50 via-black/45 to-black/60"
+        aria-hidden="true"
+      />
+      <div className="relative z-[1] mx-auto grid w-full max-w-site shell-px gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-14">
         <div className="overflow-hidden">
           <img
-            src="/images/28.jpg.webp"
-            alt="Cuidado capilar profissional Ybera"
+            src="/images/pro-art-people.png"
+            alt="Profissionais Ybera em ambiente de salão"
             className="h-[26rem] w-full object-cover object-center grayscale-[8%] transition duration-700 hover:scale-[1.02] md:h-[34rem] lg:h-[42rem]"
           />
         </div>
