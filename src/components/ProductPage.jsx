@@ -66,7 +66,7 @@ function ChevronGallery({ direction, disabled, label, onClick }) {
       aria-label={label}
       disabled={disabled}
       onClick={onClick}
-      className={`hidden h-full min-h-[3.25rem] w-9 shrink-0 items-center justify-center text-ink transition lg:flex ${
+      className={`hidden min-h-[3.25rem] w-9 shrink-0 items-center justify-center self-center text-ink transition lg:flex ${
         disabled ? "cursor-default opacity-25" : "opacity-45 hover:opacity-80"
       }`}
     >
@@ -178,7 +178,7 @@ function ProductGallery() {
       </div>
 
       <div
-        className={`flex min-w-0 max-w-full items-stretch ${needsArrows ? "gap-1 lg:gap-2" : ""}`}
+        className={`flex min-w-0 max-w-full items-center ${needsArrows ? "gap-1 lg:gap-2" : ""}`}
         role="region"
         aria-label="Miniaturas da galeria"
       >

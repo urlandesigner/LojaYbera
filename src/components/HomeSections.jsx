@@ -586,21 +586,27 @@ export function HeroSection({ stats, visuals }) {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_46%,rgba(0,0,0,0.28),transparent_32%),radial-gradient(circle_at_82%_18%,rgba(255,255,255,0.05),transparent_18%)]" />
 
       <div className="relative mx-auto flex min-h-[100dvh] min-h-screen w-full max-w-site flex-col shell-px pt-[80px]">
-        <div className="min-h-0 flex-1" aria-hidden="true" />
-        <div className="hero-content max-w-[84rem] w-full pb-10 pt-6 [text-shadow:0_2px_24px_rgba(0,0,0,0.38)] md:pb-14 md:pt-0">
+        <div
+          className="min-h-0 flex-1 notebook:flex-none notebook:min-h-0 notebook:h-[min(10dvh,5.5rem)]"
+          aria-hidden="true"
+        />
+        <div className="hero-content max-w-[84rem] w-full pb-10 pt-6 [text-shadow:0_2px_24px_rgba(0,0,0,0.38)] md:pb-14 md:pt-0 notebook:pb-7 notebook:pt-1">
           <div className="inline-flex items-center gap-3">
             <span className="h-px w-10 bg-white/35" aria-hidden="true" />
             <p className="text-[13px] font-medium uppercase leading-[1.4] tracking-[0.26em] text-white/58 md:text-[11px] md:leading-normal">
               Jeito Ybera de ser
             </p>
           </div>
-          <h1 className="mt-5 max-w-[320px] text-balance font-display text-[44px] leading-[1.1] tracking-[-0.008em] text-white md:max-w-6xl md:text-[6.1rem] md:leading-[1.12] xl:text-[7.9rem] xl:leading-[1.1]">
-            <span className="block md:whitespace-nowrap">Revelar a beleza</span>
-            <span className="block md:whitespace-nowrap">que já existe</span>
-            <span className="block md:whitespace-nowrap">em você</span>
+          <h1 className="mt-5 max-w-[320px] font-display text-[44px] leading-[1.1] tracking-[-0.008em] text-white md:mt-5 md:max-w-[min(100%,26ch)] md:text-[length:clamp(44px,5vw,64px)] md:leading-[1.06] md:tracking-[-0.01em] notebook:mt-4 notebook:max-w-[min(100%,24ch)] notebook:text-[length:clamp(48px,5vw,64px)] notebook:leading-[1.05] wide:mt-5 wide:max-w-[min(100%,54rem)] wide:text-[7.9rem] wide:leading-[1.1] wide:tracking-[-0.008em]">
+            <span className="block md:whitespace-nowrap notebook:font-medium wide:whitespace-nowrap wide:font-medium">
+              Revelar a beleza
+            </span>
+            <span className="mt-[0.14em] block md:mt-[0.12em] md:whitespace-nowrap notebook:mt-[0.08em] notebook:font-normal notebook:tracking-[0.018em] notebook:text-white/[0.9] wide:mt-2 wide:whitespace-nowrap wide:font-normal wide:tracking-[0.012em] wide:text-white/[0.92]">
+              que já existe em você
+            </span>
           </h1>
 
-          <div className="mt-8 flex items-center md:mt-10">
+          <div className="mt-8 flex items-center md:mt-10 notebook:mt-6 wide:mt-10">
             <a
               href="#curadoria"
               className="button-editorial-dark"
@@ -682,7 +688,7 @@ export function HeroSection({ stats, visuals }) {
             </div>
           </div>
 
-          <div className="hidden max-w-[78rem] grid-cols-3 gap-4 sm:mt-10 sm:grid lg:gap-5">
+          <div className="hidden max-w-[78rem] grid-cols-3 gap-4 sm:mt-10 sm:grid lg:gap-5 notebook:mt-7 notebook:gap-3 wide:mt-10 wide:gap-5">
             {stats.map((stat) => (
               <a
                 key={stat.id}
@@ -697,7 +703,7 @@ export function HeroSection({ stats, visuals }) {
                   activateHero(stat.id);
                 }}
                 onBlur={() => setIsPaused(false)}
-                className={`group/cta relative flex min-h-[52px] cursor-pointer flex-col overflow-hidden px-5 py-5 text-left no-underline [-webkit-tap-highlight-color:transparent] transition-[background-color,backdrop-filter,box-shadow,opacity,filter] duration-[250ms] ease-out focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#13100e] lg:px-6 lg:py-6 ${
+                className={`group/cta relative flex min-h-[52px] cursor-pointer flex-col overflow-hidden px-5 py-5 text-left no-underline [-webkit-tap-highlight-color:transparent] transition-[background-color,backdrop-filter,box-shadow,opacity,filter] duration-[250ms] ease-out focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#13100e] lg:px-6 lg:py-6 notebook:min-h-[48px] notebook:px-4 notebook:py-4 ${
                   activeHeroId === stat.id
                     ? "scale-[1.02] bg-[rgba(255,255,255,0.052)] opacity-100 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.075),0_6px_26px_rgba(0,0,0,0.08)] backdrop-blur-[9px] hover:bg-[rgba(255,255,255,0.078)] hover:backdrop-blur-[12px] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.11),0_12px_40px_rgba(0,0,0,0.11)] hover:brightness-[1.04]"
                     : "scale-100 bg-[rgba(255,255,255,0.028)] opacity-90 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.055),0_2px_16px_rgba(0,0,0,0.06)] backdrop-blur-[8px] hover:bg-[rgba(255,255,255,0.045)] hover:opacity-100 hover:backdrop-blur-[10px] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.085),0_8px_30px_rgba(0,0,0,0.09)] hover:brightness-[1.03]"
@@ -714,7 +720,7 @@ export function HeroSection({ stats, visuals }) {
                       {stat.label}
                     </p>
                     <p
-                      className={`mt-4 max-w-none text-[1.02rem] font-normal leading-7 transition-colors duration-[250ms] ease-out group-hover/cta:text-white md:text-[1.08rem] lg:text-[1.18rem] ${
+                      className={`mt-4 max-w-none text-[1.02rem] font-normal leading-7 transition-colors duration-[250ms] ease-out group-hover/cta:text-white md:text-[1.08rem] lg:text-[1.18rem] notebook:mt-3 notebook:leading-[1.55] wide:mt-4 wide:leading-7 ${
                         activeHeroId === stat.id ? "text-white/86" : "text-white/66"
                       }`}
                     >
@@ -729,7 +735,7 @@ export function HeroSection({ stats, visuals }) {
                   </span>
                 </div>
                 {activeHeroId === stat.id ? (
-                  <div className="mt-8 h-px w-full overflow-hidden bg-white/8">
+                  <div className="mt-8 h-px w-full overflow-hidden bg-white/8 notebook:mt-5 wide:mt-8">
                     <div
                       className="h-full bg-white/45 transition-[width] duration-75 linear"
                       style={{ width: `${progress * 100}%` }}
@@ -895,9 +901,10 @@ export function ResultsSection({ items }) {
                 style={{ transform: `translateY(${parallaxOffset * 1.05}px) scale(${showAfter ? 1.03 : isInView ? 1.01 : 1.03})` }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                <div className="absolute bottom-8 left-8 right-0 md:bottom-10 md:left-10">
-                  <p className="max-w-[320px] font-display text-[28px] leading-[1.2] tracking-wide text-white/80 md:text-3xl md:leading-relaxed lg:text-4xl xl:text-[3rem]">
-                    <span className="block">Resposta desde o primeiro uso.</span>
+              <div className="absolute inset-x-0 bottom-0 px-8 pb-8 pt-16 md:px-10 md:pb-10 md:pt-20">
+                <p className="max-w-none pr-0 font-display text-[28px] leading-[1.2] tracking-wide text-white/80 md:text-3xl md:leading-relaxed lg:text-4xl xl:text-[3rem]">
+                  <span className="block">Resposta desde o</span>
+                  <span className="block">primeiro uso.</span>
                   </p>
                 </div>
               </div>
@@ -1372,16 +1379,16 @@ export function LaunchesSection({ items }) {
                   src={item.image}
                   alt={item.imageAlt}
                   className={`h-full w-full object-cover object-center transition duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${item.imageHoverClass}`}
-                />
-              </div>
+              />
+            </div>
               <div className="px-1 sm:px-2">
                 <LaunchProductBlock
                   item={item}
                   headingClass={index === 0 ? titleHeadingLeft : titleHeadingRight}
                   columnIndex={index}
-                />
-              </div>
-            </article>
+              />
+            </div>
+          </article>
           ))}
         </div>
       </div>
@@ -1395,8 +1402,8 @@ export function LaunchesSection({ items }) {
                 src={item.image}
                 alt={item.imageAlt}
                 className={`h-full w-full object-cover object-center transition duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${item.imageHoverClass}`}
-              />
-            </div>
+            />
+          </div>
           ))}
         </div>
       </div>
@@ -1437,23 +1444,23 @@ export function RoutineSection({ steps }) {
 
   const visualStates = React.useMemo(
     () => [
-      {
-        label: "Preparar",
+    {
+      label: "Preparar",
         src: "/images/costas.png",
         alt: "Cabelo em estado natural, antes do ritual de tratamento",
         overlayClass:
           "bg-[linear-gradient(180deg,rgba(14,11,9,0.08),rgba(14,11,9,0.2)_72%,rgba(14,11,9,0.34))]",
-      },
-      {
-        label: "Tratar",
+    },
+    {
+      label: "Tratar",
         src: "/images/32.png.webp",
         alt: "Textura em transformação — tratamento e resposta do fio",
         overlayClass:
           "bg-[linear-gradient(180deg,rgba(14,11,9,0.06),rgba(14,11,9,0.18)_72%,rgba(14,11,9,0.3))]",
-      },
-      {
-        label: "Sustentar",
-        src: "/images/frente1.png",
+    },
+    {
+      label: "Sustentar",
+      src: "/images/frente1.png",
         alt: "Resultado final com brilho, alinhamento e movimento",
         overlayClass:
           "bg-[linear-gradient(180deg,rgba(14,11,9,0.04),rgba(14,11,9,0.14)_68%,rgba(14,11,9,0.26))]",
@@ -1546,7 +1553,7 @@ export function RoutineSection({ steps }) {
               />
             </div>
 
-            <div className="flex min-h-0 flex-1 flex-col justify-between lg:min-h-0">
+            <div className="flex min-h-0 flex-1 flex-col lg:min-h-0">
               <div
               className="min-h-0"
               role="tablist"
@@ -1563,7 +1570,7 @@ export function RoutineSection({ steps }) {
                     aria-selected={isActive}
                     tabIndex={0}
                     className={cn(
-                      "grid cursor-pointer gap-3 py-4 pl-1 pr-1 transition-[color,opacity] duration-200 ease-out md:grid-cols-[110px_1fr] md:items-start md:px-0 lg:py-5",
+                      "relative grid cursor-pointer gap-3 py-4 pl-1 pr-1 transition-[color,opacity] duration-200 ease-out md:grid-cols-[110px_minmax(0,1fr)_2rem] md:items-start md:gap-x-4 md:px-0 md:pr-2 lg:py-5",
                       isActive ? "opacity-100" : "opacity-[0.52]",
                     )}
                     onMouseEnter={() => activateStep(index)}
@@ -1578,24 +1585,24 @@ export function RoutineSection({ steps }) {
                     >
                       {step.step}
                     </p>
-                    <div className="max-w-xl">
+                    <div className="min-w-0 max-w-xl md:pr-1">
                       {isActive ? (
                         <div
                           key={`${activeStep}-${stepRevealKey}`}
                           className="animate-routine-metodo-step-reveal"
                         >
                           <h3 className="font-display text-[22px] font-bold leading-[1.28] text-[#0a0a0a] md:text-3xl md:leading-none lg:text-4xl">
-                            {step.title}
-                          </h3>
+                        {step.title}
+                      </h3>
                           <p className="mt-2 text-[16px] leading-[1.58] text-ink md:text-[15px] md:leading-7 lg:mt-2.5 lg:text-base lg:leading-relaxed">
-                            {step.description}
-                          </p>
+                        {step.description}
+                      </p>
                           {productHint ? (
                             <p className="mt-2.5 text-xs font-medium uppercase leading-normal tracking-[0.11em] text-ink/[0.92] md:tracking-[0.12em]">
                               {productHint}
                             </p>
                           ) : null}
-                        </div>
+                    </div>
                       ) : (
                         <>
                           <h3 className="font-display text-[22px] font-normal leading-[1.28] text-ink md:text-3xl md:leading-none lg:text-4xl">
@@ -1611,19 +1618,25 @@ export function RoutineSection({ steps }) {
                           ) : null}
                         </>
                       )}
+        </div>
+
+                    <div
+                      className="pointer-events-none flex min-h-[1.25em] items-start justify-end self-start pt-0.5 md:col-start-3 md:pt-1.5"
+                      aria-hidden={!isActive}
+                    >
+                      {isActive ? (
+                        <span
+                          aria-hidden
+                          className="absolute right-4 top-5 text-[0.95rem] font-normal leading-none text-[#0a0a0a]/50 motion-safe:animate-routine-method-arrow-in md:relative md:right-auto md:top-auto md:text-[1.05rem] lg:text-[1.125rem]"
+                        >
+                          →
+                        </span>
+                      ) : null}
                     </div>
-                  </article>
+              </article>
                 );
               })}
-              </div>
-              <div className="shrink-0 pt-6 lg:pt-8">
-                <a href="#produtos" className="button-editorial">
-                  Montar meu cuidado
-                  <span className="text-base leading-none" aria-hidden="true">
-                    →
-                  </span>
-                </a>
-              </div>
+          </div>
             </div>
           </div>
         </div>
@@ -1758,10 +1771,10 @@ export function SocialProofEditorialSection({ stories = [] }) {
                   <p className="mt-2 max-w-full break-words text-[11px] font-medium uppercase leading-snug tracking-[0.14em] text-white/85 sm:text-[12px] sm:tracking-[0.16em]">
                     {activeMeta}
                   </p>
-                </div>
+        </div>
               </article>
-            </div>
-          </div>
+      </div>
+        </div>
         </div>
 
         {/* Desktop: faixa original 1 + 3 */}
@@ -1805,20 +1818,20 @@ export function SocialProofEditorialSection({ stories = [] }) {
               </article>
 
               {compactCards.map((item, idx) => (
-                <article
+              <article
                   key={`social-compact-${item.name}-${idx}`}
                   className="group relative flex h-[62%] w-[var(--card-w)] shrink-0 flex-col items-start overflow-hidden rounded-[8px] border border-black/[0.045] bg-[#f3f0ea] px-7 py-5 text-left opacity-[0.8] transition-[opacity,transform,background-color] duration-500 ease-out hover:bg-[#f6f3ee] hover:opacity-[0.97]"
                 >
                   <div className="flex min-w-0 items-start gap-3.5">
                     <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-[#e5dfd6]">
-                      <img
-                        src={item.image}
+                  <img
+                    src={item.image}
                         alt={`Retrato de ${item.name}`}
                         className="h-full w-full object-cover object-center transition duration-500 ease-out group-hover:scale-[1.04]"
                         loading="lazy"
                         decoding="async"
-                      />
-                    </div>
+                  />
+                </div>
                     <div className="min-w-0 flex-1">
                       <p className="truncate font-display text-[1.02rem] font-light leading-none text-ink/90 lg:text-[1.08rem]">{item.name}</p>
                       <p className="mt-1 truncate text-[9px] font-medium uppercase tracking-[0.2em] text-ink/42">
@@ -1829,16 +1842,16 @@ export function SocialProofEditorialSection({ stories = [] }) {
                   <div className="mt-6 min-w-0">
                     <p className="line-clamp-3 font-display text-[20px] leading-[1.2] text-ink/72">
                       &ldquo;{item.quote}&rdquo;
-                    </p>
-                  </div>
+                  </p>
+                </div>
                   <span
                     className="pointer-events-none absolute bottom-0 right-6 translate-y-[8%] font-display text-[6.7rem] leading-none text-ink/45"
                     aria-hidden
                   >
                     ”
                   </span>
-                </article>
-              ))}
+              </article>
+            ))}
             </div>
           </div>
         </div>

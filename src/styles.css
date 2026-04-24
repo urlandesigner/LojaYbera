@@ -98,6 +98,18 @@ body::before {
   }
 }
 
+/** Método Ybera — seta do item ativo (→), alinhada ao CTA. */
+@keyframes routine-method-arrow-in {
+  from {
+    opacity: 0;
+    transform: translateX(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 @layer utilities {
   .animate-routine-metodo-step-reveal {
     animation: routine-metodo-step-reveal 180ms ease-out both;
@@ -106,11 +118,16 @@ body::before {
   .animate-routine-metodo-label-reveal {
     animation: routine-metodo-step-reveal 200ms ease-in-out both;
   }
+
+  .animate-routine-method-arrow-in {
+    animation: routine-method-arrow-in 200ms ease-out both;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-routine-metodo-step-reveal,
-  .animate-routine-metodo-label-reveal {
+  .animate-routine-metodo-label-reveal,
+  .animate-routine-method-arrow-in {
     animation: none !important;
   }
 }
@@ -135,6 +152,47 @@ body::before {
 
 @media (prefers-reduced-motion: reduce) {
   .animate-catalog-filter-reveal {
+    animation: none !important;
+  }
+}
+
+/** PDP — blocos técnicos em Z (entrada suave, imagem antes do texto). */
+@keyframes pdp-tech-z-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer components {
+  .pdp-tech-z-row:not(.pdp-tech-z-row--visible) .pdp-tech-z-row__media,
+  .pdp-tech-z-row:not(.pdp-tech-z-row--visible) .pdp-tech-z-row__copy {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  .pdp-tech-z-row--visible .pdp-tech-z-row__media {
+    animation: pdp-tech-z-reveal 0.78s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both;
+  }
+
+  .pdp-tech-z-row--visible .pdp-tech-z-row__copy {
+    animation: pdp-tech-z-reveal 0.76s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdp-tech-z-row:not(.pdp-tech-z-row--visible) .pdp-tech-z-row__media,
+  .pdp-tech-z-row:not(.pdp-tech-z-row--visible) .pdp-tech-z-row__copy {
+    opacity: 1;
+    transform: none;
+  }
+
+  .pdp-tech-z-row--visible .pdp-tech-z-row__media,
+  .pdp-tech-z-row--visible .pdp-tech-z-row__copy {
     animation: none !important;
   }
 }

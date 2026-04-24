@@ -14,6 +14,12 @@ export default {
       full: "0px",
     },
     extend: {
+      screens: {
+        /** Notebook: 1024px–1440px — hero mais compacto */
+        notebook: { raw: "(min-width: 1024px) and (max-width: 1440px)" },
+        /** Desktop largo: mantém escala original do hero acima de 1440px */
+        wide: "1441px",
+      },
       maxWidth: {
         /** Alinha ao token --site-max; nunca ultrapassa a viewport (evita “quebra” com 1440px fixo). */
         site: "min(100%, var(--site-max))",
