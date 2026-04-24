@@ -325,55 +325,66 @@ export function Vitrine3Section({ items = [] }) {
       </div>
 
       <nav
-        className="border-t border-ink/[0.06] bg-pearl px-4 py-4 sm:px-5 sm:py-4 lg:px-10 lg:py-5 xl:px-12"
+        className="border-t border-ink/[0.06] bg-pearl"
         aria-label="Selecionar produto na vitrine"
       >
-        <div
-          role="tablist"
-          className="mx-auto flex max-w-[960px] flex-wrap items-center justify-center gap-x-1 gap-y-2 text-center sm:gap-x-2"
-        >
-          {list.map((item, index) => {
-            const isActive = activeIndex === index;
-            return (
-              <React.Fragment key={item.name ?? String(index)}>
-                <span
-                  role="tab"
-                  tabIndex={0}
-                  aria-selected={isActive}
-                  className={cn(
-                    "relative inline-block cursor-pointer border-0 px-2 pt-2 pb-0 text-[14px] leading-snug tracking-[-0.01em] no-underline decoration-transparent outline-none sm:text-[15px]",
-                    "after:pointer-events-none after:absolute after:left-2 after:top-full after:block after:h-px after:translate-y-2 after:bg-[#1a1a1a] after:content-[''] after:transition-[width,opacity] after:duration-300 after:ease-out",
-                    "focus-visible:ring-1 focus-visible:ring-ink/25 focus-visible:ring-offset-2 focus-visible:ring-offset-pearl",
-                    "transition-[color,font-weight,transform] duration-300 ease-out",
-                    isActive
-                      ? "origin-center scale-[1.02] font-medium text-[#0a0a0a] after:w-[70%] after:opacity-[0.58] hover:after:w-[83%] hover:after:opacity-[0.66]"
-                      : "origin-center scale-100 font-light text-[#0a0a0a]/[0.52] after:w-[64%] after:opacity-0 hover:text-[#0a0a0a]/[0.78] hover:after:w-[82%] hover:after:opacity-[0.5]",
-                  )}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    selectIndex(index);
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      selectIndex(index);
-                    }
-                  }}
-                >
-                  {item.name}
-                </span>
-                {index < list.length - 1 ? (
-                  <span
-                    className="select-none px-1 text-[14px] font-light text-ink/25 sm:text-[15px]"
-                    role="presentation"
-                    aria-hidden
-                  >
-                    |
-                  </span>
-                ) : null}
-              </React.Fragment>
-            );
-          })}
+        <div className="mx-auto flex w-full max-w-site flex-col items-center gap-6 py-4 shell-px sm:py-5 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:py-5">
+          <div className="flex w-full min-w-0 justify-center overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] lg:flex-1 lg:overflow-visible [&::-webkit-scrollbar]:hidden">
+            <div
+              role="tablist"
+              className="mx-auto flex max-w-[960px] flex-nowrap items-center justify-center gap-x-1 text-center sm:gap-x-2"
+            >
+              {list.map((item, index) => {
+                const isActive = activeIndex === index;
+                return (
+                  <React.Fragment key={item.name ?? String(index)}>
+                    <span
+                      role="tab"
+                      tabIndex={0}
+                      aria-selected={isActive}
+                      className={cn(
+                        "relative inline-block whitespace-nowrap cursor-pointer border-0 px-2 pt-2 pb-0 text-[14px] leading-snug tracking-[-0.01em] no-underline decoration-transparent outline-none sm:text-[15px]",
+                        "after:pointer-events-none after:absolute after:left-2 after:top-full after:block after:h-px after:translate-y-2 after:bg-[#1a1a1a] after:content-[''] after:transition-[width,opacity] after:duration-300 after:ease-out",
+                        "focus-visible:ring-1 focus-visible:ring-ink/25 focus-visible:ring-offset-2 focus-visible:ring-offset-pearl",
+                        "transition-[color,font-weight,transform] duration-300 ease-out",
+                        isActive
+                          ? "origin-center scale-[1.02] font-medium text-[#0a0a0a] after:w-[70%] after:opacity-[0.58] hover:after:w-[83%] hover:after:opacity-[0.66]"
+                          : "origin-center scale-100 font-light text-[#0a0a0a]/[0.52] after:w-[64%] after:opacity-0 hover:text-[#0a0a0a]/[0.78] hover:after:w-[82%] hover:after:opacity-[0.5]",
+                      )}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        selectIndex(index);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          selectIndex(index);
+                        }
+                      }}
+                    >
+                      {item.navLabel ?? item.name}
+                    </span>
+                    {index < list.length - 1 ? (
+                      <span
+                        className="select-none whitespace-nowrap px-1 text-[14px] font-light text-ink/25 sm:text-[15px]"
+                        role="presentation"
+                        aria-hidden
+                      >
+                        |
+                      </span>
+                    ) : null}
+                  </React.Fragment>
+                );
+              })}
+            </div>
+          </div>
+
+          <a
+            href="/catalogo"
+            className="inline-flex shrink-0 items-center whitespace-nowrap border-b border-ink/18 pb-0.5 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/45 transition duration-200 hover:border-ink/32 hover:text-ink/78 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ink/22 focus-visible:ring-offset-2 focus-visible:ring-offset-pearl"
+          >
+            Ver todo o catálogo<span aria-hidden> →</span>
+          </a>
         </div>
       </nav>
 
@@ -399,22 +410,15 @@ function EditorialOverlayCard({ item, animateCard, reduceMotion }) {
         )}
         style={fadeIn}
       >
-        <p className="text-[10px] font-medium uppercase tracking-[0.26em] text-ink/45">{item.overlayEyebrow}</p>
-        <h2 className="mt-3 font-display text-2xl font-light leading-snug tracking-[-0.035em] text-[#0a0a0a] sm:text-[1.6rem] lg:text-[1.75rem]">
+        <p className="text-[13px] font-medium uppercase leading-[1.4] tracking-[0.26em] text-ink/45 md:text-[10px] md:leading-normal">
+          {item.overlayEyebrow}
+        </p>
+        <h2 className="mt-3 font-display text-[22px] font-light leading-[1.3] tracking-[-0.035em] text-[#0a0a0a] sm:text-[1.6rem] sm:leading-snug lg:text-[1.75rem]">
           {item.overlayTitle}
         </h2>
-        <p className="mt-3 max-w-[32ch] text-sm font-light leading-[1.55] text-[#4a4a4a] sm:text-[0.9375rem]">
+        <p className="mt-3 max-w-[32ch] text-[16px] font-light leading-[1.5] text-[#4a4a4a] sm:text-[0.9375rem] sm:leading-[1.55]">
           {item.overlayBody}
         </p>
-        <a
-          href={item.href}
-          className="mt-7 inline-flex items-center gap-1.5 border border-[rgba(0,0,0,0.2)] bg-transparent px-5 py-2.5 text-[12px] font-medium uppercase tracking-[0.08em] text-[#1a1a1a] no-underline transition-[border-color,background-color,opacity] duration-300 ease-out hover:border-[rgba(0,0,0,0.35)] hover:bg-[rgba(0,0,0,0.04)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#1a1a1a]/25 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(255,255,255,0.6)]"
-        >
-          Explorar
-          <span className="text-[11px] font-light leading-none" aria-hidden>
-            →
-          </span>
-        </a>
       </div>
     </div>
   );
@@ -425,7 +429,10 @@ function RightProductBlock({ item, revealMotion }) {
     <>
       <div className="flex w-full max-w-[440px] flex-col items-center">
         <p
-          className={cn("text-[10px] font-medium uppercase tracking-[0.26em] text-ink/40", revealMotion && "motion-reduce:animate-none")}
+          className={cn(
+            "text-[13px] font-medium uppercase leading-[1.4] tracking-[0.26em] text-ink/40 md:text-[10px] md:leading-normal",
+            revealMotion && "motion-reduce:animate-none",
+          )}
           style={
             revealMotion
               ? {
@@ -450,13 +457,13 @@ function RightProductBlock({ item, revealMotion }) {
                 : undefined
             }
           >
-            <h3 className="-translate-x-2 font-display text-3xl font-light leading-[1.12] tracking-[-0.045em] text-[#0a0a0a] sm:text-[2.05rem] lg:text-[2.15rem]">
+            <h3 className="-translate-x-2 font-display text-[22px] font-light leading-[1.3] tracking-[-0.045em] text-[#0a0a0a] sm:text-[2.05rem] sm:leading-[1.12] lg:text-[2.15rem]">
               {item.name}
             </h3>
           </div>
           <p
             className={cn(
-              "mt-3 whitespace-pre-line text-[0.9375rem] font-light leading-[1.48] text-[#5c5c5c] sm:text-[1rem]",
+              "mt-3 whitespace-pre-line text-[16px] font-light leading-[1.5] text-[#5c5c5c] sm:text-[0.9375rem] sm:leading-[1.48] lg:text-[1rem]",
               revealMotion && "motion-reduce:animate-none",
             )}
             style={
@@ -498,7 +505,7 @@ function RightProductBlock({ item, revealMotion }) {
       <div className="mt-7 flex w-full max-w-[440px] flex-col items-stretch gap-8 sm:max-w-[448px] sm:gap-10">
         <p
           className={cn(
-            "text-center text-[0.9375rem] font-normal leading-snug tracking-wide text-black sm:text-base md:text-[1.0625rem]",
+            "text-center text-[15px] font-normal leading-[1.6] tracking-wide text-black sm:text-[0.9375rem] sm:leading-snug md:text-base lg:text-[1.0625rem]",
             revealMotion && "motion-reduce:animate-none",
           )}
           style={

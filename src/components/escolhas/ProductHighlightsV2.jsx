@@ -12,11 +12,11 @@ function EscolhasHeading({ headingId }) {
       <p className="section-kicker">Escolhas essenciais</p>
       <h2
         id={headingId}
-        className="mt-5 font-display text-5xl leading-[1.24] tracking-[-0.01em] text-ink md:text-6xl md:leading-[1.2]"
+        className="mt-4 font-display text-[28px] leading-[1.2] tracking-[-0.01em] text-ink md:text-6xl md:leading-[1.2]"
       >
         {editorialTitle}
       </h2>
-      <p className="mt-6 text-base leading-8 text-ink/72 md:text-lg">{editorialDescription}</p>
+      <p className="mt-4 text-[16px] leading-[1.5] text-ink/72 md:text-lg md:leading-8">{editorialDescription}</p>
     </div>
   );
 }
@@ -145,8 +145,8 @@ export function ProductHighlightsV2({ items = [] }) {
     safeCount <= 1 ? 1 : segmentStart + (segmentEnd - segmentStart) * timelineAdvance;
 
   return (
-    <section className="bg-pearl pt-[84px] pb-0" aria-labelledby={headingId}>
-      <div className="mx-auto w-full max-w-site shell-px">
+    <section className="bg-pearl section-y-cards" aria-labelledby={headingId}>
+      <div className="mx-auto w-full max-w-site shell-px section-lead">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <EscolhasHeading headingId={headingId} />
           <a href="#produtos" className="button-editorial shrink-0 self-start lg:self-end">
@@ -156,7 +156,7 @@ export function ProductHighlightsV2({ items = [] }) {
         </div>
       </div>
 
-      <div className="mt-10 lg:mt-12">
+      <div className="mt-0">
         <div className="relative left-1/2 w-[100dvw] max-w-[100dvw] -translate-x-1/2 overflow-x-clip">
           <div
             ref={mediaRootRef}
@@ -233,15 +233,6 @@ export function ProductHighlightsV2({ items = [] }) {
                           <p className="mt-5 max-w-[34ch] text-[0.9375rem] leading-[1.65] text-ink/54 sm:text-base sm:leading-[1.62]">
                             <span className="line-clamp-2">{item.note}</span>
                           </p>
-                          <a
-                            href={item.href ?? defaultHref}
-                            className="pointer-events-auto mt-11 inline-flex w-fit items-center gap-2 border-b border-ink/14 pb-px text-[10px] font-semibold uppercase tracking-[0.24em] text-ink/46 transition-colors duration-300 hover:border-ink/28 hover:text-ink/78 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/25 focus-visible:ring-offset-2"
-                          >
-                            Explorar
-                            <span className="text-xs leading-none" aria-hidden>
-                              →
-                            </span>
-                          </a>
                         </div>
                       );
                     })}

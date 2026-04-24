@@ -214,7 +214,7 @@ function ProductInfo({ onBuy }) {
       <div className="order-2 mt-7 min-w-0 max-w-full pt-6 max-lg:border-t max-lg:border-black/[0.06] lg:order-3 lg:mt-9 lg:border-t lg:border-black/10">
         <div className="flex min-w-0 flex-col gap-3 lg:gap-3.5">
           <div className="flex min-w-0 flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-end lg:gap-x-5 lg:gap-y-0.5">
-            <p className="shrink-0 font-display text-[2.25rem] leading-[1.08] tracking-[-0.012em] text-ink sm:text-[2.65rem] sm:leading-[1.14] md:text-5xl md:leading-[1.12]">
+            <p className="shrink-0 font-display text-[22px] leading-[1.3] tracking-[-0.012em] text-ink sm:text-[2.25rem] sm:leading-[1.08] md:text-[2.65rem] md:leading-[1.14] lg:text-5xl lg:leading-[1.12]">
               {product.price}
             </p>
             <p className="min-w-0 max-w-full font-sans text-[12px] font-normal leading-snug text-ink/44 lg:flex-1 lg:basis-[12rem] lg:pb-px lg:text-[13px] lg:leading-relaxed lg:text-ink/48">
@@ -449,12 +449,12 @@ function CartDrawer({ isOpen, onClose }) {
 
 function CategorySection() {
   return (
-    <section className="bg-white px-0 py-[84px]">
+    <section className="bg-white px-0 section-y-cards">
       <div className="mx-auto w-full max-w-site shell-px border-t border-black/[0.07] pt-0">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <p className="section-kicker">Categorias</p>
-            <h2 className="mt-6 font-display text-5xl leading-[0.96] text-ink md:text-6xl">
+            <h2 className="mt-6 font-display text-[28px] leading-[1.2] text-ink md:text-6xl md:leading-[0.96]">
               Escolha pelo que o seu cabelo pede.
             </h2>
           </div>
@@ -490,11 +490,11 @@ function CategorySection() {
 
 function ProductDescriptionSection() {
   return (
-    <section className="bg-white px-0 py-[84px]">
+    <section className="bg-white px-0 section-y">
       <div className="mx-auto grid w-full max-w-site shell-px gap-8 pt-0 sm:gap-10 lg:grid-cols-[0.42fr_0.58fr] lg:gap-20">
         <div>
           <p className="section-kicker">Descrição do produto</p>
-          <h2 className="mt-5 max-w-md font-display text-5xl leading-[0.96] text-ink sm:mt-6 md:text-6xl">
+          <h2 className="mt-5 max-w-md font-display text-[28px] leading-[1.2] text-ink sm:mt-6 md:text-6xl md:leading-[0.96]">
             O cuidado completo em poucas gotas.
           </h2>
         </div>
@@ -529,7 +529,7 @@ export default function ProductPage() {
     <div className="min-h-screen bg-white text-ink">
       <Header solid />
       <main className="mt-0">
-        <section className="overflow-x-clip bg-mist px-0 py-[84px] max-lg:px-0 max-lg:pt-[calc(5rem+1px+84px)]">
+        <section className="overflow-x-clip bg-mist px-0 pb-10 pt-[80px] max-lg:px-0 max-lg:pt-[calc(5rem+1px+80px)] md:pb-[120px]">
           <div className="mx-auto mt-0 grid min-w-0 w-full max-w-site shell-px grid-cols-1 items-start gap-y-5 gap-x-0 md:gap-8 lg:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)] lg:gap-x-10 lg:gap-y-0 xl:gap-x-12">
             <ProductGallery />
             <div className="min-w-0 px-0">

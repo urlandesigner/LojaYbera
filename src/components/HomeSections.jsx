@@ -48,12 +48,12 @@ function SectionHeading({
     <div className={`max-w-3xl ${alignment}`}>
       <p className={kickerTone}>{eyebrow}</p>
       <h2
-        className={`mt-5 font-display text-5xl leading-[1.24] tracking-[-0.01em] md:text-6xl md:leading-[1.2] ${titleTone}`}
+        className={`mt-4 font-display text-[28px] leading-[1.2] tracking-[-0.01em] md:text-6xl md:leading-[1.2] ${titleTone}`}
       >
         {title}
       </h2>
       {description ? (
-        <p className={`mt-6 text-base leading-8 md:text-lg ${bodyTone}`}>
+        <p className={`mt-4 text-[16px] leading-[1.5] md:text-lg md:leading-8 ${bodyTone}`}>
           {description}
         </p>
       ) : null}
@@ -337,7 +337,7 @@ export function Header({ solid = false }) {
                 key={link.href}
                 href={link.href}
                 onClick={closeMobileMenu}
-                className="font-display text-[clamp(28px,4.5vw,32px)] leading-[1.06] tracking-[-0.012em] text-white/92 transition hover:text-white"
+                className="font-display text-[22px] leading-[1.3] tracking-[-0.012em] text-white/92 transition hover:text-white md:text-[clamp(28px,4.5vw,32px)] md:leading-[1.06]"
               >
                 {link.label}
               </a>
@@ -574,21 +574,22 @@ export function HeroSection({ stats, visuals }) {
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,10,9,0.18)_0%,rgba(12,10,9,0.12)_38%,rgba(12,10,9,0.68)_100%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_46%,rgba(0,0,0,0.28),transparent_32%),radial-gradient(circle_at_82%_18%,rgba(255,255,255,0.05),transparent_18%)]" />
 
-      <div className="relative mx-auto flex min-h-screen w-full max-w-site items-end shell-px py-[84px]">
-        <div className="hero-content max-w-[84rem] w-full pb-4 pt-6 [text-shadow:0_2px_24px_rgba(0,0,0,0.38)] md:pb-8 md:pt-0">
+      <div className="relative mx-auto flex min-h-[100dvh] min-h-screen w-full max-w-site flex-col shell-px pt-[80px]">
+        <div className="min-h-0 flex-1" aria-hidden="true" />
+        <div className="hero-content max-w-[84rem] w-full pb-10 pt-6 [text-shadow:0_2px_24px_rgba(0,0,0,0.38)] md:pb-14 md:pt-0">
           <div className="inline-flex items-center gap-3">
             <span className="h-px w-10 bg-white/35" aria-hidden="true" />
-            <p className="text-[11px] font-medium uppercase tracking-[0.26em] text-white/58">
+            <p className="text-[13px] font-medium uppercase leading-[1.4] tracking-[0.26em] text-white/58 md:text-[11px] md:leading-normal">
               Jeito Ybera de ser
             </p>
           </div>
-          <h1 className="mt-5 max-md:max-w-[16ch] text-balance font-display text-[clamp(32px,8vw,56px)] leading-[1.16] tracking-[-0.008em] text-white md:max-w-6xl md:text-[6.1rem] md:leading-[1.12] xl:text-[7.9rem] xl:leading-[1.1]">
+          <h1 className="mt-5 max-w-[320px] text-balance font-display text-[44px] leading-[1.1] tracking-[-0.008em] text-white md:max-w-6xl md:text-[6.1rem] md:leading-[1.12] xl:text-[7.9rem] xl:leading-[1.1]">
             <span className="block md:whitespace-nowrap">Revelar a beleza</span>
             <span className="block md:whitespace-nowrap">que já existe</span>
             <span className="block md:whitespace-nowrap">em você</span>
           </h1>
 
-          <div className="mt-12 flex items-center">
+          <div className="mt-8 flex items-center md:mt-10">
             <a
               href="#curadoria"
               className="button-editorial-dark"
@@ -598,7 +599,7 @@ export function HeroSection({ stats, visuals }) {
           </div>
 
           <div
-            className="mt-10 sm:hidden"
+            className="mt-8 sm:hidden"
             onTouchStart={handleHeroTouchStart}
             onTouchEnd={handleHeroTouchEnd}
           >
@@ -634,14 +635,14 @@ export function HeroSection({ stats, visuals }) {
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0 flex-1">
                           <p
-                            className={`text-[9px] uppercase tracking-editorial transition-colors duration-[250ms] ease-out group-hover/cta:text-white/54 ${
+                            className={`text-[13px] uppercase leading-[1.4] tracking-editorial transition-colors duration-[250ms] ease-out group-hover/cta:text-white/54 ${
                               isLeading ? "text-white/48" : "text-white/36"
                             }`}
                           >
                             {stat.label}
                           </p>
                           <p
-                            className={`mt-3 max-w-none text-[0.95rem] font-normal leading-6 transition-colors duration-[250ms] ease-out group-hover/cta:text-white ${
+                            className={`mt-3 max-w-none text-[15px] font-normal leading-[1.6] transition-colors duration-[250ms] ease-out group-hover/cta:text-white ${
                               isLeading ? "text-white/86" : "text-white/66"
                             }`}
                           >
@@ -670,7 +671,7 @@ export function HeroSection({ stats, visuals }) {
             </div>
           </div>
 
-          <div className="hidden max-w-[78rem] grid-cols-3 gap-4 sm:mt-14 sm:grid lg:gap-5">
+          <div className="hidden max-w-[78rem] grid-cols-3 gap-4 sm:mt-10 sm:grid lg:gap-5">
             {stats.map((stat) => (
               <a
                 key={stat.id}
@@ -733,6 +734,7 @@ export function HeroSection({ stats, visuals }) {
             alt={visuals.detailAlt}
             className="hidden h-0 w-0"
           />
+
         </div>
       </div>
     </section>
@@ -742,12 +744,12 @@ export function HeroSection({ stats, visuals }) {
 export function SensoryBlock() {
   return (
     <div className="bg-halo">
-      <div className="mx-auto max-w-5xl shell-px py-[84px] text-center">
+      <div className="mx-auto max-w-5xl shell-px pb-12 pt-0 text-center md:pb-20">
         <p className="section-kicker mx-auto justify-center">RESULTADO REAL</p>
-        <p className="mt-8 font-display text-4xl leading-tight text-ink md:text-6xl">
+        <p className="mt-4 font-display text-[28px] leading-[1.2] text-ink md:text-6xl md:leading-tight">
           O resultado aparece. E permanece.
         </p>
-        <p className="mx-auto mt-8 max-w-3xl text-base leading-8 text-ink/68 md:text-lg">
+        <p className="mx-auto mt-4 max-w-3xl text-[16px] leading-[1.5] text-ink/68 md:text-lg md:leading-8">
           No brilho, no toque e no comportamento do fio ao longo do dia.
         </p>
       </div>
@@ -757,18 +759,18 @@ export function SensoryBlock() {
 
 export function ManifestoSection() {
   return (
-    <section className="bg-[#F6F4F2] px-0 py-[84px] text-ink">
-      <div className="mx-auto max-w-5xl shell-px text-center">
+    <section className="bg-[#F6F4F2] px-0 section-y text-ink">
+      <div className="mx-auto max-w-4xl shell-px text-center">
         <p className="section-kicker mx-auto justify-center text-ink/48 before:bg-ink/24">
           Manifesto
         </p>
-        <h2 className="mx-auto mt-10 max-w-4xl font-display text-5xl leading-[1.22] tracking-[-0.016em] text-ink md:text-7xl md:leading-[1.18]">
+        <h2 className="mx-auto mt-4 max-w-3xl font-display text-[28px] leading-[1.2] tracking-[-0.016em] text-ink md:text-[60px] md:leading-[1.18]">
           A beleza começa no <em className="italic">cuidado</em>.
           <br />
-          O brilho é a memória dele.
+          O brilho é o que fica.
         </h2>
-        <p className="mt-10 text-[11px] font-semibold uppercase tracking-[0.34em] text-ink/42">
-          Ybera · Desde 2005
+        <p className="mt-4 text-[13px] font-semibold uppercase leading-[1.4] tracking-[0.34em] text-ink/42 md:text-[11px] md:leading-normal">
+          Ybera desde 2005
         </p>
       </div>
     </section>
@@ -835,27 +837,29 @@ export function ResultsSection({ items }) {
     <section
       id="resultado"
       ref={sectionRef}
-      className="bg-[#0B0B0B] py-[84px] text-white"
+      className="bg-[#0B0B0B] section-y text-white"
       style={{ backgroundColor: "#0B0B0B", backgroundImage: "none", boxShadow: "none" }}
     >
-      <div className="mx-auto w-full max-w-site shell-px">
+      <div className="mx-auto w-full max-w-none shell-px">
         <div
-          className={`transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          className={`section-lead transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             isInView ? "translate-y-0 opacity-100 blur-0" : "translate-y-6 opacity-0 blur-[6px]"
           }`}
         >
           <div className="max-w-3xl">
             <p className="section-kicker text-white/55 before:bg-white/35">Antes e depois</p>
-            <h2 className="mt-4 font-display text-5xl leading-none text-white md:text-6xl">
-              <span className="block">Você vê a diferença.</span>
-              <span className="block">E sente.</span>
+            <h2 className="mt-4 font-display text-[28px] leading-[1.2] text-white md:text-6xl md:leading-none">
+              <span className="block">Você vê.</span>
+              <span className="block">
+                E <em className="italic">sente</em>.
+              </span>
             </h2>
           </div>
         </div>
       </div>
 
       <div
-        className={`mt-8 px-0 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] lg:mt-16 lg:px-0 xl:px-0 ${
+        className={`mt-0 px-0 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] lg:px-0 xl:px-0 ${
           isInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
         }`}
         style={{ transitionDelay: isInView ? "80ms" : "0ms" }}
@@ -881,9 +885,8 @@ export function ResultsSection({ items }) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 <div className="absolute bottom-8 left-8 right-0 md:bottom-10 md:left-10">
-                  <p className="max-w-[320px] font-display text-3xl leading-relaxed tracking-wide text-white/80 md:text-4xl lg:text-[3rem]">
-                    <span className="block">O cabelo responde</span>
-                    <span className="block">desde o primeiro uso.</span>
+                  <p className="max-w-[320px] font-display text-[28px] leading-[1.2] tracking-wide text-white/80 md:text-3xl md:leading-relaxed lg:text-4xl xl:text-[3rem]">
+                    <span className="block">Resposta desde o primeiro uso.</span>
                   </p>
                 </div>
               </div>
@@ -904,24 +907,25 @@ export function ResultsSection({ items }) {
                 }`}
               />
               <div className="absolute inset-x-0 top-6 flex items-center justify-between px-0 lg:top-8 lg:px-0 xl:px-0">
-                <span className="text-[10px] uppercase tracking-[0.24em] text-white/58">Sem o cuidado certo</span>
-                <span className="text-[10px] uppercase tracking-[0.24em] text-white/78">Com Ybera</span>
+                <span className="text-[13px] uppercase leading-[1.4] tracking-[0.24em] text-white/58 md:text-[10px] md:leading-normal">Sem o cuidado certo</span>
+                <span className="text-[13px] uppercase leading-[1.4] tracking-[0.24em] text-white/78 md:text-[10px] md:leading-normal">Com Ybera</span>
               </div>
             </div>
           </article>
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-site shell-px pt-8">
+      <div className="mx-auto w-full max-w-site shell-px pt-12">
         <div
           className={`text-center transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             isInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
           }`}
           style={{ transitionDelay: isInView ? "180ms" : "0ms" }}
         >
-          <p className="mb-0 font-display text-[1.9rem] leading-[1.08] text-white/74 md:text-[2.3rem]">
-            <span className="block">Brilho que aparece. Toque que muda.</span>
-            <span className="block">Movimento que continua.</span>
+          <p className="mb-0 font-display text-[28px] leading-[1.2] text-white/74 md:text-[1.9rem] md:leading-[1.08] lg:text-[2.3rem]">
+            <span className="block">Brilho que aparece.</span>
+            <span className="block">Toque que muda.</span>
+            <span className="block">Movimento que permanece.</span>
           </p>
         </div>
       </div>
@@ -934,11 +938,12 @@ export function ProductRailSection({
   eyebrow = "Cuidado em movimento",
   title = (
     <>
-      <span className="block">Os mais usados por quem busca</span>
-      <span className="block">resultado de verdade.</span>
+      <span>
+        Os mais usados por quem busca <em className="italic">resultado real</em>.
+      </span>
     </>
   ),
-  description = "Selecionados por quem precisa de consistência, repetição e resultado real.",
+  description = "Escolhas de quem valoriza consistência e rotina.",
 }) {
   const railRef = React.useRef(null);
   const [isPaused, setIsPaused] = React.useState(false);
@@ -1139,20 +1144,20 @@ export function ProductRailSection({
   }, [isPaused, snapToIndex]);
 
   return (
-    <section id="produtos" className="bg-white py-[84px]">
-      <div className="mx-auto w-full max-w-site shell-px">
+    <section id="produtos" className="bg-white section-y-cards">
+      <div className="mx-auto w-full max-w-site shell-px section-lead">
         <div className="max-w-3xl">
           <p className="section-kicker">{eyebrow}</p>
-          <h2 className="mt-5 font-display text-5xl leading-[0.96] text-ink md:text-6xl">
+          <h2 className="mt-4 font-display text-[28px] leading-[1.2] text-ink md:text-6xl md:leading-[0.96]">
             {title}
           </h2>
-          <p className="mt-6 text-base leading-8 text-ink/68 md:text-lg">
+          <p className="mt-4 text-[16px] leading-[1.5] text-ink/68 md:text-lg md:leading-8">
             {description}
           </p>
         </div>
       </div>
 
-      <div className="relative left-1/2 mt-7 w-screen -translate-x-1/2 lg:mt-8">
+      <div className="relative left-1/2 w-screen -translate-x-1/2">
         <div className="absolute inset-y-0 left-0 z-[3] flex items-center pl-3 sm:pl-4 lg:pl-5 xl:pl-6">
           <button
             type="button"
@@ -1187,10 +1192,10 @@ export function ProductRailSection({
                 key={`${item.result ?? item.name}-${index}`}
                 href={item.href ?? "/produto/oleo-de-mirra-reparador"}
                 data-rail-card
-                className="group relative flex h-[34.5rem] w-[18.25rem] shrink-0 snap-start flex-col overflow-hidden bg-[#F6F4F2] p-3 transition duration-500 hover:-translate-y-1 md:h-[36rem] md:w-[20rem] md:p-3.5 lg:h-[37rem] lg:w-[calc((100vw-0.75rem)/4)] lg:p-4 xl:h-[39rem]"
+                className="group relative flex h-[35.5rem] w-[18.25rem] shrink-0 snap-start flex-col overflow-hidden bg-[#F6F4F2] p-3 transition duration-500 hover:-translate-y-1 md:h-[37rem] md:w-[20rem] md:p-3.5 lg:h-[38rem] lg:w-[calc((100vw-0.75rem)/4)] lg:p-4 xl:h-[40rem]"
               >
                 <div className="relative h-[25rem] shrink-0 overflow-hidden bg-[#F6F4F2] md:h-[26rem] lg:h-[27rem] xl:h-[29rem]">
-                  <span className="pointer-events-none absolute left-4 top-4 z-[2] inline-flex items-center border border-black/6 bg-white px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.2em] text-ink">
+                  <span className="pointer-events-none absolute left-4 top-4 z-[2] inline-flex items-center border border-black/6 bg-white px-2.5 py-1 text-[13px] font-semibold uppercase leading-[1.4] tracking-[0.2em] text-ink md:text-[9px] md:leading-normal">
                     {item.tag ?? "Mais vendidos"}
                   </span>
                   <div className="absolute inset-0 z-[1] bg-black/0 transition duration-300 group-hover:bg-black/[0.05]" />
@@ -1200,20 +1205,20 @@ export function ProductRailSection({
                     className="h-full w-full object-cover object-center transition duration-300 ease-out group-hover:scale-[0.985] group-hover:-translate-y-1"
                   />
                 </div>
-                <div className="relative flex h-[calc(100%-25rem)] flex-1 flex-col overflow-hidden px-1 pb-1 pt-4 md:h-[calc(100%-26rem)] lg:h-[calc(100%-27rem)] lg:pb-[4.75rem] xl:h-[calc(100%-29rem)] xl:pb-[5rem]">
+                <div className="relative flex h-[calc(100%-25rem)] flex-1 flex-col overflow-hidden px-1 pb-1 pt-4 md:h-[calc(100%-26rem)] lg:h-[calc(100%-27rem)] lg:pb-[5.5rem] xl:h-[calc(100%-29rem)] xl:pb-[5.9rem]">
                   <div className="relative flex-1">
                     <div className="transition-all duration-300 ease-out lg:group-hover:translate-y-2 lg:group-hover:opacity-0">
-                      <h3 className="mt-2.5 min-h-[3.8rem] font-display text-[1.85rem] leading-[0.98] text-ink xl:text-[2rem]">
+                      <h3 className="mt-2.5 min-h-[3.8rem] font-display text-[22px] leading-[1.3] text-ink md:text-[1.58rem] md:leading-[1.06] xl:text-[1.75rem]">
                         {item.result ?? item.name}
                       </h3>
-                      <p className="mt-2 text-[13px] leading-6 text-ink/52 md:text-[14px]">
-                        {item.productName ?? ""}
+                      <p className="mt-2 text-[16px] leading-[1.5] text-ink/52 md:text-[14px] md:leading-6">
+                        {item.note ?? ""}
                       </p>
                     </div>
 
                     <div className="pointer-events-none absolute inset-x-0 top-0 hidden min-h-[5.8rem] lg:block xl:min-h-[6.1rem]">
-                      <p className="translate-y-3 opacity-0 font-display text-[1.98rem] leading-[0.98] text-ink transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 xl:text-[2.12rem]">
-                        {item.productName ?? ""}
+                      <p className="translate-y-3 opacity-0 font-display text-[1.72rem] leading-[1.06] text-ink transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 xl:text-[1.85rem]">
+                        {item.note ?? ""}
                       </p>
                     </div>
                   </div>
@@ -1241,7 +1246,7 @@ const launchEditorialItems = [
     concept: "O primeiro passo que respira.",
     functional: "Limpa com precisão e prepara o fio para o que vem depois.",
     href: "/produto/shampoo-multifuncao-cuidados-profundos",
-    cta: "EXPLORAR",
+    cta: "Ver produto",
     image: "/images/27.jpg.webp",
     imageAlt: "Resultado no cabelo com brilho, textura e movimento",
     imageHoverClass: "group-hover:scale-[1.025]",
@@ -1256,7 +1261,7 @@ const launchEditorialItems = [
     concept: "Um brilho que se revela no movimento.",
     functional: "Finaliza com leveza e prolonga o alinhamento ao longo do dia.",
     href: "/produto/oleo-de-mirra-reparador",
-    cta: "CONHECER",
+    cta: "Ver produto",
     image: "/images/13.png",
     imageAlt: "Óleo de Mirra Reparador",
     imageHoverClass: "group-hover:scale-[1.02]",
@@ -1269,33 +1274,18 @@ const launchEditorialItems = [
 ];
 
 function LaunchEditorialCta({ href, label, align = "center", emphasis = "soft" }) {
+  void emphasis;
   const wrap =
     align === "start"
-      ? emphasis === "strong"
-        ? "self-start pt-8"
-        : "self-start pt-9"
+      ? "self-start pt-7"
       : align === "end"
-        ? emphasis === "strong"
-          ? "self-end pt-8"
-          : "self-end pt-9"
-        : emphasis === "strong"
-          ? "self-center pt-8"
-          : "self-center pt-9";
-  const linkClass = cn(
-    "inline-flex items-baseline gap-1.5 border-0 bg-transparent p-0 text-[10px] font-medium uppercase tracking-[0.24em] no-underline transition-[color,opacity] duration-300 ease-out focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ink/14 focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:text-[11px] sm:tracking-[0.26em]",
-    emphasis === "strong"
-      ? "text-[#1a1a1a]/82 hover:text-[#0a0a0a]"
-      : "text-ink/40 hover:text-ink/62",
-  );
-  const arrowClass = cn(
-    "text-[11px] font-light leading-none sm:text-xs",
-    emphasis === "strong" ? "text-[#1a1a1a]/68" : "text-ink/32",
-  );
+        ? "self-end pt-7"
+        : "self-center pt-7";
   return (
     <div className={wrap}>
-      <a href={href} className={linkClass}>
+      <a href={href} className="button-editorial no-underline">
         <span>{label}</span>
-        <span className={arrowClass} aria-hidden>
+        <span className="text-base leading-none" aria-hidden>
           →
         </span>
       </a>
@@ -1310,44 +1300,38 @@ function LaunchProductBlock({ item, headingClass, columnIndex = 0 }) {
   const root = cn(
     "flex w-full flex-col pt-1",
     isLeft
-      ? "max-w-[min(100%,44rem)] items-start text-left lg:ml-[clamp(0.25rem,3vw,2.75rem)] lg:pt-8"
-      : "max-w-[min(100%,44rem)] items-end text-right lg:mr-[clamp(0.25rem,2.5vw,2rem)] lg:pt-5",
+      ? "max-w-[min(100%,44rem)] items-center text-center lg:pt-8"
+      : "max-w-[min(100%,46rem)] items-center text-center lg:pt-8",
   );
 
   const title = cn(
     "w-full text-pretty font-display leading-[1.06] tracking-[-0.02em]",
     headingClass,
     isLeft
-      ? "max-w-[min(100%,38rem)] sm:max-w-[min(100%,40rem)] lg:max-w-[min(100%,42rem)]"
-      : "max-w-[min(100%,37rem)] sm:max-w-[min(100%,39rem)] lg:max-w-[min(100%,41rem)]",
+      ? "max-w-[min(100%,40rem)] sm:max-w-[min(100%,42rem)] lg:max-w-[min(100%,44rem)]"
+      : "max-w-[min(100%,39rem)] sm:max-w-[min(100%,41rem)] lg:max-w-[min(100%,43rem)]",
   );
 
   const body = cn(
-    "w-full",
-    isLeft ? "mt-8 sm:mt-10" : "mt-6 sm:mt-7",
+    "mt-5 w-full sm:mt-6",
     isLeft
-      ? "max-w-[min(100%,30rem)] sm:max-w-[min(100%,34rem)] lg:max-w-[min(100%,36rem)]"
-      : "max-w-[min(100%,29rem)] sm:max-w-[min(100%,33rem)] lg:max-w-[min(100%,35rem)]",
+      ? "max-w-[min(100%,33rem)] sm:max-w-[min(100%,36rem)] lg:max-w-[min(100%,38rem)]"
+      : "max-w-[min(100%,32rem)] sm:max-w-[min(100%,35rem)] lg:max-w-[min(100%,37rem)]",
   );
 
-  const conceptTone = cn(
-    "text-[0.84375rem] font-light leading-[1.72] sm:text-[0.90625rem] sm:leading-[1.74]",
-    isLeft ? "text-ink/42" : "text-[#1f1f1f]/78",
-  );
-  const functionalTone = cn(
-    "text-[0.84375rem] font-light leading-[1.72] sm:text-[0.90625rem] sm:leading-[1.74]",
-    isLeft ? "mt-4 text-ink/34" : "mt-3 text-[#1f1f1f]/64 sm:mt-3.5",
+  const descriptionTone = cn(
+    "text-[1rem] font-light leading-[1.7] sm:text-[1.0625rem] sm:leading-[1.72]",
+    isLeft ? "text-ink/42" : "text-[#1f1f1f]/76",
   );
 
-  const ctaAlign = isLeft ? "start" : "end";
+  const ctaAlign = "center";
   const ctaEmphasis = isLeft ? "soft" : "strong";
 
   return (
     <div className={root}>
       <h3 className={title}>{item.name}</h3>
       <div className={body}>
-        <p className={conceptTone}>{item.concept}</p>
-        <p className={functionalTone}>{item.functional}</p>
+        <p className={descriptionTone}>{`${item.concept} ${item.functional}`}</p>
       </div>
       <LaunchEditorialCta href={item.href} label={item.cta} align={ctaAlign} emphasis={ctaEmphasis} />
     </div>
@@ -1358,24 +1342,26 @@ export function LaunchesSection({ items }) {
   void items;
 
   const titleHeadingLeft =
-    "font-light text-ink text-[2.08rem] sm:text-[2.18rem] md:text-[2.32rem] xl:text-[2.46rem]";
+    "font-light text-ink text-[22px] leading-[1.3] sm:text-[2.08rem] sm:leading-[1.06] md:text-[2.18rem] lg:text-[2.32rem] xl:text-[2.46rem]";
   const titleHeadingRight =
-    "font-normal text-[#0a0a0a] text-[2.06rem] sm:text-[2.14rem] md:text-[2.3rem] xl:text-[2.44rem]";
+    "font-normal text-[#0a0a0a] text-[22px] leading-[1.3] sm:text-[2.06rem] sm:leading-[1.06] md:text-[2.14rem] lg:text-[2.3rem] xl:text-[2.44rem]";
   const desktopHeadingLeft =
     "font-light text-ink text-[2.14rem] md:text-[2.3rem] xl:text-[2.44rem]";
   const desktopHeadingRight =
     "font-normal text-[#080808] text-[2.12rem] md:text-[2.28rem] xl:text-[2.42rem]";
 
   return (
-    <section className="bg-[#ffffff] py-[84px]">
-      <div className="mx-auto w-full max-w-site shell-px pb-10 lg:pb-12">
-        <div className="max-w-4xl">
+    <section className="bg-[#ffffff] section-y-cards">
+      <div className="mx-auto w-full max-w-site shell-px">
+        <div className="max-w-4xl section-lead">
           <p className="section-kicker">LANÇAMENTOS</p>
-          <h2 className="mt-6 font-display text-5xl font-light leading-[0.96] text-ink md:text-6xl">
-            O que chegou para mudar o seu cabelo
+          <h2 className="mt-4 font-display text-[28px] font-light leading-[1.2] text-ink md:text-6xl md:leading-[0.96]">
+            O que muda no seu cabelo
+            <br />
+            começa com <em className="italic">um novo gesto</em>
           </h2>
-          <p className="mt-6 max-w-2xl text-base font-light leading-[1.75] text-ink/54 md:text-[1.0625rem]">
-            Novidades no ritual — um gesto para preparar o fio, outro para revelar o brilho.
+          <p className="mt-4 max-w-2xl text-[16px] font-light leading-[1.5] text-ink/54 md:text-[1.0625rem] md:leading-[1.75]">
+            No ritual, cada gesto prepara o fio. O resultado aparece no brilho.
           </p>
         </div>
       </div>
@@ -1383,7 +1369,7 @@ export function LaunchesSection({ items }) {
       <div className="mx-auto w-full max-w-site shell-px pb-0 lg:hidden">
         <div className="space-y-12">
           {launchEditorialItems.map((item, index) => (
-            <article key={item.name} className="space-y-8 sm:space-y-10">
+            <article key={item.name} className="space-y-4 sm:space-y-5">
               <div className={item.mobileShell}>
                 <div className={item.overlayClass} aria-hidden />
                 <img
@@ -1419,14 +1405,14 @@ export function LaunchesSection({ items }) {
         </div>
       </div>
 
-      <div className="relative left-1/2 hidden w-screen -translate-x-1/2 pt-6 lg:block lg:pt-10">
+      <div className="relative left-1/2 hidden w-screen -translate-x-1/2 mt-6 lg:mt-8 lg:block">
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-10 xl:gap-12">
           {launchEditorialItems.map((item, index) => (
             <div
               key={item.name}
               className={cn(
                 "flex w-full flex-col px-6 pb-12 sm:px-10 lg:px-12 lg:pb-14 xl:px-16",
-                index === 0 ? "items-start" : "items-end",
+                index === 0 ? "items-center" : "items-center",
               )}
             >
               <LaunchProductBlock
@@ -1470,19 +1456,19 @@ export function RoutineSection({ steps }) {
   const currentVisual = visualStates[activeStep] ?? visualStates[0];
 
   return (
-    <section id="rotina" className="bg-white py-[84px]">
+    <section id="rotina" className="bg-white section-y">
       <div className="mx-auto w-full max-w-site shell-px">
-        <div className="lg:hidden">
+        <div className="lg:hidden section-lead">
           <p className="section-kicker">O método Ybera</p>
-          <h2 className="mt-3 font-display text-5xl leading-[0.94] text-ink">
-            O ritual por trás do resultado
+          <h2 className="mt-4 font-display text-[28px] leading-[1.2] text-ink lg:text-5xl lg:leading-[0.94]">
+            O que sustenta o <em className="italic">resultado</em>.
           </h2>
-          <p className="mt-4 max-w-xl text-base leading-7 text-ink/66">
-            O resultado começa no primeiro uso e se mantém no que você faz depois.
+          <p className="mt-4 max-w-xl text-[16px] leading-[1.5] text-ink/66 lg:text-base lg:leading-7">
+            Começa no primeiro uso. Continua no que você faz depois.
           </p>
         </div>
 
-        <div className="mt-6 grid gap-8 lg:mt-0 lg:grid-cols-[0.88fr_1.12fr] lg:items-start xl:gap-20">
+        <div className="mt-0 grid gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-start xl:gap-20">
           <div className="order-1 lg:sticky lg:top-28">
             <article className="relative overflow-hidden bg-[#ebe4dc]">
               <div className="relative h-[18rem] overflow-hidden sm:min-h-[36rem] lg:min-h-[44rem] xl:min-h-[48rem]">
@@ -1504,7 +1490,7 @@ export function RoutineSection({ steps }) {
                   className={`absolute inset-0 transition duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${currentVisual.overlayClass}`}
                 />
                 <div className="absolute left-6 top-6 md:left-8 md:top-8">
-                  <p className="text-[10px] uppercase tracking-[0.24em] text-white/52">
+                  <p className="text-[13px] uppercase leading-[1.4] tracking-[0.24em] text-white/52 md:text-[10px] md:leading-normal">
                     {currentVisual.label}
                   </p>
                 </div>
@@ -1513,15 +1499,19 @@ export function RoutineSection({ steps }) {
           </div>
 
           <div className="order-2">
-            <div className="hidden lg:block">
+            <div className="hidden lg:block section-lead">
               <SectionHeading
                 eyebrow="O método Ybera"
-                title="O ritual por trás do resultado"
-                description="O resultado começa no primeiro uso e se mantém no que você faz depois."
+                title={
+                  <>
+                    O que sustenta o <em className="italic">resultado</em>.
+                  </>
+                }
+                description="Começa no primeiro uso. Continua no que você faz depois."
               />
             </div>
 
-            <div className="mt-6 divide-y divide-black/8 border-y border-black/8 lg:mt-12">
+            <div className="mt-0 divide-y divide-black/8 border-y border-black/8">
               {steps.map((step, index) => {
                 const isActive = activeStep === index;
 
@@ -1545,13 +1535,13 @@ export function RoutineSection({ steps }) {
                     </p>
                     <div className="max-w-xl">
                       <h3
-                        className={`font-display text-3xl leading-none transition-colors duration-300 md:text-4xl ${
+                        className={`font-display text-[22px] leading-[1.3] transition-colors duration-300 md:text-3xl md:leading-none lg:text-4xl ${
                           isActive ? "text-ink" : "text-ink/84"
                         }`}
                       >
                         {step.title}
                       </h3>
-                      <p className="mt-2 text-sm leading-7 text-ink/66 md:text-base">
+                      <p className="mt-2 text-[15px] leading-[1.6] text-ink/66 md:text-sm md:leading-7 lg:text-base">
                         {step.description}
                       </p>
                     </div>
@@ -1566,280 +1556,214 @@ export function RoutineSection({ steps }) {
   );
 }
 
-export function TestimonialsSection({ items }) {
-  return (
-    <section id="depoimentos" className="bg-white py-[84px]">
-      <div className="mx-auto w-full max-w-site shell-px">
-        <div className="max-w-3xl">
-          <p className="section-kicker text-ink/48 before:bg-ink/24">Experiência real</p>
-          <h2 className="mt-5 font-display text-5xl leading-none text-[#1A1A1A] md:text-6xl">
-            Quem usa, sente a diferença.
-          </h2>
-          <p className="mt-6 text-base leading-8 text-[#666] md:text-lg">
-            O resultado aparece no uso — e permanece depois.
-          </p>
-        </div>
+/** Prova social em carrossel editorial: 1 card ativo + cards secundários. */
+export function SocialProofEditorialSection({ stories = [] }) {
+  const AUTO_ROTATE_MS = 5000;
+  const list = React.useMemo(
+    () => stories.filter((s) => s && s.image && s.quote).slice(0, 4),
+    [stories],
+  );
+  const [order, setOrder] = React.useState(() => list.map((_, index) => index));
+  const [isPaused, setIsPaused] = React.useState(false);
+  const [isAnimating, setIsAnimating] = React.useState(false);
+  const [isContentVisible, setIsContentVisible] = React.useState(true);
+  const touchStartXRef = React.useRef(null);
+  const transitionTimerRef = React.useRef(null);
 
-        <div className="mt-10 md:hidden">
-          <div className="hide-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-1">
-            {items.map((item) => (
+  React.useEffect(() => {
+    setOrder(list.map((_, index) => index));
+  }, [list.length]);
+
+  const transitionToOrder = React.useCallback((reorderFn) => {
+    if (list.length <= 1 || isAnimating) return;
+    window.clearTimeout(transitionTimerRef.current);
+    setIsAnimating(true);
+    setIsContentVisible(false);
+    transitionTimerRef.current = window.setTimeout(() => {
+      setOrder(reorderFn);
+      setIsContentVisible(true);
+      setIsAnimating(false);
+    }, 360);
+  }, [isAnimating, list.length]);
+
+  const goNext = React.useCallback(() => {
+    transitionToOrder((prev) => (prev.length > 1 ? [...prev.slice(1), prev[0]] : prev));
+  }, [transitionToOrder]);
+
+  const goPrev = React.useCallback(() => {
+    transitionToOrder((prev) => (prev.length > 1 ? [prev[prev.length - 1], ...prev.slice(0, -1)] : prev));
+  }, [transitionToOrder]);
+
+  React.useEffect(() => {
+    if (list.length <= 1 || isPaused || isAnimating || !isContentVisible) return undefined;
+    const id = window.setTimeout(goNext, AUTO_ROTATE_MS);
+    return () => window.clearTimeout(id);
+  }, [goNext, isAnimating, isContentVisible, isPaused, list.length]);
+
+  const handleTouchStart = (event) => {
+    touchStartXRef.current = event.touches[0]?.clientX ?? null;
+  };
+
+  const handleTouchEnd = (event) => {
+    if (touchStartXRef.current == null) return;
+    const endX = event.changedTouches[0]?.clientX ?? touchStartXRef.current;
+    const deltaX = touchStartXRef.current - endX;
+    touchStartXRef.current = null;
+    if (Math.abs(deltaX) < 36) return;
+    if (deltaX > 0) goNext();
+    else goPrev();
+  };
+
+  React.useEffect(() => {
+    return () => {
+      window.clearTimeout(transitionTimerRef.current);
+    };
+  }, []);
+
+  if (!list.length) return null;
+
+  const active = list[order[0]];
+  const compactCards = order.slice(1).map((sourceIndex) => list[sourceIndex]);
+
+  const activeMeta = [active.profession || active.type, active.city || active.location].filter(Boolean).join(" · ");
+
+  return (
+    <section
+      id="historias-resultado"
+      className="overflow-x-hidden bg-[#f7f5f2] section-y text-ink"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocusCapture={() => setIsPaused(true)}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setIsPaused(false);
+      }}
+    >
+      <div className="mx-auto w-full max-w-site shell-px">
+        <header className="max-w-2xl pb-6 md:pb-10">
+          <p className="section-kicker text-ink/48 before:bg-ink/24">Prova social</p>
+          <h2 className="mt-4 font-display text-[28px] font-light leading-[1.2] tracking-[-0.012em] text-[#12100f] md:text-[clamp(1.85rem,3.2vw,2.45rem)] md:leading-[1.08]">
+            Resultados que se <em className="italic">comprovam</em>.
+          </h2>
+        </header>
+
+        {/* Mobile: um card por vez, largura editorial, swipe + autoplay */}
+        <div className="md:hidden">
+          <div
+            className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 overflow-x-hidden"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
+            <div className="flex justify-center px-4">
               <article
-                key={`mobile-${item.author}`}
-                className="w-[86vw] shrink-0 snap-start py-2"
+                key={`social-mobile-${order[0]}-${active.name}`}
+                className="relative aspect-[4/5] w-[calc(100vw-32px)] max-w-full min-h-[17.5rem] overflow-hidden rounded-[8px] bg-[#e8e2d9]"
               >
-                <p className="font-display text-5xl leading-none text-[#b9b3ad]">“</p>
-                <p className="mt-3 font-display text-[1.55rem] leading-[1.35] text-[#1A1A1A]">
-                  {item.quote}
-                </p>
-                <div className="mt-6 h-px w-full bg-black/10" />
-                <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.2em] text-[#888]">
-                  {item.author}{item.location ? ` · ${item.location}` : ""}
-                </p>
+                <img
+                  src={active.image}
+                  alt={`Retrato de ${active.name}`}
+                  className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700 ease-in-out ${isContentVisible ? "opacity-100" : "opacity-0"}`}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div
+                  className={`pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(10,8,7,0.08)_0%,rgba(10,8,7,0.28)_48%,rgba(10,8,7,0.78)_100%)] transition-opacity duration-700 ease-in-out ${isContentVisible ? "opacity-100" : "opacity-0"}`}
+                  aria-hidden
+                />
+                <div
+                  className={`absolute inset-x-0 bottom-0 z-[1] p-5 transition-[opacity,transform] duration-700 ease-in-out sm:p-6 ${isContentVisible ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"}`}
+                >
+                  <p className="line-clamp-6 max-w-none text-pretty font-display text-[clamp(1.5rem,5.2vw,1.75rem)] font-light leading-snug tracking-[-0.012em] text-white">
+                    &ldquo;{active.quote}&rdquo;
+                  </p>
+                  <div className="mt-4 w-10 border-t border-white/30" />
+                  <p className="mt-3 break-words font-display text-[clamp(1.25rem,4vw,1.375rem)] font-light leading-snug text-white">
+                    {active.name}
+                  </p>
+                  <p className="mt-2 max-w-full break-words text-[11px] font-medium uppercase leading-snug tracking-[0.14em] text-white/85 sm:text-[12px] sm:tracking-[0.16em]">
+                    {activeMeta}
+                  </p>
+                </div>
               </article>
-            ))}
+            </div>
           </div>
         </div>
 
-        <div className="mt-14 hidden gap-12 md:grid md:grid-cols-3 lg:gap-14">
-          {items.map((item) => (
-            <article key={item.author} className="py-2">
-              <p className="font-display text-6xl leading-none text-[#b9b3ad]">“</p>
-              <p className="mt-4 font-display text-[2rem] leading-[1.32] text-[#1A1A1A] lg:text-[2.15rem]">
-                {item.quote}
-              </p>
-              <div className="mt-8 h-px w-full bg-black/10" />
-              <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.2em] text-[#888]">
-                {item.author}{item.location ? ` · ${item.location}` : ""}
-              </p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export function RealStoriesSection({ items }) {
-  const railRef = React.useRef(null);
-  const storySnapTimerRef = React.useRef(null);
-  const storyAutoplayRef = React.useRef(null);
-  const [activeStoryIndex, setActiveStoryIndex] = React.useState(0);
-  const [isStoryInteracting, setIsStoryInteracting] = React.useState(false);
-
-  const scrollByCard = React.useCallback((direction) => {
-    const container = railRef.current;
-
-    if (!container) {
-      return;
-    }
-
-    const firstCard = container.querySelector("[data-story-card]");
-
-    if (!firstCard) {
-      return;
-    }
-
-    const cardWidth = firstCard.getBoundingClientRect().width;
-    const styles = window.getComputedStyle(container.firstElementChild);
-    const gap = Number.parseFloat(styles.columnGap || styles.gap || "0") || 0;
-
-    container.scrollBy({
-      left: direction * (cardWidth + gap),
-      behavior: "smooth",
-    });
-  }, []);
-
-  const getStoryMetrics = React.useCallback(() => {
-    const container = railRef.current;
-
-    if (!container) {
-      return null;
-    }
-
-    const cards = Array.from(container.querySelectorAll("[data-story-card]"));
-
-    if (!cards.length) {
-      return null;
-    }
-
-    const styles = window.getComputedStyle(container.firstElementChild);
-    const gap = Number.parseFloat(styles.columnGap || styles.gap || "0") || 0;
-    const cardWidth = cards[0].getBoundingClientRect().width;
-    const step = cardWidth + gap;
-    const nearestIndex = Math.max(
-      0,
-      Math.min(cards.length - 1, Math.round(container.scrollLeft / step)),
-    );
-
-    return { container, cards, step, nearestIndex };
-  }, []);
-
-  const scrollToStoryIndex = React.useCallback((index, behavior = "smooth") => {
-    const metrics = getStoryMetrics();
-
-    if (!metrics) {
-      return;
-    }
-
-    const boundedIndex = Math.max(0, Math.min(metrics.cards.length - 1, index));
-    metrics.container.scrollTo({
-      left: boundedIndex * metrics.step,
-      behavior,
-    });
-    setActiveStoryIndex(boundedIndex);
-  }, [getStoryMetrics]);
-
-  const snapToNearestStory = React.useCallback(() => {
-    const metrics = getStoryMetrics();
-
-    if (!metrics) {
-      return;
-    }
-
-    scrollToStoryIndex(metrics.nearestIndex, "smooth");
-  }, [getStoryMetrics, scrollToStoryIndex]);
-
-  const handleStoryScroll = React.useCallback(() => {
-    const metrics = getStoryMetrics();
-
-    if (!metrics) {
-      return;
-    }
-
-    setActiveStoryIndex(metrics.nearestIndex);
-    window.clearTimeout(storySnapTimerRef.current);
-    storySnapTimerRef.current = window.setTimeout(() => {
-      snapToNearestStory();
-    }, 140);
-  }, [getStoryMetrics, snapToNearestStory]);
-
-  React.useEffect(() => {
-    if (typeof window === "undefined") {
-      return undefined;
-    }
-
-    const container = railRef.current;
-
-    if (!container) {
-      return undefined;
-    }
-
-    const setInitial = () => {
-      const metrics = getStoryMetrics();
-      if (!metrics) {
-        return;
-      }
-      setActiveStoryIndex(metrics.nearestIndex);
-    };
-
-    setInitial();
-    window.addEventListener("resize", setInitial);
-    return () => {
-      window.removeEventListener("resize", setInitial);
-      window.clearTimeout(storySnapTimerRef.current);
-    };
-  }, [getStoryMetrics]);
-
-  React.useEffect(() => {
-    if (typeof window === "undefined" || window.innerWidth >= 768) {
-      return undefined;
-    }
-
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (mediaQuery.matches || isStoryInteracting || items.length <= 1) {
-      return undefined;
-    }
-
-    storyAutoplayRef.current = window.setInterval(() => {
-      setActiveStoryIndex((current) => {
-        const nextIndex = (current + 1) % items.length;
-        scrollToStoryIndex(nextIndex, "smooth");
-        return nextIndex;
-      });
-    }, 5200);
-
-    return () => {
-      window.clearInterval(storyAutoplayRef.current);
-    };
-  }, [isStoryInteracting, items.length, scrollToStoryIndex]);
-
-  return (
-    <section className="bg-[#FFFFFF] py-[84px]">
-      <div className="mx-auto w-full max-w-site shell-px">
-        <div className="max-w-3xl">
-          <SectionHeading
-            eyebrow="Histórias reais"
-            title="O cuidado transforma mais do que o cabelo."
-            description="Histórias reais de quem transformou a rotina, a renda e a própria confiança."
-          />
-        </div>
-      </div>
-
-      <div className="relative left-1/2 w-screen -translate-x-1/2 bg-[#FFFFFF] px-0">
-        <div className="absolute inset-y-0 left-0 z-[2] hidden items-center pl-6 lg:flex xl:pl-8">
-          <button
-            type="button"
-            aria-label="Voltar histórias"
-            onClick={() => scrollByCard(-1)}
-            className="inline-flex h-11 w-11 items-center justify-center border border-black/10 bg-white/86 text-ink/78 transition duration-300 hover:border-black/18 hover:text-ink active:scale-[0.98]"
+        {/* Desktop: faixa original 1 + 3 */}
+        <div className="relative hidden md:block">
+          <div
+            className="relative h-[clamp(420px,45vw,520px)] w-full overflow-hidden"
+            style={{
+              "--card-gap": "clamp(1.5rem,2.2vw,2rem)",
+              "--card-w": "calc((100% - (var(--card-gap) * 3)) / 4)",
+            }}
           >
-            <span className="text-lg leading-none">←</span>
-          </button>
-        </div>
-
-        <div className="absolute inset-y-0 right-0 z-[2] hidden items-center pr-6 lg:flex xl:pr-8">
-          <button
-            type="button"
-            aria-label="Avançar histórias"
-            onClick={() => scrollByCard(1)}
-            className="inline-flex h-11 w-11 items-center justify-center border border-black/10 bg-white/86 text-ink/78 transition duration-300 hover:border-black/18 hover:text-ink active:scale-[0.98]"
-          >
-            <span className="text-lg leading-none">→</span>
-          </button>
-        </div>
-
-        <div
-          ref={railRef}
-          className="hide-scrollbar overflow-x-auto scroll-smooth bg-[#FFFFFF]"
-          onScroll={handleStoryScroll}
-          onTouchStart={() => setIsStoryInteracting(true)}
-          onTouchEnd={() => {
-            setIsStoryInteracting(false);
-            snapToNearestStory();
-          }}
-          onMouseDown={() => setIsStoryInteracting(true)}
-          onMouseUp={() => setIsStoryInteracting(false)}
-          onMouseLeave={() => setIsStoryInteracting(false)}
-        >
-          <div className="flex w-max gap-7 lg:gap-10">
-            {items.map((item, index) => (
-              <article
-                key={item.name}
-                data-story-card
-                className={`group w-[82vw] shrink-0 bg-[#F7F5F2] transition-[opacity,transform] duration-500 ease-out sm:w-[68vw] md:opacity-100 md:scale-100 lg:w-[calc((100vw-10rem)/3.1)] xl:w-[calc((100vw-14rem)/3.15)] ${
-                  activeStoryIndex === index ? "opacity-100 scale-[1.005]" : "opacity-74 scale-100"
-                }`}
-              >
-                <div className="overflow-hidden bg-[#F7F5F2]">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="h-[26rem] w-full object-cover object-center transition duration-700 group-hover:scale-[1.02] md:h-[30rem] lg:h-[33rem]"
-                  />
-                </div>
-                <div className="px-5 pb-9 pt-6 lg:px-7 lg:pb-10">
-                  <h3 className="font-display text-[2rem] leading-[0.98] text-ink md:text-[2.2rem]">
-                    {item.name}
-                  </h3>
-                  <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-[#888]">
-                    {item.location}
+            <div
+              className="flex h-full w-full items-center gap-[var(--card-gap)]"
+              style={{
+                transform: "translateX(0)",
+                transition: "transform 520ms cubic-bezier(0.22,1,0.36,1)",
+              }}
+            >
+              <article className="relative h-full w-[var(--card-w)] shrink-0 overflow-hidden rounded-[8px] bg-[#e8e2d9]">
+                <img
+                  src={active.image}
+                  alt={`Retrato de ${active.name}`}
+                  className={`h-full w-full object-cover object-center transition-opacity duration-700 ease-in-out ${isContentVisible ? "opacity-100" : "opacity-0"}`}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div
+                  className={`pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(10,8,7,0.08)_0%,rgba(10,8,7,0.24)_52%,rgba(10,8,7,0.7)_100%)] transition-opacity duration-700 ease-in-out ${isContentVisible ? "opacity-100" : "opacity-0"}`}
+                  aria-hidden
+                />
+                <div className={`absolute inset-x-0 bottom-0 p-6 lg:p-8 transition-[opacity,transform] duration-700 ease-in-out ${isContentVisible ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"}`}>
+                  <p className="line-clamp-4 max-w-[24rem] text-pretty font-display text-[1.18rem] font-light leading-[1.24] tracking-[-0.01em] text-white lg:text-[1.3rem] xl:text-[1.45rem]">
+                    &ldquo;{active.quote}&rdquo;
                   </p>
-                  <p className="mt-5 max-w-[22rem] font-display text-[20px] leading-[1.35] text-ink md:text-[24px] lg:text-[30px]">
-                    “{item.quote}”
+                  <div className="mt-4 w-12 border-t border-white/30" />
+                  <p className="mt-3 font-display text-sm font-light text-white">{active.name}</p>
+                  <p className="mt-1 text-[9px] font-medium uppercase tracking-[0.2em] text-white">
+                    {activeMeta}
                   </p>
                 </div>
               </article>
-            ))}
+
+              {compactCards.map((item, idx) => (
+                <article
+                  key={`social-compact-${item.name}-${idx}`}
+                  className="group relative flex h-[62%] w-[var(--card-w)] shrink-0 flex-col items-start overflow-hidden rounded-[8px] border border-black/[0.045] bg-[#f3f0ea] px-7 py-5 text-left opacity-[0.8] transition-[opacity,transform,background-color] duration-500 ease-out hover:bg-[#f6f3ee] hover:opacity-[0.97]"
+                >
+                  <div className="flex min-w-0 items-start gap-3.5">
+                    <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-[#e5dfd6]">
+                      <img
+                        src={item.image}
+                        alt={`Retrato de ${item.name}`}
+                        className="h-full w-full object-cover object-center transition duration-500 ease-out group-hover:scale-[1.04]"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate font-display text-[1.02rem] font-light leading-none text-ink/90 lg:text-[1.08rem]">{item.name}</p>
+                      <p className="mt-1 truncate text-[9px] font-medium uppercase tracking-[0.2em] text-ink/42">
+                        {[item.profession || item.type, item.city || item.location].filter(Boolean).join(" · ")}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-6 min-w-0">
+                    <p className="line-clamp-3 font-display text-[20px] leading-[1.2] text-ink/72">
+                      &ldquo;{item.quote}&rdquo;
+                    </p>
+                  </div>
+                  <span
+                    className="pointer-events-none absolute bottom-0 right-6 translate-y-[8%] font-display text-[6.7rem] leading-none text-ink/45"
+                    aria-hidden
+                  >
+                    ”
+                  </span>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -1849,7 +1773,7 @@ export function RealStoriesSection({ items }) {
 
 export function ProfessionalSection() {
   return (
-    <section id="profissionais" className="bg-[#0B0B0B] px-0 py-[84px] text-white">
+    <section id="profissionais" className="bg-[#0B0B0B] px-0 section-y text-white">
       <div className="mx-auto grid w-full max-w-site shell-px gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-14">
         <div className="overflow-hidden">
           <img
@@ -1863,11 +1787,13 @@ export function ProfessionalSection() {
           <p className="section-kicker text-white/55 before:bg-white/35">
             Ybera para profissionais
           </p>
-          <h2 className="mt-7 max-w-3xl font-display text-5xl leading-[0.94] text-white md:text-7xl">
-            Resultado de salão, com consistência no dia a dia.
+          <h2 className="mt-4 max-w-3xl font-display text-[28px] leading-[1.2] text-white md:text-7xl md:leading-[0.94]">
+            Resultado de salão.
+            <br />
+            Consistência no <em className="italic">dia a dia</em>.
           </h2>
-          <p className="mt-5 max-w-xl text-base leading-8 text-white/64 md:text-lg">
-            Linhas profissionais e protocolos pensados para quem precisa entregar resultado com segurança, técnica e repetição.
+          <p className="mt-4 max-w-xl text-[16px] leading-[1.5] text-white/64 md:text-lg md:leading-8">
+            Linhas profissionais pensadas para quem trabalha com técnica e repetição.
           </p>
 
           <div className="mt-6">
@@ -1879,15 +1805,15 @@ export function ProfessionalSection() {
 
           <div className="mt-12 hidden grid-cols-3 gap-6 border-y border-white/10 py-8 lg:grid">
             {[
-              ["Técnica", "Protocolos claros para aplicar com mais confiança e precisão."],
-              ["Resultado", "Um resultado que o cliente percebe no cabelo e reconhece no retorno."],
-              ["Parceria", "Uma marca que cresce junto com quem faz do cuidado o seu trabalho."],
+              ["Técnica", "Protocolos claros para aplicar com precisão."],
+              ["Resultado", "Resultado percebido no cabelo e no retorno."],
+              ["Parceria", "Uma marca que cresce com quem faz do cuidado seu trabalho."],
             ].map(([title, text]) => (
               <div key={title}>
-                <h3 className="font-display text-3xl leading-none text-white">
+                <h3 className="font-display text-[22px] leading-[1.3] text-white md:text-3xl md:leading-none">
                   {title}
                 </h3>
-                <p className="mt-3 text-sm leading-7 text-white/55">{text}</p>
+                <p className="mt-3 text-[15px] leading-[1.6] text-white/55 md:text-sm md:leading-7">{text}</p>
               </div>
             ))}
           </div>
@@ -1899,23 +1825,24 @@ export function ProfessionalSection() {
 
 export function FinalCtaSection({ cta }) {
   const titleLines = String(cta.title).split("\n");
+  const primaryHref = cta.primaryHref ?? "#produtos";
 
   return (
-    <section className="relative overflow-hidden bg-[#15110e] py-[84px] text-white">
+    <section className="relative overflow-hidden bg-[#15110e] section-y text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(255,255,255,0.06),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.02),transparent_32%)]" />
       <div className="mx-auto max-w-5xl shell-px text-center">
         <p className="section-kicker mx-auto justify-center text-white/50 before:bg-white/32">
           {cta.eyebrow}
         </p>
-        <h2 className="mx-auto mt-8 max-w-4xl font-display text-5xl leading-[0.94] md:text-7xl">
+        <h2 className="mx-auto mt-4 max-w-4xl font-display text-[28px] leading-[1.2] text-white md:text-7xl md:leading-[0.94]">
           <span className="block">{titleLines[0]}</span>
           <span className="mt-2 block italic text-white/94">{titleLines[1] ?? ""}</span>
         </h2>
-        <p className="mx-auto mt-8 max-w-2xl text-base leading-8 text-white/66 md:text-lg">
+        <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[1.5] text-white/66 md:text-lg md:leading-8">
           {cta.description}
         </p>
         <div className="mt-12 flex justify-center">
-          <a href="#produtos" className="button-editorial-dark cursor-pointer">
+          <a href={primaryHref} className="button-editorial-dark cursor-pointer">
             {cta.primary}
             <span className="text-base leading-none transition duration-300">
               →
@@ -1942,7 +1869,7 @@ export function FooterSection() {
     <footer className="bg-[#15110e] text-white">
       <div
         ref={footerRef}
-        className={`mx-auto w-full max-w-site shell-px py-[84px] transition-all duration-700 ease-out ${
+        className={`mx-auto w-full max-w-site shell-px pt-[120px] pb-[50px] transition-all duration-700 ease-out ${
           footerInView ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
         }`}
       >

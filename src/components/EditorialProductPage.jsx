@@ -27,7 +27,7 @@ export default function EditorialProductPage() {
           aria-labelledby="editorial-hero-heading"
           className="relative flex min-h-[min(92vh,52rem)] flex-col bg-[#ede6dc] pt-[calc(5.25rem+1px)] md:min-h-[min(90vh,56rem)]"
         >
-          <div className="flex flex-1 flex-col items-center justify-center px-0 pb-[84px] pt-6 md:pt-10">
+          <div className="flex flex-1 flex-col items-center justify-center px-0 pb-[120px] pt-6 md:pt-10">
             <div className="relative flex w-full max-w-4xl flex-1 items-center justify-center md:max-w-5xl">
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,rgba(255,255,255,0.35),transparent_55%)]" aria-hidden />
               <img
@@ -37,16 +37,16 @@ export default function EditorialProductPage() {
               />
             </div>
             <div className="relative z-[1] mx-auto mt-10 max-w-2xl text-center md:mt-14">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-ink/40">
+              <p className="text-[13px] font-semibold uppercase leading-[1.4] tracking-[0.26em] text-ink/40 md:text-[10px] md:leading-normal">
                 {story.meta.productName}
               </p>
               <h1
                 id="editorial-hero-heading"
-                className="mt-5 font-display text-[2.35rem] leading-[1.02] tracking-[-0.012em] text-ink md:text-6xl md:leading-[1.18]"
+                className="mx-auto mt-5 max-w-[320px] text-balance font-display text-[44px] leading-[1.1] tracking-[-0.012em] text-ink md:max-w-2xl md:text-[2.35rem] md:leading-[1.02] lg:text-6xl lg:leading-[1.18]"
               >
                 {story.hero.headline}
               </h1>
-              <p className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-ink/58 md:text-lg md:leading-8">
+              <p className="mx-auto mt-6 max-w-lg text-[16px] leading-[1.5] text-ink/58 md:text-lg md:leading-8">
                 {story.hero.subheadline}
               </p>
               <a
@@ -65,13 +65,13 @@ export default function EditorialProductPage() {
         {/* 2. Introdução */}
         <section
           id={story.introduction.id}
-          className="border-t border-black/[0.06] bg-[#f6f1ea] px-0 py-[84px]"
+          className="border-t border-black/[0.06] bg-[#f6f1ea] px-0 section-y"
         >
           <div className="mx-auto w-full max-w-site shell-px">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-ink/42">
+            <p className="text-[13px] font-semibold uppercase leading-[1.4] tracking-[0.26em] text-ink/42 md:text-[10px] md:leading-normal">
               {story.introduction.eyebrow}
             </p>
-            <h2 className="mt-6 max-w-3xl font-display text-[2.1rem] leading-[1.02] tracking-[-0.012em] text-ink md:text-5xl md:leading-[1.18]">
+            <h2 className="mt-6 max-w-3xl font-display text-[28px] leading-[1.2] tracking-[-0.012em] text-ink md:text-[2.1rem] md:leading-[1.02] lg:text-5xl lg:leading-[1.18]">
               {story.introduction.title}
             </h2>
             <ProseBlock className="mt-12 md:mt-16">
@@ -83,13 +83,13 @@ export default function EditorialProductPage() {
         </section>
 
         {/* 3. Experiência */}
-        <section className="border-t border-black/[0.06] bg-[#f0e9e0] px-0 py-[84px]">
+        <section className="border-t border-black/[0.06] bg-[#f0e9e0] px-0 section-y">
           <div className="mx-auto w-full max-w-site shell-px lg:grid lg:grid-cols-[minmax(0,0.38fr)_minmax(0,1fr)] lg:items-start lg:gap-20 xl:gap-28">
             <div className="lg:sticky lg:top-32">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-ink/42">
+              <p className="text-[13px] font-semibold uppercase leading-[1.4] tracking-[0.26em] text-ink/42 md:text-[10px] md:leading-normal">
                 {story.experience.eyebrow}
               </p>
-              <h2 className="mt-6 font-display text-[2rem] leading-[1.02] text-ink md:text-[2.65rem] md:leading-[1.18]">
+              <h2 className="mt-6 font-display text-[28px] leading-[1.2] text-ink md:text-[2.65rem] md:leading-[1.18]">
                 {story.experience.title}
               </h2>
             </div>
@@ -111,12 +111,12 @@ export default function EditorialProductPage() {
         </section>
 
         {/* 4. Benefícios */}
-        <section className="border-t border-black/[0.06] bg-[#f6f1ea] px-0 py-[84px]">
+        <section className="border-t border-black/[0.06] bg-[#f6f1ea] px-0 section-y">
           <div className="mx-auto w-full max-w-site shell-px">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-ink/42">
+            <p className="text-[13px] font-semibold uppercase leading-[1.4] tracking-[0.26em] text-ink/42 md:text-[10px] md:leading-normal">
               {story.benefits.eyebrow}
             </p>
-            <h2 className="mt-6 max-w-2xl font-display text-[2rem] leading-[1.02] text-ink md:text-5xl md:leading-[1.18]">
+            <h2 className="mt-6 max-w-2xl font-display text-[28px] leading-[1.2] text-ink md:text-[2rem] md:leading-[1.02] lg:text-5xl lg:leading-[1.18]">
               {story.benefits.title}
             </h2>
             <ul className="mx-auto mt-14 max-w-2xl space-y-8 border-l border-black/[0.08] pl-8 md:mt-20 md:space-y-10 md:pl-10">
@@ -130,13 +130,13 @@ export default function EditorialProductPage() {
         </section>
 
         {/* 5. Como funciona */}
-        <section className="border-t border-black/[0.06] bg-[#1b1815] px-0 py-[84px] text-white">
+        <section className="border-t border-black/[0.06] bg-[#1b1815] px-0 section-y text-white">
           <div className="mx-auto w-full max-w-site shell-px lg:grid lg:grid-cols-2 lg:gap-20 xl:gap-24">
             <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-white/45">
+              <p className="text-[13px] font-semibold uppercase leading-[1.4] tracking-[0.26em] text-white/45 md:text-[10px] md:leading-normal">
                 {story.howItWorks.eyebrow}
               </p>
-              <h2 className="mt-6 max-w-md font-display text-[2rem] leading-[1.02] text-white md:text-5xl md:leading-[1.18]">
+              <h2 className="mt-6 max-w-md font-display text-[28px] leading-[1.2] text-white md:text-[2rem] md:leading-[1.02] lg:text-5xl lg:leading-[1.18]">
                 {story.howItWorks.title}
               </h2>
             </div>
@@ -149,12 +149,12 @@ export default function EditorialProductPage() {
         </section>
 
         {/* 6. Como usar */}
-        <section className="border-t border-black/[0.06] bg-[#f6f1ea] px-0 py-[84px]">
+        <section className="border-t border-black/[0.06] bg-[#f6f1ea] px-0 section-y">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-ink/42">
+            <p className="text-[13px] font-semibold uppercase leading-[1.4] tracking-[0.26em] text-ink/42 md:text-[10px] md:leading-normal">
               {story.howToUse.eyebrow}
             </p>
-            <h2 className="mt-6 font-display text-[2rem] leading-[1.02] text-ink md:text-5xl md:leading-[1.18]">
+            <h2 className="mt-6 font-display text-[28px] leading-[1.2] text-ink md:text-[2rem] md:leading-[1.02] lg:text-5xl lg:leading-[1.18]">
               {story.howToUse.title}
             </h2>
           </div>
@@ -166,12 +166,12 @@ export default function EditorialProductPage() {
         </section>
 
         {/* 7. Resultados */}
-        <section className="border-t border-black/[0.06] bg-[#ede6dc] px-0 py-[84px]">
+        <section className="border-t border-black/[0.06] bg-[#ede6dc] px-0 section-y">
           <div className="mx-auto w-full max-w-site shell-px">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-ink/42">
+            <p className="text-[13px] font-semibold uppercase leading-[1.4] tracking-[0.26em] text-ink/42 md:text-[10px] md:leading-normal">
               {story.results.eyebrow}
             </p>
-            <h2 className="mt-6 max-w-2xl font-display text-[2rem] leading-[1.02] text-ink md:text-5xl md:leading-[1.18]">
+            <h2 className="mt-6 max-w-2xl font-display text-[28px] leading-[1.2] text-ink md:text-[2rem] md:leading-[1.02] lg:text-5xl lg:leading-[1.18]">
               {story.results.title}
             </h2>
             <p className="mx-auto mt-8 max-w-xl text-sm leading-7 text-ink/58 md:text-base md:leading-8">
@@ -221,9 +221,9 @@ export default function EditorialProductPage() {
         </section>
 
         {/* 8. Prova social */}
-        <section className="border-t border-black/[0.06] bg-[#f6f1ea] px-0 py-[84px]">
+        <section className="border-t border-black/[0.06] bg-[#f6f1ea] px-0 section-y">
           <div className="mx-auto w-full max-w-site shell-px">
-            <p className="text-center text-[10px] font-semibold uppercase tracking-[0.26em] text-ink/42">
+            <p className="text-center text-[13px] font-semibold uppercase leading-[1.4] tracking-[0.26em] text-ink/42 md:text-[10px] md:leading-normal">
               Quem usa, descreve
             </p>
             <div className="mt-16 grid gap-12 md:mt-20 md:grid-cols-3 md:gap-10 lg:gap-14">
@@ -247,12 +247,12 @@ export default function EditorialProductPage() {
         </section>
 
         {/* 9. Encerramento */}
-        <section className="border-t border-black/[0.06] bg-[#ede6dc] px-0 py-[84px]">
+        <section className="border-t border-black/[0.06] bg-[#ede6dc] px-0 section-y">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-ink/42">
+            <p className="text-[13px] font-semibold uppercase leading-[1.4] tracking-[0.26em] text-ink/42 md:text-[10px] md:leading-normal">
               {story.closing.eyebrow}
             </p>
-            <h2 className="mt-6 font-display text-[2.15rem] leading-[1.02] text-ink md:text-5xl md:leading-[1.18]">
+            <h2 className="mt-6 font-display text-[28px] leading-[1.2] text-ink md:text-[2.15rem] md:leading-[1.02] lg:text-5xl lg:leading-[1.18]">
               {story.closing.title}
             </h2>
             <p className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-ink/62 md:text-lg md:leading-8">

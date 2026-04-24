@@ -113,8 +113,35 @@ button {
 }
 
 @layer components {
+  /**
+   * Ritmo vertical global das sections (home + páginas internas).
+   * Mobile: menos scroll; desktop: mantém 120/120.
+   */
+  .section-y {
+    @apply pt-16 pb-10 md:pt-[120px] md:pb-[120px];
+  }
+
+  /** Seções com carrossel / muitos cards — mobile mais compacto. */
+  .section-y-cards {
+    @apply pt-12 pb-8 md:pt-[120px] md:pb-[120px];
+  }
+
+  .section-y-hero {
+    @apply pt-[80px] pb-10 md:pb-[120px];
+  }
+
+  /** Bloco de cabeçalho (eyebrow + título + subtítulo): fecha antes do conteúdo principal. */
+  .section-lead {
+    @apply pb-12 md:pb-20;
+  }
+
+  /** Espaço editorial entre o fim do lead e o próximo bloco (48px → 64px em lg). */
+  .section-inner-gap {
+    @apply mt-12 lg:mt-16;
+  }
+
   .section-kicker {
-    @apply inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-editorial text-mocha;
+    @apply inline-flex items-center gap-3 text-[13px] font-semibold uppercase leading-[1.4] tracking-editorial text-mocha md:text-xs md:leading-normal;
   }
 
   .section-kicker::before {

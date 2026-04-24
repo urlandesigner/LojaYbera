@@ -1,12 +1,11 @@
 export const heroStats = [
   {
-    id: "textura",
-    label: "TEXTURA",
-    value: "Brilho que acompanha o movimento",
-    image:
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80",
-    alt: "Retrato de estúdio com foco em cabelos lisos, alinhados e brilhantes",
-    productHref: "/produto/oleo-de-mirra-reparador",
+    id: "resultado",
+    label: "RESULTADO",
+    value: "Alinhado do início ao fim",
+    image: "/images/28.jpg.webp",
+    alt: "Shampoo Multifunção em composição de lançamento",
+    productHref: "/produto/shampoo-multifuncao-cuidados-profundos",
   },
   {
     id: "toque",
@@ -17,12 +16,13 @@ export const heroStats = [
     productHref: "/produto/oleo-de-mirra-reparador",
   },
   {
-    id: "resultado",
-    label: "RESULTADO",
-    value: "Alinhado do início ao fim",
-    image: "/images/27.jpg.webp",
-    alt: "Shampoo Multifunção em composição de lançamento",
-    productHref: "/produto/shampoo-multifuncao-cuidados-profundos",
+    id: "textura",
+    label: "TEXTURA",
+    value: "Brilho que acompanha o movimento",
+    image:
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80",
+    alt: "Retrato de estúdio com foco em cabelos lisos, alinhados e brilhantes",
+    productHref: "/produto/oleo-de-mirra-reparador",
   },
 ];
 
@@ -80,17 +80,17 @@ export const routineSteps = [
   {
     step: "01",
     title: "Preparar",
-    description: "Equilibra o fio e prepara para o que vem depois.",
+    description: "Equilibra o fio para a etapa seguinte.",
   },
   {
     step: "02",
     title: "Tratar",
-    description: "Transforma o toque, a textura e a resposta do fio.",
+    description: "Trata a fibra e melhora a textura.",
   },
   {
     step: "03",
     title: "Sustentar",
-    description: "Prolonga o brilho, o toque e o movimento.",
+    description: "Mantém brilho, toque e movimento.",
   },
 ];
 
@@ -131,6 +131,7 @@ export const productHighlights = [
 export const vitrine3Items = [
   {
     editorialImage: "/images/mirra5.jpg.webp",
+    navLabel: "Mirra",
     overlayEyebrow: "Assinatura",
     overlayTitle: "Luz contida",
     overlayBody:
@@ -145,6 +146,7 @@ export const vitrine3Items = [
   },
   {
     editorialImage: "/images/10.jpg",
+    navLabel: "Escova",
     overlayEyebrow: "Gestos essenciais",
     overlayTitle: "O alinhamento começa no gesto.",
     overlayBody:
@@ -153,12 +155,13 @@ export const vitrine3Items = [
     name: "Escova Progressiva",
     description:
       "Disciplina o fio com leveza, revelando um acabamento contínuo — sem excesso, sem peso.",
-    packshot: "/images/2.png",
+    packshot: "/images/16.png",
     price: "A partir de R$ 99,90",
     href: "#produtos",
   },
   {
     editorialImage: "/images/27.jpg.webp",
+    navLabel: "Shampoo",
     overlayEyebrow: "Ritmo",
     overlayTitle: "O primeiro gesto que importa",
     overlayBody:
@@ -167,12 +170,13 @@ export const vitrine3Items = [
     name: "Shampoo Protect Control",
     description:
       "Limpeza que respeita o ritmo do fio.\nRemove o excesso, preserva a estrutura.",
-    packshot: "/images/24.jpg.webp",
+    packshot: "/images/24.png",
     price: "A partir de R$ 107,90",
     href: "/produto/shampoo-multifuncao-cuidados-profundos",
   },
   {
-    editorialImage: "/images/32.png.webp",
+    editorialImage: "/images/45.JPG",
+    navLabel: "Máscara",
     overlayEyebrow: "Permanência",
     overlayTitle: "Textura que demora",
     overlayBody:
@@ -186,7 +190,8 @@ export const vitrine3Items = [
     href: "#produtos",
   },
   {
-    editorialImage: "/images/30.jpg.webp",
+    editorialImage: "/images/38.jpg.webp",
+    navLabel: "Soro Vello",
     overlayEyebrow: "Ar e movimento",
     overlayTitle: "Controle sem aprisionar",
     overlayBody:
@@ -195,7 +200,7 @@ export const vitrine3Items = [
     name: "Soro Vello Alfa-Lactobaby",
     description:
       "Movimento com intenção.\nControla o frizz sem interromper a leveza natural do cabelo.",
-    packshot: "/images/19.png",
+    packshot: "/images/45.png",
     price: "A partir de R$ 249,90",
     href: "#produtos",
   },
@@ -204,80 +209,144 @@ export const vitrine3Items = [
 export const productRailItems = [
   {
     tag: "Mais usado",
-    result: "Limpeza que equilibra sem ressecar",
+    result: "Equilíbrio que prepara o fio",
     productName: "Shampoo de limpeza equilibrante",
-    note: "Limpa sem pesar e deixa o fio solto para receber o próximo cuidado.",
+    note: "Uso constante no início do cuidado",
     image: "/images/16.png",
   },
   {
     tag: "Alta recorrência",
-    result: "Tratamento que muda a textura do fio",
+    result: "Tratamento que responde no toque",
     productName: "Máscara de tratamento nutritivo",
-    note: "Nutre, melhora a textura e dá corpo sem pesar o fio.",
+    note: "Aplicação recorrente para brilho e proteção",
     image: "/images/21.png",
   },
   {
     tag: "Preferido dos profissionais",
-    result: "Controle de volume sem tirar o movimento",
+    result: "Controle que mantém o movimento",
     productName: "Leave-in disciplinante",
-    note: "Ajuda a alinhar o fio e mantém a leveza ao longo do dia.",
+    note: "Cuidado contínuo para disciplina e leveza",
     image: "/images/19.png",
   },
   {
     tag: "Uso contínuo",
-    result: "Alinhamento que acompanha o seu dia",
+    result: "Alinhamento que sustenta o resultado",
     productName: "Finalizador de brilho e alinhamento",
-    note: "Sela o cuidado e prolonga um acabamento limpo e leve.",
+    note: "Uso frequente para manter o efeito ao longo do dia",
     image: "/images/18.png",
   },
+  {
+    tag: "Primeiro gesto",
+    result: "Limpeza que prepara sem retirar presença",
+    productName: "Shampoo multifuncional",
+    note: "Uso constante no início do cuidado, com ritmo leve.",
+    image: "/images/7.png",
+    href: "/produto/shampoo-multifuncao-cuidados-profundos",
+  },
+  {
+    tag: "Permanência",
+    result: "Textura que responde a cada aplicação",
+    productName: "Máscara 2 em 1 Protect Control",
+    note: "Cada uso soma camadas de cuidado e uniformidade no toque.",
+    image: "/images/15.png",
+    href: "#produtos",
+  },
+  {
+    tag: "Ao longo da semana",
+    result: "Nutrição que acompanha o ritmo do fio",
+    productName: "Tratamento nutritivo",
+    note: "Rotina estável para corpo, maciez e brilho contidos.",
+    image: "/images/20.png",
+    href: "#produtos",
+  },
+  {
+    tag: "Ritmo profundo",
+    result: "Equilíbrio antes do que vem depois",
+    productName: "Shampoo Protect Control",
+    note: "Limpeza que respeita o fio e preserva a estrutura.",
+    image: "/images/24.png",
+    href: "/catalogo",
+  },
 ];
 
-export const testimonials = [
+/**
+ * Prova social unificada (ex-testimonials + histórias com imagem).
+ * Ordem: relato principal primeiro, depois secundários por impacto.
+ */
+export const socialProofStories = [
   {
-    quote: "Primeiro vem o brilho. Depois, o cabelo fica leve de verdade.",
-    author: "Marina, 34",
-    location: "Belo Horizonte - MG",
+    name: "Renata",
+    age: 41,
+    city: "Curitiba - PR",
+    profession: "Profissional",
+    type: "Profissional",
+    location: "Curitiba · Cabeleireira autônoma",
+    quote: "Cresci com a marca no mesmo ritmo em que recuperei minha confiança.",
+    image:
+      "https://images.unsplash.com/photo-1655837804588-472faea586ad?auto=format&fit=crop&w=1400&q=80",
   },
   {
-    quote: "Parece salão. Mas funciona no dia a dia.",
-    author: "Juliana, 29",
-    location: "São Paulo - SP",
-  },
-  {
-    quote: "Faço menos. E o cabelo dura mais.",
-    author: "Renata, 41",
-    location: "Curitiba - PR",
-  },
-];
-
-export const realStories = [
-  {
-    name: "Juliana, 27",
-    location: "São Paulo - SP",
+    name: "Juliana",
+    age: 27,
+    city: "São Paulo - SP",
+    profession: "Influencer",
+    type: "Grupo de clientes",
+    location: "São Paulo · Grupo de clientes",
     quote: "Comecei com amigas. Hoje é o que me sustenta.",
     image:
       "https://images.unsplash.com/photo-1775159878152-4dfd9f184ef3?auto=format&fit=crop&w=1400&q=80",
   },
   {
-    name: "Marina, 34",
-    location: "Belo Horizonte - MG",
+    name: "Marina",
+    age: 34,
+    city: "Belo Horizonte - MG",
+    profession: "Artista",
+    type: "Salão parceiro",
+    location: "Belo Horizonte · Salão parceiro",
     quote: "Hoje eu trabalho com algo que faz sentido pra mim.",
     image:
       "https://images.unsplash.com/photo-1657546763472-5356953332a5?auto=format&fit=crop&w=1400&q=80",
   },
   {
-    name: "Aline, 31",
-    location: "Recife - PE",
+    name: "Aline",
+    age: 31,
+    city: "Recife - PE",
+    profession: "Profissional",
+    type: "Cliente",
+    location: "Recife · Rotina em casa e no salão",
     quote: "Simplificou minha rotina — e fortaleceu o que eu construo.",
     image:
       "https://images.unsplash.com/photo-1697151692231-49cd4094641e?auto=format&fit=crop&w=1400&q=80",
   },
   {
-    name: "Renata, 41",
+    name: "Marina",
+    age: 34,
+    city: "Belo Horizonte - MG",
+    profession: "Artista",
+    type: "Cliente",
+    location: "Belo Horizonte - MG",
+    quote: "Primeiro vem o brilho. Depois, o cabelo fica leve de verdade.",
+    image: "/images/frente1.png",
+  },
+  {
+    name: "Juliana",
+    age: 29,
+    city: "São Paulo - SP",
+    profession: "Influencer",
+    type: "Cliente",
+    location: "São Paulo - SP",
+    quote: "Parece salão. Mas funciona no dia a dia.",
+    image: "/images/frente2.png",
+  },
+  {
+    name: "Renata",
+    age: 41,
+    city: "Curitiba - PR",
+    profession: "Profissional",
+    type: "Profissional",
     location: "Curitiba - PR",
-    quote: "Cresci com a marca no mesmo ritmo em que recuperei minha confiança.",
-    image:
-      "https://images.unsplash.com/photo-1655837804588-472faea586ad?auto=format&fit=crop&w=1400&q=80",
+    quote: "Faço menos. E o cabelo dura mais.",
+    image: "/images/27.jpg.webp",
   },
 ];
 
@@ -286,4 +355,5 @@ export const finalCta = {
   title: "O resultado começa\nna escolha certa.",
   description: "Descubra o cuidado ideal para o seu cabelo e sinta a diferença desde o primeiro uso.",
   primary: "CONHECER PRODUTOS",
+  primaryHref: "/catalogo",
 };

@@ -5,10 +5,9 @@ import {
   heroVisuals,
   vitrine3Items,
   productRailItems,
-  realStories,
   resultsGallery,
   routineSteps,
-  testimonials,
+  socialProofStories,
 } from "./content";
 import { Vitrine3Section } from "./components/escolhas/Vitrine3Section";
 import {
@@ -20,14 +19,14 @@ import {
   ManifestoSection,
   ProductRailSection,
   ProfessionalSection,
-  RealStoriesSection,
   ResultsSection,
   RoutineSection,
   SensoryBlock,
-  TestimonialsSection,
+  SocialProofEditorialSection,
 } from "./components/HomeSections";
 import EditorialProductPage from "./components/EditorialProductPage";
 import ProductPage from "./components/ProductPage";
+import CatalogPage from "./components/CatalogPage";
 
 /** Intervalo em ms entre cada benefício ativo na rotação automática. */
 const CURATION_ROTATION_MS = 5000;
@@ -86,15 +85,17 @@ function CurationSection() {
   return (
     <div className="mx-auto w-full max-w-site shell-px">
         <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start lg:gap-14 xl:gap-20">
-          <div className="lg:sticky lg:top-28">
+          <div className="section-lead lg:sticky lg:top-28">
             <p className="section-kicker">ESCOLHA PELO RESULTADO</p>
-            <h2 className="mt-4 max-w-2xl font-display text-[2.45rem] leading-[1.18] tracking-[-0.01em] text-ink md:mt-6 md:text-7xl md:leading-[1.16]">
-              Seu cabelo não precisa de mais produtos. Precisa do cuidado certo.
+            <h2 className="mt-4 max-w-2xl font-display text-[28px] leading-[1.2] tracking-[-0.01em] text-ink md:text-7xl md:leading-[1.16]">
+              Menos produto.
+              <br />
+              Mais <em className="italic">cuidado</em>.
             </h2>
-            <p className="mt-4 max-w-lg text-base leading-7 text-ink/64 md:mt-7 md:leading-8 md:text-lg">
-              Menos excesso. Mais intenção no resultado que você vê e sente.
+            <p className="mt-4 max-w-lg text-[16px] leading-[1.5] text-ink/64 md:text-lg md:leading-8">
+              O que realmente transforma está na forma como você cuida.
             </p>
-            <div className="mt-5 md:mt-10">
+            <div className="mt-8">
               <a href="#produtos" className="button-editorial">
                 ENCONTRAR MEU CUIDADO
                 <span className="text-base leading-none">→</span>
@@ -140,7 +141,7 @@ function CurationSection() {
                   >
                     <div className="flex items-center justify-between gap-4">
                       <h3
-                        className={`font-display text-[2rem] leading-none transition-[color,font-weight,transform] duration-[230ms] ease-out motion-reduce:transform-none ${
+                        className={`font-display text-[22px] leading-[1.3] transition-[color,font-weight,transform] duration-[230ms] ease-out motion-reduce:transform-none md:text-[2rem] md:leading-none ${
                           isActive
                             ? "font-medium text-ink -translate-y-px"
                             : "font-normal text-ink/[0.56] group-hover/need:text-ink/[0.62] group-hover/need:-translate-y-px"
@@ -160,7 +161,7 @@ function CurationSection() {
                       </span>
                     </div>
                     {isActive ? (
-                      <p className="max-w-md pt-3 text-sm leading-7 text-ink/[0.88] transition-[color,opacity] duration-[230ms] ease-out">
+                      <p className="max-w-md pt-3 text-[15px] leading-[1.6] text-ink/[0.88] transition-[color,opacity] duration-[230ms] ease-out md:text-sm md:leading-7">
                         {item.text}
                       </p>
                     ) : null}
@@ -233,6 +234,10 @@ export default function App() {
     return <ProductPage />;
   }
 
+  if (pathname.startsWith("/catalogo")) {
+    return <CatalogPage />;
+  }
+
   return (
     <div className="min-h-screen bg-pearl text-ink">
       <Header />
@@ -241,7 +246,7 @@ export default function App() {
         <LaunchesSection items={productRailItems} />
         <ManifestoSection />
         <ProductRailSection items={productRailItems} />
-        <section id="curadoria" className="bg-[#f7f2ec] py-[84px]">
+        <section id="curadoria" className="bg-[#f7f2ec] section-y-cards">
           {showResultadoRealSection && <SensoryBlock />}
           <CurationSection />
         </section>
@@ -250,15 +255,7 @@ export default function App() {
         </div>
         <RoutineSection steps={routineSteps} />
         <Vitrine3Section items={vitrine3Items} />
-        <TestimonialsSection items={testimonials} />
-        <div className="bg-[#FFFFFF] px-0 py-0">
-          <div
-            className="mx-auto w-full max-w-site shell-px border-t border-black/10"
-            role="separator"
-            aria-hidden="true"
-          />
-        </div>
-        <RealStoriesSection items={realStories} />
+        <SocialProofEditorialSection stories={socialProofStories} />
         <ProfessionalSection />
         <FinalCtaSection cta={finalCta} />
         <FooterSection />

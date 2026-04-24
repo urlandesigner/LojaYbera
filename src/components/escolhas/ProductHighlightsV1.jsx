@@ -7,10 +7,10 @@ function EscolhasHeading() {
   return (
     <div className="max-w-3xl">
       <p className="section-kicker">Escolhas essenciais</p>
-      <h2 className="mt-5 font-display text-5xl leading-[1.24] tracking-[-0.01em] text-ink md:text-6xl md:leading-[1.2]">
+      <h2 className="mt-4 font-display text-[28px] leading-[1.2] tracking-[-0.01em] text-ink md:text-6xl md:leading-[1.2]">
         {editorialTitle}
       </h2>
-      <p className="mt-6 text-base leading-8 text-ink/72 md:text-lg">{editorialDescription}</p>
+      <p className="mt-4 text-[16px] leading-[1.5] text-ink/72 md:text-lg md:leading-8">{editorialDescription}</p>
     </div>
   );
 }
@@ -35,21 +35,23 @@ export function ProductHighlightsV1({ items }) {
   }
 
   return (
-    <section className="bg-pearl py-[84px]">
+    <section className="bg-pearl section-y-cards">
       <div className="mx-auto w-full max-w-site shell-px">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <EscolhasHeading />
-          <a href="#produtos" className="button-editorial hidden shrink-0 md:inline-flex">
+        <div className="section-lead">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <EscolhasHeading />
+            <a href="#produtos" className="button-editorial hidden shrink-0 md:inline-flex">
+              Ver produtos
+              <span className="text-base leading-none">→</span>
+            </a>
+          </div>
+          <a href="#produtos" className="mt-8 inline-flex md:hidden button-editorial-compact">
             Ver produtos
-            <span className="text-base leading-none">→</span>
+            <span className="text-sm leading-none">→</span>
           </a>
         </div>
-        <a href="#produtos" className="mt-6 inline-flex md:hidden button-editorial-compact">
-          Ver produtos
-          <span className="text-sm leading-none">→</span>
-        </a>
 
-        <div className="mt-12 flex min-w-0 flex-col gap-[16px] md:mt-14 lg:mt-16">
+        <div className="mt-0 flex min-w-0 flex-col gap-[16px]">
           <div className="grid min-w-0 grid-cols-1 gap-[16px] lg:grid-cols-[minmax(0,60%)_minmax(0,40%)] lg:items-start">
             <article className="group relative min-h-[16rem] w-full min-w-0 overflow-hidden bg-[#161412] sm:min-h-[17.5rem] lg:h-[360px] lg:min-h-[360px] lg:max-h-[360px]">
               <img
