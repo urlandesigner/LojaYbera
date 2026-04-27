@@ -1,4 +1,5 @@
 import React from "react";
+import EditorialProductCard from "./EditorialProductCard";
 
 function cn(...parts) {
   return parts.filter(Boolean).join(" ");
@@ -776,7 +777,7 @@ export function SensoryBlock() {
 
 export function ManifestoSection() {
   return (
-    <section className="bg-[#F6F4F2] px-0 section-y text-ink">
+    <section className="bg-[#FAF8F6] px-0 pt-16 pb-16 text-ink md:pt-[120px] md:pb-[120px]">
       <div className="mx-auto max-w-4xl shell-px text-center">
         <p className="section-kicker mx-auto justify-center text-ink/48 before:bg-ink/24">
           Manifesto
@@ -786,7 +787,7 @@ export function ManifestoSection() {
           <br />
           O brilho é o que fica.
         </h2>
-        <p className="mt-4 text-[13px] font-semibold uppercase leading-[1.4] tracking-[0.34em] text-ink/42 md:text-[11px] md:leading-normal">
+        <p className="mt-4 text-[13px] font-semibold uppercase leading-[1.4] tracking-[0.34em] text-ink/28 md:text-[11px] md:leading-normal">
           Ybera desde 2005
         </p>
       </div>
@@ -854,18 +855,18 @@ export function ResultsSection({ items }) {
     <section
       id="resultado"
       ref={sectionRef}
-      className="bg-[#0B0B0B] section-y text-white"
+      className="bg-[#0B0B0B] section-y text-white max-lg:!py-6"
       style={{ backgroundColor: "#0B0B0B", backgroundImage: "none", boxShadow: "none" }}
     >
       <div className="mx-auto w-full max-w-none shell-px">
         <div
-          className={`section-lead transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          className={`section-lead max-lg:!pb-2 md:!pb-20 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             isInView ? "translate-y-0 opacity-100 blur-0" : "translate-y-6 opacity-0 blur-[6px]"
           }`}
         >
           <div className="max-w-3xl">
             <p className="section-kicker text-white/55 before:bg-white/35">Antes e depois</p>
-            <h2 className="mt-4 font-display text-[28px] leading-[1.2] text-white md:text-6xl md:leading-none">
+            <h2 className="mt-2 font-display text-[28px] leading-[1.15] text-white max-lg:mt-2 md:mt-4 md:text-6xl md:leading-none">
               <span className="block">Você vê.</span>
               <span className="block">
                 E <em className="italic">sente</em>.
@@ -876,13 +877,14 @@ export function ResultsSection({ items }) {
       </div>
 
       <div
-        className={`mt-0 px-0 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] lg:px-0 xl:px-0 ${
+        className={`mt-0 px-0 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] max-lg:-mt-1 lg:mt-0 lg:px-0 xl:px-0 ${
           isInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
         }`}
         style={{ transitionDelay: isInView ? "80ms" : "0ms" }}
       >
-        <div className="grid gap-6 lg:grid-cols-2 lg:gap-10">
-          <article className="relative overflow-hidden">
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-10">
+          {/* Hero antes/depois — apenas desktop (lg+) */}
+          <article className="relative hidden overflow-hidden lg:block">
             <div className="relative aspect-square overflow-hidden">
               <img
                 src={items[0].beforeImage}
@@ -905,30 +907,38 @@ export function ResultsSection({ items }) {
                 <p className="max-w-none pr-0 font-display text-[28px] leading-[1.2] tracking-wide text-white/80 md:text-3xl md:leading-relaxed lg:text-4xl xl:text-[3rem]">
                   <span className="block">Resposta desde o</span>
                   <span className="block">primeiro uso.</span>
-                  </p>
-                </div>
+                </p>
               </div>
-            </article>
+            </div>
+          </article>
 
+          {/* Comparativo lado a lado — protagonista no mobile */}
           <article className="relative overflow-hidden">
-            <div className="relative aspect-square overflow-hidden p-1">
+            <div className="relative aspect-square overflow-hidden max-lg:aspect-auto max-lg:h-[clamp(26.25rem,38svh,32.5rem)] max-lg:w-full max-lg:overflow-hidden lg:aspect-square lg:h-auto lg:min-h-0 lg:p-1">
               <img
                 src={items[1].image}
                 alt={items[1].title}
-                className="absolute inset-0 h-full w-full object-cover object-center"
+                className="absolute inset-0 h-full w-full object-cover max-lg:object-[center_22%] lg:object-center"
                 style={{ transform: `translateY(${parallaxOffset * 0.7}px)` }}
               />
               <div className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-white/18" />
               <div
-                className={`absolute inset-y-[10%] left-1/2 w-px -translate-x-1/2 bg-white/40 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                className={`absolute inset-y-[10%] left-1/2 w-px -translate-x-1/2 bg-white/40 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] max-lg:inset-y-[14%] ${
                   isInView ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0"
                 }`}
               />
-              <div className="absolute inset-x-0 top-6 flex items-center justify-between px-0 lg:top-8 lg:px-0 xl:px-0">
-                <span className="text-[13px] uppercase leading-[1.4] tracking-[0.24em] text-white/58 md:text-[10px] md:leading-normal">Sem o cuidado certo</span>
-                <span className="text-[13px] uppercase leading-[1.4] tracking-[0.24em] text-white/78 md:text-[10px] md:leading-normal">Com Ybera</span>
+              <div className="absolute inset-x-0 top-3 flex items-start justify-between gap-2 px-3 max-lg:top-3 max-lg:px-3 lg:top-8 lg:items-center lg:justify-between lg:gap-0 lg:px-0 xl:px-0">
+                <span className="max-w-[46%] text-[10px] uppercase leading-[1.35] tracking-[0.18em] text-white/62 lg:max-w-none lg:text-[13px] lg:leading-[1.4] lg:tracking-[0.24em] lg:text-white/58 md:text-[10px] md:leading-normal">
+                  Sem o cuidado certo
+                </span>
+                <span className="max-w-[46%] text-right text-[10px] uppercase leading-[1.35] tracking-[0.18em] text-white/82 lg:max-w-none lg:text-[13px] lg:leading-[1.4] lg:tracking-[0.24em] lg:text-white/78 md:text-[10px] md:leading-normal">
+                  Com Ybera
+                </span>
               </div>
             </div>
+            <p className="mx-auto mt-3 block px-6 text-center font-display text-[14px] leading-snug tracking-wide text-white/62 lg:hidden">
+              Resposta desde o primeiro uso.
+            </p>
           </article>
         </div>
       </div>
@@ -941,12 +951,14 @@ export function ProductRailSection({
   eyebrow = "Cuidado em movimento",
   title = (
     <>
-      <span>
-        Os mais usados por quem busca <em className="italic">resultado real</em>.
-      </span>
+      Os mais usados por quem busca
+      <br />
+      <em className="italic">resultado real</em>.
     </>
   ),
   description = "Escolhas de quem valoriza consistência e rotina.",
+  viewAllHref = "/catalogo",
+  viewAllLabel = "Ver todos",
 }) {
   const railRef = React.useRef(null);
   const [isPaused, setIsPaused] = React.useState(false);
@@ -1149,14 +1161,27 @@ export function ProductRailSection({
   return (
     <section id="produtos" className="bg-white section-y-cards">
       <div className="mx-auto w-full max-w-site shell-px section-lead">
-        <div className="max-w-3xl">
-          <p className="section-kicker">{eyebrow}</p>
+        <div className="max-w-3xl text-left">
+          <p className="section-kicker mx-0 justify-start">{eyebrow}</p>
           <h2 className="mt-4 font-display text-[28px] leading-[1.2] text-ink md:text-6xl md:leading-[0.96]">
             {title}
           </h2>
-          <p className="mt-4 text-[16px] leading-[1.5] text-ink/68 md:text-lg md:leading-8">
+        </div>
+        <div className="mt-4 flex w-full min-w-0 flex-row flex-wrap items-center justify-between gap-x-4 gap-y-3">
+          <p className="max-w-3xl min-w-0 flex-1 text-left text-[16px] leading-[1.5] text-ink/68 md:text-lg md:leading-8">
             {description}
           </p>
+          {viewAllHref ? (
+            <a
+              href={viewAllHref}
+              className="inline-flex shrink-0 cursor-pointer items-center whitespace-nowrap border-b border-ink/20 pb-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/85 transition-opacity duration-300 ease-out hover:border-ink/40 hover:text-ink focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ink/25 focus-visible:ring-offset-2 focus-visible:ring-offset-white md:text-[11px]"
+            >
+              {viewAllLabel}
+              <span aria-hidden className="ml-1.5 text-[0.7em]">
+                →
+              </span>
+            </a>
+          ) : null}
         </div>
       </div>
 
@@ -1189,52 +1214,19 @@ export function ProductRailSection({
           onTouchStart={() => setIsPaused(true)}
           onTouchEnd={() => setIsPaused(false)}
         >
-          <div className="flex w-max gap-1 md:gap-1.5 lg:gap-2">
+          <div className="flex w-max items-stretch gap-1 md:gap-1.5 lg:gap-2">
             {loopItems.map((item, index) => (
-              <a
+              <EditorialProductCard
                 key={`${item.result ?? item.name}-${index}`}
+                railCard
+                variant="rail"
                 href={item.href ?? "/produto/oleo-de-mirra-reparador"}
-                data-rail-card
-                className="group relative flex h-[35.5rem] w-[18.25rem] shrink-0 snap-start flex-col overflow-hidden bg-[#F6F4F2] p-3 transition duration-500 hover:-translate-y-1 md:h-[37rem] md:w-[20rem] md:p-3.5 lg:h-[38rem] lg:w-[calc((100vw-0.75rem)/4)] lg:p-4 xl:h-[40rem]"
-              >
-                <div className="relative h-[25rem] shrink-0 overflow-hidden bg-[#F6F4F2] md:h-[26rem] lg:h-[27rem] xl:h-[29rem]">
-                  <span className="pointer-events-none absolute left-4 top-4 z-[2] inline-flex items-center border border-black/6 bg-white px-2.5 py-1 text-[13px] font-semibold uppercase leading-[1.4] tracking-[0.2em] text-ink md:text-[9px] md:leading-normal">
-                    {item.tag ?? "Mais vendidos"}
-                  </span>
-                  <div className="absolute inset-0 z-[1] bg-black/0 transition duration-300 group-hover:bg-black/[0.05]" />
-                  <img
-                    src={item.image}
-                    alt={item.productName ?? item.result ?? item.name}
-                    className="h-full w-full object-cover object-center transition duration-300 ease-out group-hover:scale-[0.985] group-hover:-translate-y-1"
-                  />
-                </div>
-                <div className="relative flex h-[calc(100%-25rem)] flex-1 flex-col overflow-hidden px-1 pb-1 pt-4 md:h-[calc(100%-26rem)] lg:h-[calc(100%-27rem)] lg:pb-[5.5rem] xl:h-[calc(100%-29rem)] xl:pb-[5.9rem]">
-                  <div className="relative flex-1">
-                    <div className="transition-all duration-300 ease-out lg:group-hover:translate-y-2 lg:group-hover:opacity-0">
-                      <h3 className="mt-2.5 min-h-[3.8rem] font-display text-[22px] leading-[1.3] text-ink md:text-[1.58rem] md:leading-[1.06] xl:text-[1.75rem]">
-                        {item.result ?? item.name}
-                      </h3>
-                      <p className="mt-2 text-[16px] leading-[1.5] text-ink/52 md:text-[14px] md:leading-6">
-                        {item.note ?? ""}
-                      </p>
-                    </div>
-
-                    <div className="pointer-events-none absolute inset-x-0 top-0 hidden min-h-[5.8rem] lg:block xl:min-h-[6.1rem]">
-                      <p className="translate-y-3 opacity-0 font-display text-[1.72rem] leading-[1.06] text-ink transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 xl:text-[1.85rem]">
-                        {item.note ?? ""}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="mt-6 lg:absolute lg:bottom-0 lg:left-1 lg:right-1 lg:mt-0 lg:translate-y-3 lg:pt-5 lg:opacity-0 lg:transition-all lg:duration-300 lg:ease-out lg:group-hover:translate-y-0 lg:group-hover:opacity-100">
-                    <span className="inline-flex h-[46px] w-full items-center justify-center gap-2 bg-black px-5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white transition duration-300">
-                      Ver produto
-                      <span className="text-sm leading-none transition duration-300 lg:group-hover:translate-x-0.5">
-                        →
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </a>
+                tag={item.tag ?? "Mais vendidos"}
+                image={item.image}
+                imageAlt={item.productName ?? item.result ?? item.name}
+                title={item.result ?? item.name}
+                subtitle={item.productName ?? item.name}
+              />
             ))}
           </div>
         </div>
@@ -1255,7 +1247,8 @@ const launchEditorialItems = [
     imageHoverClass: "group-hover:scale-[1.025]",
     overlayClass:
       "pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(17,13,11,0.04),rgba(17,13,11,0.16))]",
-    mobileShell: "group relative min-h-[24rem] overflow-hidden sm:min-h-[28rem]",
+    mobileShell:
+      "group relative aspect-[3/4] w-full min-w-0 overflow-hidden sm:aspect-[3/4] md:aspect-[3/4] md:min-h-[18rem]",
     desktopShell:
       "group relative min-h-[28rem] overflow-hidden sm:min-h-[34rem] lg:min-h-[40rem] xl:min-h-[46rem]",
   },
@@ -1263,6 +1256,8 @@ const launchEditorialItems = [
     name: "Óleo de Mirra Reparador",
     concept: "Um brilho que se revela no movimento.",
     functional: "Finaliza com leveza e prolonga o alinhamento ao longo do dia.",
+    /** Texto mais curto só no grid abaixo de lg (remove "ao longo do dia"). */
+    functionalMobile: "Finaliza com leveza e prolonga o alinhamento.",
     href: "/produto/oleo-de-mirra-reparador",
     cta: "Ver produto",
     image: "/images/13.png",
@@ -1270,25 +1265,28 @@ const launchEditorialItems = [
     imageHoverClass: "group-hover:scale-[1.02]",
     overlayClass:
       "pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(18,14,12,0.04),rgba(18,14,12,0.12))]",
-    mobileShell: "group relative min-h-[24rem] overflow-hidden bg-[#e8ddd2] sm:min-h-[28rem]",
+    mobileShell:
+      "group relative aspect-[3/4] w-full min-w-0 overflow-hidden bg-[#e8ddd2] sm:aspect-[3/4] md:aspect-[3/4] md:min-h-[18rem]",
     desktopShell:
       "group relative min-h-[28rem] overflow-hidden bg-[#e8ddd2] sm:min-h-[34rem] lg:min-h-[40rem] xl:min-h-[46rem]",
   },
 ];
 
-function LaunchEditorialCta({ href, label, align = "center", emphasis = "soft" }) {
+function LaunchEditorialCta({ href, label, align = "center", emphasis = "soft", compact = false }) {
   void emphasis;
+  const pt = compact ? "pt-5 sm:pt-6" : "pt-7";
   const wrap =
     align === "start"
-      ? "self-start pt-7"
+      ? cn("self-start", pt)
       : align === "end"
-        ? "self-end pt-7"
-        : "self-center pt-7";
+        ? cn("self-end", pt)
+        : cn("self-center", pt);
+  const btnClass = compact ? "button-editorial-compact no-underline" : "button-editorial no-underline";
   return (
     <div className={wrap}>
-      <a href={href} className="button-editorial no-underline">
+      <a href={href} className={btnClass}>
         <span>{label}</span>
-        <span className="text-base leading-none" aria-hidden>
+        <span className={compact ? "text-sm leading-none" : "text-base leading-none"} aria-hidden>
           →
         </span>
       </a>
@@ -1297,34 +1295,46 @@ function LaunchEditorialCta({ href, label, align = "center", emphasis = "soft" }
 }
 
 /** `columnIndex` 0 = protagonista (esquerda); 1 = direita com mais contraste e ritmo alinhado à imagem. */
-function LaunchProductBlock({ item, headingClass, columnIndex = 0 }) {
+function LaunchProductBlock({ item, headingClass, columnIndex = 0, compact = false }) {
   const isLeft = columnIndex === 0;
 
   const root = cn(
-    "flex w-full flex-col pt-1",
-    isLeft
-      ? "max-w-[min(100%,44rem)] items-center text-center lg:pt-8"
-      : "max-w-[min(100%,46rem)] items-center text-center lg:pt-8",
+    "flex w-full min-w-0 flex-col",
+    compact ? "items-center pt-0 text-center" : "pt-1",
+    !compact &&
+      (isLeft
+        ? "max-w-[min(100%,44rem)] items-center text-center lg:pt-8"
+        : "max-w-[min(100%,46rem)] items-center text-center lg:pt-8"),
   );
 
-  const title = cn(
-    "w-full text-pretty font-display leading-[1.06] tracking-[-0.02em]",
-    headingClass,
-    isLeft
-      ? "max-w-[min(100%,40rem)] sm:max-w-[min(100%,42rem)] lg:max-w-[min(100%,44rem)]"
-      : "max-w-[min(100%,39rem)] sm:max-w-[min(100%,41rem)] lg:max-w-[min(100%,43rem)]",
-  );
+  /** Mobile compact (só grid Lançamentos &lt; lg): alinhado a EditorialProductCard variant rail. */
+  const title = compact
+    ? cn(
+        "mx-auto w-full max-w-[min(100%,28ch)] text-balance text-pretty font-display text-[17px] font-semibold leading-[1.24] tracking-[-0.02em] text-ink line-clamp-2 sm:max-w-[min(100%,30ch)] md:max-w-[min(100%,31ch)]",
+      )
+    : cn(
+        "w-full text-pretty font-display tracking-[-0.02em] leading-[1.06]",
+        headingClass,
+        isLeft
+          ? "max-w-[min(100%,40rem)] sm:max-w-[min(100%,42rem)] lg:max-w-[min(100%,44rem)]"
+          : "max-w-[min(100%,39rem)] sm:max-w-[min(100%,41rem)] lg:max-w-[min(100%,43rem)]",
+      );
 
   const body = cn(
-    "mt-5 w-full sm:mt-6",
-    isLeft
-      ? "max-w-[min(100%,33rem)] sm:max-w-[min(100%,36rem)] lg:max-w-[min(100%,38rem)]"
-      : "max-w-[min(100%,32rem)] sm:max-w-[min(100%,35rem)] lg:max-w-[min(100%,37rem)]",
+    "w-full",
+    compact ? "mt-1 min-w-0 max-w-none sm:mt-1.5" : "mt-5 sm:mt-6",
+    !compact &&
+      (isLeft
+        ? "max-w-[min(100%,33rem)] sm:max-w-[min(100%,36rem)] lg:max-w-[min(100%,38rem)]"
+        : "max-w-[min(100%,32rem)] sm:max-w-[min(100%,35rem)] lg:max-w-[min(100%,37rem)]"),
+    compact && "mx-auto max-w-[min(100%,28ch)] sm:max-w-[min(100%,30ch)] md:max-w-[min(100%,31ch)]",
   );
 
   const descriptionTone = cn(
-    "text-[1rem] font-light leading-[1.7] sm:text-[1.0625rem] sm:leading-[1.72]",
-    isLeft ? "text-ink/42" : "text-[#1f1f1f]/76",
+    compact
+      ? "text-center text-[12.5px] font-light leading-[1.42] text-ink/60 sm:text-[13px] md:text-[13px]"
+      : "text-[1rem] font-light leading-[1.7] sm:text-[1.0625rem] sm:leading-[1.72]",
+    !compact && (isLeft ? "text-ink/42" : "text-[#1f1f1f]/76"),
   );
 
   const ctaAlign = "center";
@@ -1334,9 +1344,17 @@ function LaunchProductBlock({ item, headingClass, columnIndex = 0 }) {
     <div className={root}>
       <h3 className={title}>{item.name}</h3>
       <div className={body}>
-        <p className={descriptionTone}>{`${item.concept} ${item.functional}`}</p>
+        <p className={descriptionTone}>
+        {`${item.concept} ${compact && item.functionalMobile != null ? item.functionalMobile : item.functional}`}
+      </p>
       </div>
-      <LaunchEditorialCta href={item.href} label={item.cta} align={ctaAlign} emphasis={ctaEmphasis} />
+      <LaunchEditorialCta
+        href={item.href}
+        label={item.cta}
+        align={ctaAlign}
+        emphasis={ctaEmphasis}
+        compact={compact}
+      />
     </div>
   );
 }
@@ -1354,7 +1372,10 @@ export function LaunchesSection({ items }) {
     "font-normal text-[#080808] text-[2.12rem] md:text-[2.28rem] xl:text-[2.42rem]";
 
   return (
-    <section className="bg-[#ffffff] section-y-cards">
+    <section
+      id="lancamentos"
+      className="overflow-x-hidden bg-[#ffffff] section-y-cards max-md:!pb-12"
+    >
       <div className="mx-auto w-full max-w-site shell-px">
         <div className="max-w-4xl section-lead">
           <p className="section-kicker">LANÇAMENTOS</p>
@@ -1369,26 +1390,27 @@ export function LaunchesSection({ items }) {
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-site shell-px pb-0 lg:hidden">
-        <div className="space-y-12">
+      <div className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 pb-0 lg:hidden">
+        <div className="grid grid-cols-2 gap-x-0 gap-y-10 sm:gap-y-11 md:gap-y-12">
           {launchEditorialItems.map((item, index) => (
-            <article key={item.name} className="space-y-4 sm:space-y-5">
-              <div className={item.mobileShell}>
+            <article key={item.name} className="flex min-w-0 flex-col gap-3 sm:gap-4">
+              <div className={cn(item.mobileShell, "w-full")}>
                 <div className={item.overlayClass} aria-hidden />
                 <img
                   src={item.image}
                   alt={item.imageAlt}
-                  className={`h-full w-full object-cover object-center transition duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${item.imageHoverClass}`}
-              />
-            </div>
-              <div className="px-1 sm:px-2">
+                  className={`h-full w-full min-w-0 object-cover object-center transition duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${item.imageHoverClass}`}
+                />
+              </div>
+              <div className="min-w-0 px-2 sm:px-3 md:px-4">
                 <LaunchProductBlock
                   item={item}
-                  headingClass={index === 0 ? titleHeadingLeft : titleHeadingRight}
+                  headingClass=""
                   columnIndex={index}
-              />
-            </div>
-          </article>
+                  compact
+                />
+              </div>
+            </article>
           ))}
         </div>
       </div>
@@ -1444,23 +1466,23 @@ export function RoutineSection({ steps }) {
 
   const visualStates = React.useMemo(
     () => [
-    {
-      label: "Preparar",
+      {
+        label: "Preparar",
         src: "/images/costas.png",
         alt: "Cabelo em estado natural, antes do ritual de tratamento",
         overlayClass:
           "bg-[linear-gradient(180deg,rgba(14,11,9,0.08),rgba(14,11,9,0.2)_72%,rgba(14,11,9,0.34))]",
-    },
-    {
-      label: "Tratar",
+      },
+      {
+        label: "Tratar",
         src: "/images/32.png.webp",
         alt: "Textura em transformação — tratamento e resposta do fio",
         overlayClass:
           "bg-[linear-gradient(180deg,rgba(14,11,9,0.06),rgba(14,11,9,0.18)_72%,rgba(14,11,9,0.3))]",
-    },
-    {
-      label: "Sustentar",
-      src: "/images/frente1.png",
+      },
+      {
+        label: "Sustentar",
+        src: "/images/frente1.png",
         alt: "Resultado final com brilho, alinhamento e movimento",
         overlayClass:
           "bg-[linear-gradient(180deg,rgba(14,11,9,0.04),rgba(14,11,9,0.14)_68%,rgba(14,11,9,0.26))]",
@@ -1491,22 +1513,22 @@ export function RoutineSection({ steps }) {
   }, []);
 
   return (
-    <section id="rotina" className="bg-white section-y">
+    <section id="rotina" className="bg-white section-y max-lg:!pt-10 max-lg:!pb-7">
       <div className="mx-auto w-full max-w-site shell-px">
-        <div className="lg:hidden section-lead">
+        <div className="section-lead max-lg:!pb-4 lg:hidden">
           <p className="section-kicker">O método Ybera</p>
-          <h2 className="mt-4 mb-3 font-display text-[28px] leading-[1.22] tracking-[-0.02em] text-ink lg:text-5xl lg:leading-[0.94]">
+          <h2 className="mt-2.5 mb-2 font-display text-[clamp(1.5rem,4.2vw+0.65rem,1.625rem)] leading-[1.2] tracking-[-0.02em] text-ink lg:mt-4 lg:mb-3 lg:text-5xl lg:leading-[0.94]">
             O resultado não acontece por acaso.
           </h2>
-          <p className="mt-0 max-w-xl text-[16px] leading-[1.55] text-ink/[0.74] lg:text-base lg:leading-7">
+          <p className="mt-0 max-w-xl text-[0.9375rem] leading-[1.48] text-ink/[0.74] max-lg:mt-1 lg:mt-0 lg:text-base lg:leading-7">
             Ele começa no primeiro passo e se constrói na sequência.
           </p>
         </div>
 
-        <div className="mt-0 grid gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-stretch xl:gap-20">
-          <div className="order-1 lg:sticky lg:top-28 lg:h-full">
-            <article className="relative h-full overflow-hidden bg-[#ebe4dc] lg:min-h-0">
-              <div className="relative h-[18rem] overflow-hidden sm:min-h-[36rem] lg:h-full lg:min-h-[44rem] xl:min-h-[48rem]">
+        <div className="mt-0 grid gap-4 max-lg:gap-y-4 lg:grid-cols-[0.88fr_1.12fr] lg:items-stretch lg:gap-8 xl:gap-20">
+          <div className="order-1 max-lg:mt-1 lg:sticky lg:top-28 lg:mt-0 lg:h-full">
+            <article className="relative overflow-hidden bg-[#ebe4dc] max-lg:h-auto lg:h-full lg:min-h-0">
+              <div className="relative w-full shrink-0 overflow-hidden max-lg:h-56 max-lg:max-h-[42vh] sm:max-lg:h-[15.5rem] sm:max-lg:max-h-[40vh] lg:h-full lg:min-h-[44rem] lg:max-h-none xl:min-h-[48rem]">
                 {visualStates.map((visual, index) => {
                   const isActive = activeStep === index;
 
@@ -1518,7 +1540,7 @@ export function RoutineSection({ steps }) {
                       loading="eager"
                       decoding="async"
                       className={cn(
-                        "pointer-events-none absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-300 ease-in-out",
+                        "pointer-events-none absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-300 ease-in-out max-lg:object-[center_24%]",
                         isActive ? "opacity-100" : "opacity-0",
                       )}
                     />
@@ -1530,10 +1552,10 @@ export function RoutineSection({ steps }) {
                     currentVisual.overlayClass,
                   )}
                 />
-                <div className="pointer-events-none absolute left-6 top-6 md:left-8 md:top-8">
+                <div className="pointer-events-none absolute left-4 top-4 md:left-8 md:top-8">
                   <p
                     key={currentVisual.label}
-                    className="animate-routine-metodo-label-reveal text-[13px] uppercase leading-[1.4] tracking-[0.24em] text-white/52 md:text-[10px] md:leading-normal"
+                    className="animate-routine-metodo-label-reveal text-[12px] uppercase leading-[1.35] tracking-[0.2em] text-white/52 max-lg:tracking-[0.19em] md:text-[10px] md:leading-normal md:tracking-[0.24em]"
                   >
                     {currentVisual.label}
                   </p>
@@ -1554,82 +1576,77 @@ export function RoutineSection({ steps }) {
             </div>
 
             <div className="flex min-h-0 flex-1 flex-col lg:min-h-0">
-              <div
-              className="min-h-0"
-              role="tablist"
-              aria-label="Etapas do método Ybera"
-            >
-              {steps.map((step, index) => {
-                const isActive = activeStep === index;
-                const productHint = step.productHint;
+              <div className="min-h-0" role="tablist" aria-label="Etapas do método Ybera">
+                {steps.map((step, index) => {
+                  const isActive = activeStep === index;
+                  const productHint = step.productHint;
 
-                return (
-                  <article
-                    key={step.step}
-                    role="tab"
-                    aria-selected={isActive}
-                    tabIndex={0}
-                    className={cn(
-                      "relative grid cursor-pointer gap-3 py-4 pl-1 pr-1 transition-[color,opacity] duration-200 ease-out md:grid-cols-[110px_minmax(0,1fr)] md:items-start md:gap-x-4 md:px-0 md:pr-2 lg:py-5",
-                      isActive ? "opacity-100" : "opacity-[0.52]",
-                    )}
-                    onMouseEnter={() => activateStep(index)}
-                    onFocus={() => activateStep(index)}
-                    onClick={() => activateStep(index)}
-                  >
-                    <p
+                  return (
+                    <article
+                      key={step.step}
+                      role="tab"
+                      aria-selected={isActive}
+                      tabIndex={0}
                       className={cn(
-                        "font-display text-5xl leading-none transition-[color,font-weight] duration-200 ease-out md:text-6xl",
-                        isActive ? "font-medium text-[#0a0a0a]" : "font-light text-ink",
+                        "relative grid cursor-pointer gap-2 py-2 pl-1 pr-1 transition-[color,opacity] duration-200 ease-out max-lg:gap-y-1.5 max-lg:py-2 sm:max-lg:py-2.5 md:grid-cols-[110px_minmax(0,1fr)] md:items-start md:gap-x-4 md:gap-y-3 md:px-0 md:py-4 md:pr-2 lg:gap-3 lg:py-5",
+                        isActive ? "opacity-100" : "opacity-[0.52]",
                       )}
+                      onMouseEnter={() => activateStep(index)}
+                      onFocus={() => activateStep(index)}
+                      onClick={() => activateStep(index)}
                     >
-                      {step.step}
-                    </p>
-                    <div className="min-w-0 max-w-xl md:pr-1">
-                      {isActive ? (
-                        <div
-                          key={`${activeStep}-${stepRevealKey}`}
-                          className="animate-routine-metodo-step-reveal"
-                        >
-                          <h3 className="inline-flex items-center gap-3 font-display text-[22px] font-bold leading-[1.28] text-[#0a0a0a] md:text-3xl md:leading-none lg:text-4xl">
-                            <span>{step.title}</span>
-                            <span
-                              aria-hidden
-                              className="text-[0.95rem] font-normal leading-none text-[#0a0a0a]/50 motion-safe:animate-routine-method-arrow-in md:text-[1.05rem] lg:text-[1.125rem]"
-                            >
-                              →
-                            </span>
-                          </h3>
-                          <p className="mt-2 text-[16px] leading-[1.58] text-ink md:text-[15px] md:leading-7 lg:mt-2.5 lg:text-base lg:leading-relaxed">
-                        {step.description}
+                      <p
+                        className={cn(
+                          "font-display text-[clamp(1.85rem,4.6vw+0.75rem,2.35rem)] leading-[0.95] transition-[color,font-weight] duration-200 ease-out max-lg:leading-[0.92] lg:text-6xl lg:leading-none",
+                          isActive ? "font-medium text-[#0a0a0a]" : "font-light text-ink",
+                        )}
+                      >
+                        {step.step}
                       </p>
-                          {productHint ? (
-                            <p className="mt-2.5 text-xs font-medium uppercase leading-normal tracking-[0.11em] text-ink/[0.92] md:tracking-[0.12em]">
-                              {productHint}
+                      <div className="min-w-0 max-w-xl max-lg:max-w-[min(100%,36rem)] md:pr-1">
+                        {isActive ? (
+                          <div
+                            key={`${activeStep}-${stepRevealKey}`}
+                            className="animate-routine-metodo-step-reveal"
+                          >
+                            <h3 className="inline-flex max-w-full flex-wrap items-baseline gap-x-2 gap-y-0.5 font-display text-[clamp(1.125rem,2.8vw+0.55rem,1.25rem)] font-bold leading-[1.22] text-[#0a0a0a] max-lg:tracking-[-0.02em] md:max-lg:gap-x-2.5 md:max-lg:text-[clamp(1.1875rem,2vw+0.75rem,1.35rem)] lg:gap-x-3 lg:text-4xl lg:leading-none lg:tracking-normal">
+                              <span>{step.title}</span>
+                              <span
+                                aria-hidden
+                                className="text-[0.8125rem] font-normal leading-none text-[#0a0a0a]/50 motion-safe:animate-routine-method-arrow-in md:text-[1.05rem] lg:text-[1.125rem]"
+                              >
+                                →
+                              </span>
+                            </h3>
+                            <p className="mt-1.5 text-[0.9375rem] leading-[1.5] text-ink max-lg:mt-1.5 md:mt-2 md:text-[15px] md:leading-7 lg:mt-2.5 lg:text-base lg:leading-relaxed">
+                              {step.description}
                             </p>
-                          ) : null}
-                    </div>
-                      ) : (
-                        <>
-                          <h3 className="font-display text-[22px] font-normal leading-[1.28] text-ink md:text-3xl md:leading-none lg:text-4xl">
-                            {step.title}
-                          </h3>
-                          <p className="mt-2 text-[16px] leading-[1.58] text-ink md:text-[15px] md:leading-7 lg:mt-2.5 lg:text-base lg:leading-relaxed">
-                            {step.description}
-                          </p>
-                          {productHint ? (
-                            <p className="mt-2.5 text-xs font-medium uppercase leading-normal tracking-[0.11em] text-ink md:tracking-[0.12em]">
-                              {productHint}
+                            {productHint ? (
+                              <p className="mt-1.5 text-[10px] font-medium uppercase leading-snug tracking-[0.1em] text-ink/[0.92] max-lg:mt-1.5 md:mt-2.5 md:text-xs md:leading-normal md:tracking-[0.12em]">
+                                {productHint}
+                              </p>
+                            ) : null}
+                          </div>
+                        ) : (
+                          <>
+                            <h3 className="font-display text-[clamp(1.125rem,2.8vw+0.55rem,1.25rem)] font-normal leading-[1.22] text-ink max-lg:tracking-[-0.02em] md:max-lg:text-[clamp(1.1875rem,2vw+0.75rem,1.35rem)] lg:text-4xl lg:leading-none lg:tracking-normal">
+                              {step.title}
+                            </h3>
+                            <p className="mt-1.5 text-[0.9375rem] leading-[1.5] text-ink max-lg:mt-1.5 md:mt-2 md:text-[15px] md:leading-7 lg:mt-2.5 lg:text-base lg:leading-relaxed">
+                              {step.description}
                             </p>
-                          ) : null}
-                        </>
-                      )}
-        </div>
-
-              </article>
-                );
-              })}
-          </div>
+                            {productHint ? (
+                              <p className="mt-1.5 text-[10px] font-medium uppercase leading-snug tracking-[0.1em] text-ink/[0.92] max-lg:mt-1.5 md:mt-2.5 md:text-xs md:leading-normal md:tracking-[0.12em]">
+                                {productHint}
+                              </p>
+                            ) : null}
+                          </>
+                        )}
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

@@ -150,16 +150,24 @@ export function Vitrine3Section({ items = [] }) {
   const revealMotion = heroPhase === "in" && !reduceMotion;
   const rightFadeOut = heroPhase === "out";
 
-  const outgoingHero =
-    !reduceMotion && (heroPhase === "zoom" || heroPhase === "out") ? list[heroFrom] : null;
-  const incomingHero =
-    !reduceMotion && heroPhase === "in" ? list[heroTo] : null;
   /** Evita 1 frame com hero “nova” antes do layout effect iniciar o zoom. */
   const idleSlideIndex =
     heroPhase === "idle" && displayedIndexRef.current !== activeIndex
       ? displayedIndexRef.current
       : activeIndex;
   const idleHero = reduceMotion || heroPhase === "idle" ? list[idleSlideIndex] : null;
+
+  const outgoingHero =
+    !reduceMotion && (heroPhase === "zoom" || heroPhase === "out") ? list[heroFrom] : null;
+  const incomingHero =
+    !reduceMotion && heroPhase === "in" ? list[heroTo] : null;
+
+  const useDualLayerRight = !reduceMotion && safeCount > 1;
+  const showOutgoingRight = useDualLayerRight && (heroPhase === "zoom" || heroPhase === "out");
+  const showIncomingRight =
+    useDualLayerRight &&
+    (heroPhase === "zoom" || heroPhase === "out" || heroPhase === "in" || heroPhase === "idle");
+  const incomingSlideIndex = heroPhase === "idle" ? idleSlideIndex : heroTo;
 
   return (
     <section
@@ -171,9 +179,9 @@ export function Vitrine3Section({ items = [] }) {
       onFocusCapture={onSectionFocusIn}
       onBlurCapture={onSectionFocusOut}
     >
-      <div className="grid min-h-0 grid-cols-1 grid-rows-[auto_auto_auto_auto] lg:min-h-[80vh] lg:grid-cols-[55%_45%] lg:grid-rows-[minmax(0,1fr)_auto]">
-        {/* Coluna imagem 55% — mobile: altura fixa compacta; ordem 1 no grid */}
-        <div className="group/imageCol relative row-start-1 max-lg:h-[400px] max-lg:min-h-[360px] max-lg:max-h-[440px] w-full shrink-0 overflow-hidden lg:col-start-1 lg:row-start-1 lg:h-auto lg:max-h-none lg:min-h-[80vh] lg:w-full">
+      <div className="grid min-h-0 grid-cols-1 grid-rows-[auto_auto_auto_auto] lg:grid-cols-[55%_45%] lg:grid-rows-[auto_auto]">
+        {/* Coluna imagem 55% — min(80vh,900px) mínimo; h-full preenche a linha quando a coluna direita é mais alta (evita faixa vazia até ao nav) */}
+        <div className="group/imageCol relative row-start-1 h-[400px] max-lg:max-h-[440px] max-lg:min-h-[360px] w-full shrink-0 overflow-hidden lg:col-start-1 lg:row-start-1 lg:h-full lg:min-h-[min(80vh,900px)] lg:max-h-none lg:w-full">
           {/* Hero idle ou reduced motion */}
           {idleHero ? (
             <div className="absolute inset-0 z-[1]" aria-hidden={false}>
@@ -181,7 +189,7 @@ export function Vitrine3Section({ items = [] }) {
                 src={idleHero.editorialImage}
                 alt=""
                 role="presentation"
-                className="h-full min-h-0 w-full scale-100 object-cover lg:min-h-[80vh]"
+                className="h-full min-h-0 w-full scale-100 object-cover object-center lg:h-full lg:min-h-0"
                 decoding="async"
               />
               <div
@@ -207,7 +215,7 @@ export function Vitrine3Section({ items = [] }) {
                 alt=""
                 role="presentation"
                 decoding="async"
-                className="h-full min-h-0 w-full object-cover lg:min-h-[80vh]"
+                className="h-full min-h-0 w-full object-cover object-center lg:h-full lg:min-h-0"
                 style={
                   heroPhase === "zoom"
                     ? {
@@ -234,7 +242,7 @@ export function Vitrine3Section({ items = [] }) {
                 alt=""
                 role="presentation"
                 decoding="async"
-                className="h-full min-h-0 w-full object-cover motion-reduce:scale-100 motion-reduce:opacity-100 lg:min-h-[80vh]"
+                className="h-full min-h-0 w-full object-cover object-center motion-reduce:scale-100 motion-reduce:opacity-100 lg:h-full lg:min-h-0"
                 style={
                   reduceMotion
                     ? undefined
@@ -289,7 +297,7 @@ export function Vitrine3Section({ items = [] }) {
         </div>
 
       <nav
-        className="row-start-2 border-t border-ink/[0.06] bg-pearl lg:col-span-2 lg:col-start-1 lg:row-start-2"
+        className="sticky top-[4.75rem] z-40 row-start-2 border-t border-ink/[0.06] border-b border-ink/[0.04] bg-pearl shadow-[0_1px_0_rgba(0,0,0,0.05)] sm:top-[5.25rem] lg:col-span-2 lg:col-start-1 lg:row-start-2"
         aria-label="Selecionar produto na vitrine"
       >
         <div className="mx-auto flex w-full max-w-site flex-col items-stretch gap-0 py-2.5 max-lg:px-4 lg:relative lg:items-center lg:justify-center lg:py-5 lg:shell-px">
@@ -352,39 +360,41 @@ export function Vitrine3Section({ items = [] }) {
         </div>
       </nav>
 
-        {/* Coluna produto 45% — mobile: após nav (row 3); desktop: coluna direita */}
-        <div className="relative row-start-3 flex w-full min-h-0 flex-col items-center justify-center bg-[#f2efe8] px-4 py-4 sm:px-5 lg:col-start-2 lg:row-start-1 lg:min-h-[80vh] lg:w-full lg:px-14 lg:py-20 xl:px-16">
-          <div className="relative mx-auto flex w-full max-w-[460px] min-h-0 flex-col items-center justify-center px-1 sm:px-2 lg:min-h-[20rem] lg:flex-1">
-            {/* Bloco em fade-out (zoom + out) */}
-            {heroPhase === "zoom" || heroPhase === "out" ? (
-              <div
-                key={`out-${heroFrom}`}
-                className="flex w-full max-w-[460px] flex-col items-center justify-center text-center"
-                style={{
-                  opacity: rightFadeOut ? 0 : 1,
-                  transition: `opacity ${D_OUT}ms ${EASE}`,
-                }}
-              >
-                <RightProductBlock item={list[heroFrom]} revealMotion={false} />
-              </div>
-            ) : null}
+        {/* Coluna produto 45% — altura reservada + crossfade (sem colapso entre fases) */}
+        <div className="relative row-start-3 flex w-full min-h-0 flex-col items-center justify-center bg-[#f2efe8] px-4 py-4 sm:px-5 lg:col-start-2 lg:row-start-1 lg:min-h-[min(80vh,900px)] lg:w-full lg:px-14 lg:py-20 xl:px-16">
+          {!useDualLayerRight ? (
+            <div className="relative mx-auto w-full max-w-[460px] min-h-[29rem] px-1 py-1 sm:min-h-[30.5rem] sm:px-2 lg:min-h-[36rem] xl:min-h-[38rem]">
+              <RightProductBlock item={list[activeIndex]} revealMotion={false} />
+            </div>
+          ) : (
+            <div className="relative mx-auto w-full max-w-[460px] min-h-[29rem] px-1 py-1 sm:min-h-[30.5rem] sm:px-2 lg:min-h-[36rem] xl:min-h-[38rem]">
+              {showOutgoingRight ? (
+                <div
+                  key={`out-${heroFrom}`}
+                  className="absolute inset-0 z-[10] flex flex-col items-center justify-center px-1 text-center sm:px-2"
+                  style={{
+                    opacity: rightFadeOut ? 0 : 1,
+                    transition: `opacity ${D_OUT}ms ${EASE}`,
+                  }}
+                >
+                  <RightProductBlock item={list[heroFrom]} revealMotion={false} />
+                </div>
+              ) : null}
 
-            {/* Conteúdo ativo + entrada em camadas na fase "in" */}
-            {heroPhase === "in" || heroPhase === "idle" ? (
-              <div
-                key={heroPhase === "idle" ? `idle-${idleSlideIndex}` : `in-${heroTo}`}
-                className={cn(
-                  "flex w-full max-w-[460px] flex-col items-center justify-center text-center",
-                  heroPhase === "in" && !reduceMotion ? "relative z-[1]" : "relative z-[1]",
-                )}
-              >
-                <RightProductBlock
-                  item={list[heroPhase === "idle" ? idleSlideIndex : heroTo]}
-                  revealMotion={revealMotion}
-                />
-              </div>
-            ) : null}
-          </div>
+              {showIncomingRight ? (
+                <div
+                  key={`incoming-${incomingSlideIndex}`}
+                  className="absolute inset-0 z-[20] flex flex-col items-center justify-center px-1 text-center sm:px-2"
+                  style={{
+                    opacity: heroPhase === "zoom" ? 0 : 1,
+                    transition: `opacity ${D_OUT}ms ${EASE}`,
+                  }}
+                >
+                  <RightProductBlock item={list[incomingSlideIndex]} revealMotion={revealMotion} />
+                </div>
+              ) : null}
+            </div>
+          )}
         </div>
 
       <div className="row-start-4 border-t border-ink/[0.06] bg-pearl lg:hidden">
@@ -442,7 +452,7 @@ function RightProductBlock({ item, revealMotion }) {
       <div className="flex w-full max-w-[440px] flex-col items-center">
         <p
           className={cn(
-            "text-[10px] font-medium uppercase leading-[1.35] tracking-[0.2em] text-ink/40 lg:text-[13px] lg:leading-[1.4] lg:tracking-[0.26em]",
+            "min-h-[0.875rem] text-[10px] font-medium uppercase leading-[1.35] tracking-[0.2em] text-ink/40 lg:min-h-[1.25rem] lg:text-[13px] lg:leading-[1.4] lg:tracking-[0.26em]",
             revealMotion && "motion-reduce:animate-none",
           )}
           style={
@@ -469,13 +479,13 @@ function RightProductBlock({ item, revealMotion }) {
                 : undefined
             }
           >
-            <h3 className="-translate-x-1 font-display text-[1.125rem] font-light leading-[1.28] tracking-[-0.04em] text-[#0a0a0a] lg:-translate-x-2 lg:text-[2.15rem] lg:leading-[1.12]">
+            <h3 className="-translate-x-1 line-clamp-2 min-h-[2.875rem] font-display text-[1.125rem] font-light leading-[1.28] tracking-[-0.04em] text-[#0a0a0a] lg:-translate-x-2 lg:min-h-[5rem] lg:text-[2.15rem] lg:leading-[1.12]">
               {item.name}
             </h3>
           </div>
           <p
             className={cn(
-              "mt-2 max-lg:mt-1.5 whitespace-pre-line text-[14px] font-light leading-[1.48] text-[#5c5c5c] lg:mt-3 lg:text-[1rem] lg:leading-[1.48]",
+              "mt-2 max-lg:mt-1.5 line-clamp-4 min-h-[5.75rem] whitespace-pre-line text-[14px] font-light leading-[1.48] text-[#5c5c5c] lg:mt-3 lg:min-h-[7.5rem] lg:line-clamp-5 lg:text-[1rem] lg:leading-[1.48]",
               revealMotion && "motion-reduce:animate-none",
             )}
             style={
@@ -492,9 +502,12 @@ function RightProductBlock({ item, revealMotion }) {
         </div>
       </div>
 
-      <div className="mt-2.5 flex w-full justify-center lg:mt-8">
+      <div className="mt-2.5 flex h-[176px] w-full shrink-0 justify-center lg:mt-8 lg:h-[272px]">
         <div
-          className={cn("flex w-full max-w-[460px] justify-center", revealMotion && "motion-reduce:animate-none")}
+          className={cn(
+            "flex h-full w-full max-w-[460px] items-center justify-center",
+            revealMotion && "motion-reduce:animate-none",
+          )}
           style={
             revealMotion
               ? {
@@ -508,13 +521,15 @@ function RightProductBlock({ item, revealMotion }) {
             src={item.packshot}
             alt=""
             role="presentation"
-            className="max-h-[200px] w-auto max-w-full object-contain object-bottom lg:max-h-[500px]"
+            width={280}
+            height={280}
+            className="max-h-full max-w-full object-contain object-center"
             decoding="async"
           />
         </div>
       </div>
 
-      <div className="mt-2.5 flex w-full max-w-[440px] flex-col items-stretch gap-2.5 lg:mt-7 lg:max-w-[448px] lg:gap-10">
+      <div className="mt-2.5 flex w-full max-w-[440px] flex-shrink-0 flex-col items-stretch gap-2.5 lg:mt-7 lg:max-w-[448px] lg:gap-10">
         <p
           className={cn(
             "text-center text-[14px] font-normal leading-[1.45] tracking-wide text-black lg:text-[1.0625rem] lg:leading-snug",
