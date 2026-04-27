@@ -292,11 +292,11 @@ export function Vitrine3Section({ items = [] }) {
         className="row-start-2 border-t border-ink/[0.06] bg-pearl lg:col-span-2 lg:col-start-1 lg:row-start-2"
         aria-label="Selecionar produto na vitrine"
       >
-        <div className="mx-auto flex w-full max-w-site flex-col items-stretch gap-0 py-2.5 max-lg:px-4 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:py-5 lg:shell-px">
-          <div className="flex w-full min-w-0 justify-start overflow-x-auto overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] lg:flex-1 lg:justify-center lg:overflow-visible [&::-webkit-scrollbar]:hidden">
+        <div className="mx-auto flex w-full max-w-site flex-col items-stretch gap-0 py-2.5 max-lg:px-4 lg:relative lg:items-center lg:justify-center lg:py-5 lg:shell-px">
+          <div className="flex w-full min-w-0 justify-center overflow-x-auto overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] lg:justify-center lg:overflow-visible [&::-webkit-scrollbar]:hidden">
             <div
               role="tablist"
-              className="flex max-w-none min-w-min flex-nowrap items-center justify-start gap-x-1 text-center sm:gap-x-2 lg:mx-auto lg:max-w-[960px] lg:justify-center"
+              className="mx-auto flex max-w-none min-w-min flex-nowrap items-center justify-center gap-x-1 text-center sm:gap-x-2 lg:max-w-[960px]"
             >
               {list.map((item, index) => {
                 const isActive = activeIndex === index;
@@ -345,7 +345,7 @@ export function Vitrine3Section({ items = [] }) {
 
           <a
             href="/catalogo"
-            className="hidden shrink-0 cursor-pointer items-center justify-center whitespace-nowrap border-b border-[#0a0a0a]/20 pb-0.5 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0a0a0a] opacity-90 transition-opacity duration-300 ease-out hover:opacity-60 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0a0a0a]/25 focus-visible:ring-offset-2 focus-visible:ring-offset-pearl lg:inline-flex"
+            className="hidden shrink-0 cursor-pointer items-center justify-center whitespace-nowrap border-b border-[#0a0a0a]/20 pb-0.5 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0a0a0a] opacity-90 transition-opacity duration-300 ease-out hover:opacity-60 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0a0a0a]/25 focus-visible:ring-offset-2 focus-visible:ring-offset-pearl lg:absolute lg:right-0 lg:inline-flex"
           >
             Ver todo o catálogo<span aria-hidden> →</span>
           </a>

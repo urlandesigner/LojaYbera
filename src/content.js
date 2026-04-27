@@ -212,14 +212,14 @@ export const vitrine3Items = [
 export const productRailItems = [
   {
     tag: "Mais usado",
-    result: "Equilíbrio que prepara o fio",
+    result: "Limpeza equilibrada desde o primeiro uso",
     productName: "Shampoo de limpeza equilibrante",
     note: "Uso constante no início do cuidado",
     image: "/images/16.png",
   },
   {
     tag: "Alta recorrência",
-    result: "Tratamento que responde no toque",
+    result: "Tratamento nutritivo com resposta rápida",
     productName: "Máscara de tratamento nutritivo",
     note: "Aplicação recorrente para brilho e proteção",
     image: "/images/21.png",
@@ -256,7 +256,7 @@ export const productRailItems = [
   },
   {
     tag: "Ao longo da semana",
-    result: "Nutrição que acompanha o ritmo do fio",
+    result: "Nutrição contínua para brilho e maciez",
     productName: "Tratamento nutritivo",
     note: "Rotina estável para corpo, maciez e brilho contidos.",
     image: "/images/20.png",

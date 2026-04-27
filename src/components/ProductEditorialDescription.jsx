@@ -1,401 +1,186 @@
 import React from "react";
 
-/**
- * Informações técnicas — blocos editoriais em Z (imagem / texto alternados).
- * Conteúdo textual inalterado; imagens escolhidas por contexto visual.
- */
-const TECH_EDITORIAL_BLOCKS = [
+const TECH_FACTS = [
   {
     label: "Para que serve",
-    value:
-      "Reparação superficial dos fios, selagem de cutícula e acabamento com brilho controlado.",
-    image: {
-      src: "/images/mirra3.jpg.webp",
-      alt: "Textura fluida do óleo de mirra em close",
-    },
-    imageFirst: true,
+    value: "Selar a cutícula, reduzir frizz e deixar os fios mais alinhados com brilho visível.",
   },
   {
     label: "Tipo de produto",
-    value: "Óleo capilar finalizador — uso leave-in, concentrado.",
-    image: {
-      src: "/images/mirra5.jpg.webp",
-      alt: "Aplicação do óleo no cabelo",
-    },
-    imageFirst: false,
+    value: "Óleo finalizador concentrado de uso leave-in.",
   },
   {
     label: "Indicação",
-    value:
-      "Fios porosos, ressecados ou com frizz. Pós-química: seguir orientação profissional.",
-    image: {
-      src: "/images/costas.png",
-      alt: "Cabelo com movimento e resultado natural",
-    },
-    imageFirst: true,
+    value: "Ideal para fios porosos, ressecados ou com frizz. Em pós-química, usar com orientação profissional.",
   },
   {
     label: "Textura / acabamento",
-    value: "Fluido leve, absorção rápida, toque seco e brilho sem efeito oleoso.",
-    image: {
-      src: "/images/13.png",
-      alt: "Brilho e fluidez da textura do óleo",
-    },
-    imageFirst: false,
+    value: "Textura fluida, absorção rápida, toque seco e brilho sem pesar.",
   },
 ];
 
-/** 2 — Como usar */
 const HOW_STEPS = [
-  "Dispense de 2 a 5 gotas na palma das mãos, conforme o comprimento e a densidade do cabelo.",
-  "Esfregue as mãos e distribua do meio às pontas, sem acumular na raiz.",
-  "Se o couro cabeludo for oleoso, concentre nas pontas e evite a linha do nascimento.",
-  "Aplique em fios úmidos (antes do secador) ou secos, como etapa final do penteado.",
+  {
+    title: "Dose",
+    text: "Aplique de 2 a 5 gotas, conforme comprimento e volume dos fios.",
+  },
+  {
+    title: "Aquecimento",
+    text: "Aqueça o produto entre as mãos para distribuir de forma uniforme.",
+  },
+  {
+    title: "Aplicação",
+    text: "Espalhe do meio às pontas. Se a raiz for oleosa, mantenha distância do couro cabeludo.",
+  },
+  {
+    title: "Finalização",
+    text: "Finalize em fios úmidos ou secos para brilho contínuo, toque leve e menos frizz ao longo do dia.",
+  },
 ];
 
-/** 3 — Por que funciona */
-const WHY_LEDE =
-  "Óleos funcionais e filmantes leves formam uma camada fina sobre a cutícula: reduz perda de umidade, alinha o fio e aumenta o reflexo de luz — sem comprometer o movimento.";
-
-const WHY_HEADLINE = "Precisão na superfície, liberdade no gesto.";
+const HOW_VISUALS = [
+  { src: "/images/mirra1.jpg.webp", alt: "Frasco do óleo para início do ritual", label: "Dose" },
+  { src: "/images/mirra3.jpg.webp", alt: "Aquecimento do óleo nas mãos", label: "Aquecimento" },
+  { src: "/images/mirra5.jpg.webp", alt: "Aplicação do óleo no cabelo", label: "Aplicação" },
+  { src: "/images/mirra4.jpg.webp", alt: "Finalização com brilho e alinhamento", label: "Finalização" },
+];
 
 const WHY_ITEMS = [
   {
-    title: "Filme protetor fino",
-    text: "Silicones e ésteres de baixo peso molecular selam irregularidades e diminuem o atrito.",
+    title: "Filme protetor leve",
+    text: "Forma uma camada fina que reduz atrito, controla frizz e melhora o alinhamento imediato.",
   },
   {
-    title: "Mirra na formulação",
-    text: "Resinas e componentes lipofílicos associados à mirra reforçam acabamento e brilho percebido.",
+    title: "Mirra com ação cosmética",
+    text: "Os ativos ligados à mirra reforçam maciez, brilho e acabamento uniforme fio a fio.",
   },
   {
-    title: "Barreira ao stress diário",
-    text: "Apoio contra calor do secador, poluição urbana e desgaste cumulativo do fio.",
-  },
-  {
-    title: "Rendimento controlado",
-    text: "Concentração elevada: poucas gotas cobrem o comprimento com acabamento uniforme.",
+    title: "Proteção de rotina",
+    text: "Ajuda a proteger contra calor do secador, poluição e desgaste diário sem tirar leveza.",
   },
 ];
 
-/** 4 — Resultado (texto para split 50/50) */
 const RESULT_COPY = {
-  kicker: "Resultado",
-  lead:
-    "Brilho que acompanha o movimento. Toque seco, acabamento preciso — o que o espelho mostra e a mão confirma.",
-  body:
-    "O fio ganha leitura de saúde: superfície mais alinhada, reflexo mais contínuo, sensação de leveza imediata.",
+  title: "Mais brilho, menos frizz, toque leve.",
+  body: "Resultado visível desde a primeira aplicação: fios mais alinhados, com movimento natural e acabamento seco.",
 };
 
-/** 5 — Prova visual (grid) */
-const VISUAL_PROOF = [
-  { src: "/images/mirra1.jpg.webp", alt: "Óleo de Mirra Reparador Ybera" },
-  { src: "/images/mirra2.jpg.webp", alt: "Frasco em ambiente editorial" },
-  { src: "/images/mirra3.jpg.webp", alt: "Textura do óleo em close" },
-  { src: "/images/mirra4.jpg.webp", alt: "Detalhe do produto" },
-  { src: "/images/mirra5.jpg.webp", alt: "Aplicação no cabelo" },
-  { src: "/images/13.png", alt: "Textura e brilho do óleo" },
-];
+const RESULT_COPY_SECOND = {
+  title: "Leveza que permanece ao longo do dia.",
+  subtitle: "Nutrição equilibrada, com acabamento leve.",
+  body: "Ao longo da rotina, o cabelo mantém brilho contínuo, toque macio e controle do frizz com aparência natural.",
+};
 
-/** 6 — Origem */
 const STORY = {
-  kicker: "Origem",
-  title: "Mirra",
-  body:
-    "Da resina aromática aos rituais que atravessam séculos, a mirra carrega memória de cuidado. Na Ybera, esse legado encontra a precisão de um óleo reparador — para quem exige resultado visível e um gesto que permanece.",
-  image: { src: "/images/12.png", alt: "Composição editorial do produto Ybera" },
+  title: "Tradição que entrega resultado.",
+  body: "A mirra, reconhecida historicamente pelo cuidado dos fios, é aplicada aqui com tecnologia cosmética para reparar, alinhar e ampliar o brilho com performance diária.",
+  image: "/images/40.jpg",
+  alt: "Composição editorial do produto Ybera",
 };
 
-function TechZBlock({ label, value, image, imageFirst, headingId }) {
-  const rootRef = React.useRef(null);
-  const [visible, setVisible] = React.useState(false);
-
-  React.useLayoutEffect(() => {
-    if (typeof window === "undefined") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisible(true);
-    }
-  }, []);
-
-  React.useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const el = rootRef.current;
-    if (!el) return;
-
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -10% 0px" },
-    );
-
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  const mediaOrder = imageFirst ? "order-1 lg:order-1" : "order-2 lg:order-2";
-  const copyOrder = imageFirst ? "order-2 lg:order-2" : "order-1 lg:order-1";
+export default function ProductEditorialDescription() {
+  const [activeHowStep, setActiveHowStep] = React.useState(0);
 
   return (
-    <article
-      ref={rootRef}
-      className={`pdp-tech-z-row min-h-[420px] lg:min-h-[28rem] ${visible ? "pdp-tech-z-row--visible" : ""}`}
-      aria-labelledby={headingId}
-    >
-      <div className="grid min-h-[420px] grid-cols-1 items-stretch gap-10 lg:min-h-[28rem] lg:grid-cols-2 lg:gap-14 xl:gap-20">
-        <figure
-          className={`pdp-tech-z-row__media relative min-h-[280px] w-full overflow-hidden bg-[#f0ebe4] sm:min-h-[320px] lg:min-h-[420px] ${mediaOrder}`}
-        >
+    <article className="bg-white text-ink">
+      {/* 2. RESULTADO (IMAGEM FULL) */}
+      <section className="px-0">
+        <div className="relative min-h-[34rem] overflow-hidden lg:min-h-[48rem]">
           <img
-            src={image.src}
-            alt={image.alt}
-            className="h-full min-h-[280px] w-full object-cover object-center sm:min-h-[320px] lg:min-h-[420px]"
+            src="/images/mirra5.jpg.webp"
+            alt="Cabelo com movimento e brilho após uso do óleo"
+            className="absolute inset-0 h-full w-full object-cover object-center"
             loading="lazy"
             decoding="async"
           />
-        </figure>
-        <div className={`pdp-tech-z-row__copy flex flex-col justify-center ${copyOrder}`}>
-          <div className="max-w-[30rem] lg:max-w-[480px]">
-            <h3
-              id={headingId}
-              className="font-display text-[clamp(1.2rem,2.1vw,1.5rem)] font-normal leading-[1.18] tracking-[-0.02em] text-ink"
-            >
-              {label}
-            </h3>
-            <p className="mt-5 text-[15px] font-light leading-[1.75] text-ink/64 sm:text-base sm:leading-[1.78]">
-              {value}
-            </p>
-          </div>
-        </div>
-      </div>
-    </article>
-  );
-}
-
-/** Imagem lateral com zoom / deslocamento muito sutis ao scroll (evita em reduced-motion). */
-function WhySectionImage({ src, alt }) {
-  const wrapRef = React.useRef(null);
-  const imgRef = React.useRef(null);
-
-  React.useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const wrap = wrapRef.current;
-    const img = imgRef.current;
-    if (!wrap || !img) return;
-
-    let raf = 0;
-
-    const tick = () => {
-      raf = 0;
-      const rect = wrap.getBoundingClientRect();
-      const vh = window.innerHeight || 1;
-      if (rect.bottom < 0 || rect.top > vh) return;
-
-      const mid = rect.top + rect.height * 0.42;
-      const t = (vh * 0.5 - mid) / (vh + rect.height * 0.35);
-      const clamped = Math.max(-1, Math.min(1, t));
-      const translateY = clamped * 14;
-      const scale = 1 + Math.abs(clamped) * 0.035;
-
-      img.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
-    };
-
-    const onScroll = () => {
-      if (raf) return;
-      raf = window.requestAnimationFrame(() => {
-        tick();
-        raf = 0;
-      });
-    };
-
-    tick();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (raf) window.cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  return (
-    <figure ref={wrapRef} className="order-2 min-h-0 overflow-hidden bg-[#ebe6df] lg:order-1">
-      <div className="relative aspect-[3/4] min-h-[min(72vh,38rem)] overflow-hidden sm:aspect-[4/5] lg:min-h-[min(78vh,42rem)]">
-        <img
-          ref={imgRef}
-          src={src}
-          alt={alt}
-          className="h-full w-full origin-center object-cover object-center will-change-transform"
-          style={{ transform: "translate3d(0,0,0) scale(1)" }}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-    </figure>
-  );
-}
-
-/** Frases curtas que ligam um ato narrativo ao seguinte (tom editorial). */
-const NARRATIVE_BRIDGES = {
-  afterTech:
-    "Do rótulo ao gesto: a seguir, o ritual em quatro passos — direto, como no dia a dia.",
-  afterHow:
-    "Com o gesto incorporado, abre-se o racional: o que a fórmula faz pelo fio.",
-  beforeResult:
-    "Quando teoria e toque encontram o espelho, o discurso vira resultado.",
-  afterResult:
-    "A seguir, o produto em contexto — a mesma linguagem visual, em outro ritmo.",
-  beforeOrigin:
-    "Para fechar o fio narrativo: a origem que sustenta a promessa do frasco.",
-};
-
-/** Micro-transição: gradiente suave + linha + frase opcional */
-function NarrativeBridge({ quote, gradientClass }) {
-  return (
-    <div
-      className={`px-0 py-12 sm:py-14 md:py-16 ${gradientClass ?? "bg-gradient-to-b from-white via-[#faf9f7] to-[#f4f1ec]"}`}
-    >
-      <div className="mx-auto max-w-site shell-px text-center">
-        <div className="mx-auto h-px max-w-xs bg-gradient-to-r from-transparent via-black/[0.09] to-transparent sm:max-w-md" />
-        {quote ? (
-          <p className="mx-auto mt-8 max-w-lg text-[13px] font-light italic leading-relaxed text-ink/44 md:mt-10 md:text-[14px] md:leading-relaxed">
-            {quote}
-          </p>
-        ) : null}
-      </div>
-    </div>
-  );
-}
-
-export default function ProductEditorialDescription() {
-  return (
-    <article className="bg-gradient-to-b from-white via-white to-[#faf9f7] text-ink">
-      {/* 1 — Informações técnicas (editorial em Z) */}
-      <section
-        className="px-0 pt-20 pb-14 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24"
-        aria-labelledby="pdp-tech-heading"
-      >
-        <div className="mx-auto w-full max-w-site shell-px">
-          <header className="mx-auto mb-20 max-w-xl text-center lg:mx-0 lg:mb-28 lg:max-w-lg lg:text-left">
-            <p className="section-kicker mx-auto justify-center text-ink/48 before:bg-ink/24 lg:mx-0 lg:inline-flex">
-              Informações técnicas
-            </p>
-            <h2
-              id="pdp-tech-heading"
-              className="mt-5 font-display text-[clamp(1.45rem,2.5vw,1.85rem)] font-normal leading-[1.12] tracking-[-0.02em] text-ink lg:mt-6"
-            >
-              Ficha essencial
-            </h2>
-            <p className="mt-5 text-[14px] font-light leading-[1.68] text-ink/46 sm:text-[15px] sm:leading-relaxed">
-              Primeiro ato: o que o produto é — em leituras curtas, imagem e texto a caminhar juntos.
-            </p>
-          </header>
-
-          <div className="flex flex-col gap-20 lg:gap-28" role="presentation">
-            {TECH_EDITORIAL_BLOCKS.map((row, index) => (
-              <TechZBlock
-                key={row.label}
-                label={row.label}
-                value={row.value}
-                image={row.image}
-                imageFirst={row.imageFirst}
-                headingId={`pdp-tech-block-${index}`}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <NarrativeBridge quote={NARRATIVE_BRIDGES.afterTech} gradientClass="bg-gradient-to-b from-white via-[#faf9f7] to-[#F6F4F2]" />
-
-      {/* 2 — Como usar (imagem + texto) */}
-      <section
-        className="relative z-[1] -mt-10 rounded-t-[1.75rem] bg-[#F6F4F2] px-0 pb-16 pt-14 shadow-[0_-28px_56px_-32px_rgba(24,21,18,0.06)] md:-mt-14 md:rounded-t-[2.25rem] md:pb-24 md:pt-20 lg:-mt-16 lg:pb-28 lg:pt-24"
-        aria-labelledby="pdp-how-heading"
-      >
-        <div className="mx-auto w-full max-w-site shell-px lg:pr-8 xl:pr-12">
-          <div className="grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-16 xl:gap-24">
-            <figure className="order-2 min-w-0 lg:order-1">
-              <div className="aspect-[4/5] overflow-hidden bg-white shadow-[0_32px_64px_-40px_rgba(24,21,18,0.2)] sm:aspect-[5/6] lg:aspect-[4/5]">
-                <img
-                  src="/images/mirra4.jpg.webp"
-                  alt="Detalhe do frasco do óleo de mirra reparador"
-                  className="h-full w-full object-cover object-center"
-                  loading="lazy"
-                />
-              </div>
-            </figure>
-            <div className="order-1 min-w-0 lg:order-2 lg:max-w-md lg:justify-self-end xl:max-w-lg">
-              <p className="section-kicker text-ink/48 before:bg-ink/24">Como usar</p>
-              <h2
-                id="pdp-how-heading"
-                className="mt-4 font-display text-[clamp(1.4rem,2.6vw,1.85rem)] font-normal leading-[1.18] tracking-[-0.02em] text-ink lg:mt-5"
-              >
-                Quatro passos, sem rodeios.
+          <div
+            className="absolute inset-x-0 bottom-0 h-[40%]"
+            style={{
+              background: "linear-gradient(0deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 100%)",
+            }}
+            aria-hidden
+          />
+          <div className="absolute bottom-8 left-8 z-[1] right-8 sm:bottom-8 sm:left-8 sm:right-10 lg:bottom-20 lg:left-20 lg:right-auto">
+            <div className="max-w-[30rem] [text-shadow:0_2px_16px_rgba(0,0,0,0.3)]">
+              <p className="section-kicker text-white before:bg-white/55">Resultado</p>
+              <h2 className="mt-6 font-display text-[clamp(2.1rem,4.4vw,4.35rem)] leading-[0.98] tracking-[-0.025em] text-white lg:text-[40px]">
+                {RESULT_COPY.title}
               </h2>
-              <ol className="mt-10 list-none space-y-5 border-l border-black/[0.1] pl-6 sm:mt-12 sm:space-y-6 sm:pl-8">
-                {HOW_STEPS.map((step, i) => (
-                  <li key={i} className="relative">
-                    <span
-                      className="absolute -left-6 top-0.5 flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-full border border-black/[0.12] bg-white text-[10px] font-semibold tabular-nums text-ink/50 sm:-left-8"
-                      aria-hidden
-                    >
-                      {i + 1}
-                    </span>
-                    <p className="text-[15px] font-light leading-relaxed text-ink/68 sm:text-base sm:leading-relaxed">
-                      {step}
-                    </p>
-                  </li>
-                ))}
-              </ol>
+              <p className="mt-6 max-w-[34rem] text-[16px] font-light leading-[1.75] text-white sm:text-[1.07rem] sm:leading-[1.78]">
+                {RESULT_COPY.body}
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <NarrativeBridge
-        quote={NARRATIVE_BRIDGES.afterHow}
-        gradientClass="bg-gradient-to-b from-[#F6F4F2] via-[#f9f7f4] to-white"
-      />
+      {/* 3. PROVA VISUAL */}
+      <section className="bg-[#f6f3ef] px-6 py-14 sm:px-10 md:py-16 lg:px-14 lg:py-20 xl:px-20">
+        <div className="mx-auto max-w-site">
+          <header className="max-w-2xl">
+            <p className="section-kicker text-ink/48 before:bg-ink/24">Prova visual</p>
+            <h2 className="mt-5 font-display text-[clamp(1.6rem,2.4vw,2.3rem)] leading-[1.1] tracking-[-0.02em] text-ink lg:text-[40px]">
+              Diferença visível no alinhamento e no brilho.
+            </h2>
+            <p className="mt-4 text-[15px] font-light leading-[1.75] text-ink/62 sm:text-base">
+              Compare o antes e depois: menos frizz aparente, superfície mais uniforme e movimento mais limpo.
+            </p>
+          </header>
+          <div className="mt-8 grid gap-4 md:grid-cols-2 md:gap-5">
+            <figure className="relative overflow-hidden bg-[#e9e4dd]">
+              <img
+                src="/images/costas.png"
+                alt="Antes do uso do óleo reparador"
+                className="aspect-[4/5] w-full object-cover object-center"
+                loading="lazy"
+                decoding="async"
+              />
+              <span className="absolute left-4 top-4 bg-black/45 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-white">
+                Antes
+              </span>
+            </figure>
+            <figure className="relative overflow-hidden bg-[#e9e4dd]">
+              <img
+                src="/images/mirra5.jpg.webp"
+                alt="Depois do uso do óleo reparador"
+                className="aspect-[4/5] w-full object-cover object-center"
+                loading="lazy"
+                decoding="async"
+              />
+              <span className="absolute left-4 top-4 bg-black/45 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-white">
+                Depois
+              </span>
+            </figure>
+          </div>
+        </div>
+      </section>
 
-      {/* 3 — Por que funciona (imagem dominante + texto lateral) */}
-      <section
-        className="bg-white px-0 pt-20 pb-12 md:pt-28 md:pb-16 lg:pt-32 lg:pb-20"
-        aria-labelledby="pdp-why-heading"
-      >
-        <div className="mx-auto w-full max-w-site shell-px lg:pl-2 xl:pl-6">
-          <div className="grid gap-14 lg:grid-cols-[minmax(0,1.22fr)_minmax(0,0.78fr)] lg:items-start lg:gap-14 xl:gap-20">
-            <WhySectionImage
-              src="/images/mirra3.jpg.webp"
-              alt="Textura do óleo de mirra em close"
+      {/* 4. POR QUE FUNCIONA */}
+      <section className="relative z-[1] bg-white px-0">
+        <div className="grid min-h-[32rem] grid-cols-1 lg:min-h-[44rem] lg:grid-cols-[58%_42%]">
+          <figure className="min-h-[22rem] overflow-hidden lg:min-h-[44rem]">
+            <img
+              src="/images/mirra2.jpg.webp"
+              alt="Óleo de Mirra em composição editorial"
+              className="h-full w-full object-cover object-center"
+              loading="lazy"
+              decoding="async"
             />
-            <div className="order-1 min-w-0 lg:order-2 lg:sticky lg:top-[calc(var(--header-height)+40px)] lg:max-w-[420px] lg:self-start lg:translate-x-1 xl:translate-x-2">
+          </figure>
+          <div className="flex items-center bg-white px-6 py-12 sm:px-10 lg:px-12 xl:px-16">
+            <div className="max-w-[27rem]">
               <p className="section-kicker text-ink/48 before:bg-ink/24">Por que funciona</p>
-              <h2
-                id="pdp-why-heading"
-                className="mt-4 font-display text-[clamp(1.45rem,2.6vw,2rem)] font-normal leading-[1.14] tracking-[-0.02em] text-ink lg:mt-5"
-              >
-                {WHY_HEADLINE}
+              <h2 className="mt-5 font-display text-[clamp(1.9rem,2.9vw,3rem)] leading-[1.06] tracking-[-0.02em] text-ink lg:text-[40px]">
+                Tecnologia leve que trata e finaliza sem pesar.
               </h2>
-              <p className="mt-7 text-[15px] font-light leading-[1.78] text-ink/50 sm:text-base sm:leading-[1.82]">
-                {WHY_LEDE}
+              <p className="mt-6 text-[15px] font-light leading-[1.8] text-ink/58 sm:text-base">
+                A fórmula combina óleos de alta espalhabilidade com agentes de acabamento leve para selar a cutícula, reduzir perda de hidratação e melhorar o brilho sem rigidez.
               </p>
-              <div className="mt-14 flex max-w-[420px] flex-col gap-14 lg:mt-16 lg:gap-16">
+              <div className="mt-8 space-y-6">
                 {WHY_ITEMS.map((item) => (
-                  <article key={item.title} className="min-w-0">
-                    <h3 className="font-display text-[clamp(1.12rem,2vw,1.35rem)] font-normal leading-[1.2] tracking-[-0.02em] text-ink">
-                      {item.title}
-                    </h3>
-                    <p className="mt-4 text-[14px] font-light leading-[1.75] text-ink/48 sm:text-[15px] sm:leading-[1.78]">
-                      {item.text}
-                    </p>
+                  <article key={item.title}>
+                    <h3 className="font-display text-[1.18rem] leading-tight tracking-[-0.02em] text-ink">{item.title}</h3>
+                    <p className="mt-2 text-[14px] font-light leading-relaxed text-ink/58 sm:text-[15px]">{item.text}</p>
                   </article>
                 ))}
               </div>
@@ -404,114 +189,168 @@ export default function ProductEditorialDescription() {
         </div>
       </section>
 
-      <NarrativeBridge quote={NARRATIVE_BRIDGES.beforeResult} gradientClass="bg-gradient-to-b from-white via-[#faf9f7] to-white" />
+      {/* 5. COMO USAR */}
+      <section className="relative z-[1] bg-[#f6f3ef] px-0">
+        <div className="mx-auto w-full max-w-site px-6 py-12 sm:px-10 md:py-14 lg:px-14 lg:py-16 xl:px-20">
+          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch xl:gap-16">
+            <div className="order-1 lg:sticky lg:top-28 lg:h-full">
+              <article className="relative h-full overflow-hidden bg-[#ebe4dc]">
+                <div className="relative h-[18rem] overflow-hidden sm:h-[28rem] lg:h-full lg:min-h-[36rem]">
+                  {HOW_VISUALS.map((visual, index) => (
+                    <img
+                      key={visual.label}
+                      src={visual.src}
+                      alt={visual.alt}
+                      loading="lazy"
+                      decoding="async"
+                      className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-300 ease-in-out ${
+                        activeHowStep === index ? "opacity-100" : "opacity-0"
+                      }`}
+                    />
+                  ))}
+                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(14,11,9,0.06),rgba(14,11,9,0.18)_70%,rgba(14,11,9,0.3))]" />
+                </div>
+              </article>
+            </div>
 
-      {/* 4 — Resultado (split 50/50: imagem | texto) — fundo preto uniforme */}
-      <section
-        className="bg-black px-0 pb-20 pt-16 text-white md:pb-28 md:pt-20 lg:pb-32 lg:pt-24"
-        aria-labelledby="pdp-result-heading"
-      >
-        <div className="mx-auto grid min-h-0 w-full max-w-site grid-cols-1 shell-px lg:grid-cols-2 lg:gap-0">
-          <figure className="relative min-h-[18rem] overflow-hidden sm:min-h-[22rem] lg:min-h-[min(32rem,70vh)]">
-            <img
-              src="/images/mirra5.jpg.webp"
-              alt="Cabelo com movimento e brilho após o uso do óleo"
-              className="absolute inset-0 h-full w-full object-cover object-center"
-              loading="lazy"
-            />
-            <div
-              className="pointer-events-none absolute inset-0 bg-black/20 lg:bg-black/25"
-              aria-hidden
-            />
-          </figure>
-          <div className="flex flex-col justify-center px-0 py-12 sm:py-14 lg:px-12 lg:py-16 xl:px-16 xl:py-20">
-            <p className="section-kicker text-white/42 before:bg-white/22">{RESULT_COPY.kicker}</p>
-            <h2
-              id="pdp-result-heading"
-              className="mt-5 max-w-sm font-display text-[clamp(1.35rem,2.4vw,1.75rem)] font-normal leading-[1.2] tracking-[-0.02em] text-white/95 lg:mt-6"
-            >
-              {RESULT_COPY.lead}
-            </h2>
-            <p className="mt-6 max-w-md text-[15px] font-light leading-[1.75] text-white/58 sm:text-base">
-              {RESULT_COPY.body}
-            </p>
+            <div className="order-2">
+              <header className="max-w-[34rem] pb-6">
+                <p className="section-kicker text-ink/48 before:bg-ink/24">Como usar</p>
+                <h2 className="mt-5 font-display text-[clamp(1.6rem,2.4vw,2.3rem)] leading-[1.1] tracking-[-0.02em] text-ink lg:text-[40px]">
+                  Ritual simples em quatro gestos.
+                </h2>
+              </header>
+
+              <div className="min-h-0" role="tablist" aria-label="Etapas do ritual de uso">
+                {HOW_STEPS.map((step, index) => {
+                  const isActive = activeHowStep === index;
+                  return (
+                    <article
+                      key={step.title}
+                      role="tab"
+                      aria-selected={isActive}
+                      tabIndex={0}
+                      className={`grid cursor-pointer gap-3 py-4 transition-opacity duration-200 ease-out md:grid-cols-[95px_minmax(0,1fr)] md:items-start md:gap-x-4 lg:py-5 ${
+                        isActive ? "opacity-100" : "opacity-[0.55]"
+                      }`}
+                      onMouseEnter={() => setActiveHowStep(index)}
+                      onFocus={() => setActiveHowStep(index)}
+                      onClick={() => setActiveHowStep(index)}
+                    >
+                      <p className={`font-display text-5xl leading-none md:text-6xl ${isActive ? "text-[#0a0a0a]" : "text-ink/62"}`}>
+                        {String(index + 1).padStart(2, "0")}
+                      </p>
+                      <div className="min-w-0 max-w-xl">
+                        <h3 className={`font-display text-[22px] leading-[1.2] md:text-3xl lg:text-[2rem] ${isActive ? "text-[#0a0a0a]" : "text-ink"}`}>
+                          {step.title}
+                        </h3>
+                        <p className="mt-2 text-[15px] leading-[1.65] text-ink/66 md:text-[15px] md:leading-7">
+                          {step.text}
+                        </p>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <NarrativeBridge quote={NARRATIVE_BRIDGES.afterResult} gradientClass="bg-white" />
+      {/* 6. INFORMAÇÕES ESSENCIAIS */}
+      <section className="bg-white px-6 py-16 text-center sm:px-10 md:py-20 lg:px-14 lg:py-24 xl:px-20">
+        <p className="section-kicker mx-auto justify-center text-ink/48 before:bg-ink/24">Informações essenciais</p>
+        <h2 className="mt-5 font-display text-[clamp(1.6rem,2.4vw,2.3rem)] leading-[1.1] tracking-[-0.02em] text-ink lg:text-[40px]">
+          Essencial, sem excesso.
+        </h2>
+        <div className="mx-auto mt-12 grid max-w-[66rem] gap-8 text-left lg:grid-cols-[minmax(0,1.22fr)_minmax(0,0.78fr)] lg:items-center lg:gap-14">
+          <article className="min-w-0 max-w-[43rem]">
+            <p className="inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.24em] text-ink/34">
+              <span className="h-px w-8 bg-black/[0.2]" aria-hidden />
+              {TECH_FACTS[0].label}
+            </p>
+            <p className="mt-6 max-w-[34ch] font-display text-[clamp(1.55rem,2.5vw,2.15rem)] leading-[1.34] tracking-[-0.012em] text-ink/90">
+              {TECH_FACTS[0].value}
+            </p>
+          </article>
 
-      {/* 5 — Prova visual (grid) */}
-      <section
-        className="bg-white px-0 pt-16 pb-12 md:pt-20 md:pb-16 lg:pt-24 lg:pb-20"
-        aria-labelledby="pdp-proof-heading"
-      >
-        <div className="mx-auto w-full max-w-site shell-px">
-          <header className="max-w-lg lg:ml-1 xl:translate-x-1">
-            <p className="section-kicker text-ink/48 before:bg-ink/24">Prova visual</p>
-            <h2
-              id="pdp-proof-heading"
-              className="mt-4 font-display text-[clamp(1.35rem,2.3vw,1.7rem)] font-normal leading-snug tracking-[-0.02em] text-ink lg:mt-5"
-            >
-              O produto em contexto.
-            </h2>
-          </header>
-          <div className="mt-12 grid grid-cols-2 gap-2 sm:gap-3 md:mt-14 md:grid-cols-3 md:gap-4 lg:mt-16">
-            {VISUAL_PROOF.map((item) => (
-              <figure
-                key={item.src}
-                className="overflow-hidden bg-[#ebe6df] aspect-square"
-              >
-                <img
-                  src={item.src}
-                  alt={item.alt}
-                  className="h-full w-full object-cover object-center transition duration-500 ease-out hover:scale-[1.02]"
-                  loading="lazy"
-                />
-              </figure>
+          <div className="space-y-9 sm:space-y-10 lg:space-y-11 lg:pl-2 lg:pt-8">
+            {TECH_FACTS.slice(1).map((fact) => (
+              <article key={fact.label} className="min-w-0">
+                <p className="inline-flex items-center gap-2.5 text-[10px] font-medium uppercase tracking-[0.23em] text-ink/34">
+                  <span className="h-px w-5 bg-black/[0.16]" aria-hidden />
+                  {fact.label}
+                </p>
+                <p className="mt-3 max-w-[33ch] text-[15.5px] font-light leading-[1.84] text-ink/70 sm:text-[16px]">
+                  {fact.value}
+                </p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <NarrativeBridge
-        quote={NARRATIVE_BRIDGES.beforeOrigin}
-        gradientClass="bg-gradient-to-b from-white via-[#f6f3ee] to-[#ebe6df]"
-      />
-
-      {/* Origem (imagem grande + texto) */}
-      <section
-        className="bg-[#ebe6df] px-0 pb-24 pt-12 md:pb-32 md:pt-16 lg:pb-40 lg:pt-20"
-        aria-labelledby="pdp-story-heading"
-      >
-        <div className="mx-auto grid max-w-site gap-12 shell-px lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center lg:gap-16 xl:gap-20">
-          <figure className="order-2 min-h-0 overflow-hidden lg:order-1">
-            <div className="aspect-[4/5] min-h-[20rem] overflow-hidden sm:min-h-[24rem] lg:aspect-[5/6] lg:min-h-[min(32rem,75vh)]">
-              <img
-                src={STORY.image.src}
-                alt={STORY.image.alt}
-                className="h-full w-full object-cover object-center"
-                loading="lazy"
-              />
+      {/* 7. RESULTADO (SEGUNDO BLOCO) */}
+      <section className="px-0">
+        <div className="relative min-h-[30rem] overflow-hidden lg:min-h-[42rem]">
+          <img
+            src="/images/13.png"
+            alt="Óleo de Mirra em cena lifestyle"
+            className="absolute inset-0 h-full w-full object-cover object-center"
+            loading="lazy"
+            decoding="async"
+          />
+          <div
+            className="absolute inset-y-0 left-0 w-[82%] sm:w-[76%] lg:w-[62%]"
+            style={{
+              background: "linear-gradient(90deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0) 100%)",
+            }}
+            aria-hidden
+          />
+          <div className="absolute inset-x-0 bottom-0 z-[1]">
+            <div className="mx-auto max-w-site px-6 pb-12 sm:px-10 md:pb-16 lg:px-14 lg:pb-20 xl:px-20">
+              <div className="max-w-[34rem] [text-shadow:0_2px_12px_rgba(0,0,0,0.25)]">
+                <h2 className="font-display text-[clamp(1.8rem,3.4vw,3.2rem)] leading-[1.02] tracking-[-0.02em] text-white lg:text-[40px]">
+                {RESULT_COPY_SECOND.title}
+                </h2>
+                <p className="mt-3 text-[clamp(1.05rem,2.2vw,1.4rem)] font-display leading-[1.08] tracking-[-0.015em] text-white">
+                  {RESULT_COPY_SECOND.subtitle}
+                </p>
+                <p className="mt-5 text-[15px] font-light leading-[1.75] text-white sm:text-base">
+                  {RESULT_COPY_SECOND.body}
+                </p>
+              </div>
             </div>
-          </figure>
-          <div className="order-1 max-w-lg lg:order-2 lg:justify-self-end lg:py-4 xl:max-w-md">
-            <p className="section-kicker text-ink/45 before:bg-ink/22">{STORY.kicker}</p>
-            <h2
-              id="pdp-story-heading"
-              className="mt-5 font-display text-[clamp(1.75rem,3.2vw,2.5rem)] font-normal leading-[1.1] tracking-[-0.025em] text-ink lg:mt-6"
-            >
-              {STORY.title}
-            </h2>
-            <p className="mt-8 text-[15px] font-light leading-[1.78] text-ink/58 sm:text-base">
-              {STORY.body}
-            </p>
-            <p className="mt-10 text-[10px] font-medium uppercase tracking-[0.2em] text-ink/36">
-              Conteúdo: 01 Óleo de Mirra Reparador 15ml — Ybera Paris.
-            </p>
           </div>
         </div>
       </section>
+
+      {/* 8. ORIGEM */}
+      <section className="bg-white px-6 pb-12 pt-[72px] sm:px-10 md:pb-14 md:pt-[84px] lg:px-14 lg:pb-16 lg:pt-[96px] xl:px-20">
+        <div className="mx-auto grid w-full max-w-[1120px] items-center gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,0.9fr)] lg:gap-8 xl:gap-10">
+          <div className="max-w-[470px] lg:pt-1">
+            <p className="section-kicker text-ink/48 before:bg-ink/24">Origem</p>
+            <h2 className="mt-5 font-display text-[clamp(1.95rem,3.7vw,3.2rem)] leading-[1.02] tracking-[-0.025em] text-ink lg:text-[40px]">
+              {STORY.title}
+            </h2>
+            <p className="mt-6 max-w-[440px] text-[15px] font-light leading-[1.82] text-ink/62 sm:text-base sm:leading-[1.85]">
+              {STORY.body}
+            </p>
+          </div>
+          <figure className="justify-self-start overflow-hidden bg-white shadow-[0_26px_60px_-36px_rgba(24,21,18,0.34)] lg:-translate-x-6 lg:self-start">
+            <div className="aspect-[4/5] w-full min-w-0 max-w-[25rem] sm:max-w-[27rem] lg:max-w-[29rem]">
+              <img
+                src={STORY.image}
+                alt={STORY.alt}
+                className="h-full w-full object-cover object-center"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </figure>
+        </div>
+      </section>
+
     </article>
   );
 }

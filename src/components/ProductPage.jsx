@@ -7,11 +7,11 @@ const product = {
   eyebrow: "Óleo reparador",
   name: "Óleo de Mirra Reparador 15ml",
   description:
-    "Hidrata profundamente, reduz o frizz, fortalece os fios e proporciona brilho intenso.",
+    "Finalizador de alta performance para reduzir frizz, alinhar os fios e entregar brilho com toque leve.",
   price: "R$ 89,90",
   priceValue: 89.9,
-  installment: "ou 3x de R$ 29,97 sem juros",
-  pix: "R$ 85,41 no Pix",
+  installment: "ou 3x de R$ 29,97 sem juros no cartão",
+  pix: "R$ 85,41 no Pix (5% off)",
   images: [
     {
       src: "/images/5.png",
@@ -253,7 +253,7 @@ function formatCurrency(value) {
   }).format(value);
 }
 
-function ProductInfo({ onBuy }) {
+function ProductInfo({ onBuy, buyCtaRef }) {
   return (
     <div className="flex min-w-0 w-full max-w-full flex-col lg:max-w-[32rem] lg:justify-self-end xl:max-w-[36rem]">
       <div className="order-1 max-lg:pt-1">
@@ -266,9 +266,6 @@ function ProductInfo({ onBuy }) {
           {product.description}
         </p>
 
-        <p className="mt-5 max-w-full text-pretty text-[10px] font-semibold uppercase leading-[1.55] tracking-[0.18em] text-ink/44 sm:mt-6 sm:max-w-xl sm:leading-relaxed sm:tracking-[0.2em]">
-          {product.results.join(" · ")}
-        </p>
       </div>
 
       <div className="order-2 mt-7 min-w-0 max-w-full pt-6 max-lg:border-t max-lg:border-black/[0.06] lg:mt-9 lg:border-t lg:border-black/10">
@@ -287,7 +284,7 @@ function ProductInfo({ onBuy }) {
         </div>
       </div>
 
-      <div className="order-3 mt-6 lg:mt-8">
+      <div ref={buyCtaRef} className="order-3 mt-6 lg:mt-8">
         <button
           type="button"
           onClick={onBuy}
@@ -308,7 +305,7 @@ function ProductInfo({ onBuy }) {
           htmlFor="shipping-zip"
           className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-ink/48"
         >
-          Consulte o frete
+          Calcule o frete
         </label>
         <div className="mt-3 grid grid-cols-[1fr_auto] items-stretch gap-2.5 sm:gap-3">
           <input
@@ -316,14 +313,14 @@ function ProductInfo({ onBuy }) {
             type="text"
             inputMode="numeric"
             placeholder="Digite seu CEP"
-            aria-label="Digite seu CEP para consultar o frete"
+            aria-label="Digite seu CEP para calcular o frete"
             className="h-12 min-w-0 w-full border border-black/12 bg-white px-3.5 text-sm text-ink outline-none transition duration-300 placeholder:text-ink/32 focus:border-ink/40 sm:h-[52px] sm:px-4"
           />
           <button
             type="button"
             className="inline-flex h-12 min-w-[5.75rem] shrink-0 items-center justify-center whitespace-nowrap border border-ink/70 px-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink transition duration-300 hover:bg-ink hover:text-white active:scale-[0.98] sm:h-[52px] sm:min-w-0 sm:px-6"
           >
-            Calcular
+            Calcular frete
           </button>
         </div>
         <a
@@ -332,6 +329,53 @@ function ProductInfo({ onBuy }) {
         >
           Não sei meu CEP
         </a>
+      </div>
+    </div>
+  );
+}
+
+function StickyBuyBar({ visible, onBuy }) {
+  return (
+    <div
+      className={`fixed inset-x-0 bottom-0 z-40 transition-all duration-300 ease-out ${
+        visible ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
+      }`}
+      aria-hidden={!visible}
+    >
+      <div className="border-t border-black/10 bg-[#f6f4f2]/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-18px_42px_-24px_rgba(0,0,0,0.35)] backdrop-blur-[8px] sm:px-6">
+        <div className="mx-auto grid w-full max-w-site grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
+          <div className="min-w-0">
+            <div className="grid grid-cols-[2.75rem_minmax(0,1fr)] items-center gap-3 sm:grid-cols-[3.15rem_minmax(0,1fr)] sm:gap-3.5">
+              <div className="aspect-square overflow-hidden border border-black/[0.08] bg-white">
+                <img
+                  src={product.images[0].src}
+                  alt={product.name}
+                  className="h-full w-full object-contain"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div className="min-w-0">
+                <p className="truncate font-display text-[1.05rem] leading-tight text-ink sm:text-[1.2rem]">
+                  {product.name}
+                </p>
+                <p className="mt-1 text-sm font-medium text-ink/68 sm:text-[0.95rem]">
+                  {product.price}
+                </p>
+              </div>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={onBuy}
+            className="inline-flex h-11 min-w-[10.5rem] items-center justify-center gap-2 border border-ink bg-ink px-5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white transition-all duration-300 ease-out hover:border-[#2A2724] hover:bg-[#2A2724] active:scale-[0.98] sm:h-12 sm:min-w-[12rem]"
+          >
+            Comprar produto
+            <span className="text-base leading-none" aria-hidden="true">
+              →
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -390,7 +434,7 @@ function CartDrawer({ isOpen, onClose }) {
             <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-ink/42">
               Carrinho
             </p>
-            <h2 className="mt-1 font-display text-3xl leading-none text-ink">
+            <h2 className="mt-1 font-display text-3xl leading-none text-ink lg:text-[40px]">
               Sua sacola
             </h2>
           </div>
@@ -509,30 +553,58 @@ function CartDrawer({ isOpen, onClose }) {
 
 export default function ProductPage() {
   const [isCartOpen, setIsCartOpen] = React.useState(false);
+  const [showStickyBuyBar, setShowStickyBuyBar] = React.useState(false);
+  const buyCtaRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const node = buyCtaRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowStickyBuyBar(!entry.isIntersecting);
+      },
+      {
+        threshold: 0.08,
+        rootMargin: "0px 0px -12% 0px",
+      },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="min-h-screen bg-white text-ink">
       <Header solid />
       <main className="mt-0">
-        <section className="overflow-x-clip bg-mist px-0 pb-10 pt-[calc(5rem+1px+24px)] max-lg:px-0 lg:pt-[calc(5rem+1px+80px)] md:pb-[120px]">
+        <section id="pdp-hero" className="overflow-x-clip bg-[#F7F4F0] px-0 pb-10 pt-[calc(5rem+1px+24px)] max-lg:px-0 lg:pt-[calc(5rem+1px+80px)] md:pb-[120px]">
           <div className="mx-auto mt-0 grid min-w-0 w-full max-w-site shell-px grid-cols-1 items-start gap-y-5 gap-x-0 md:gap-8 lg:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)] lg:gap-x-10 lg:gap-y-0 xl:gap-x-12">
             <ProductGallery />
             <div className="min-h-0 min-w-0 px-0 lg:sticky lg:top-[var(--pdp-sticky-top)] lg:self-start lg:max-h-[var(--pdp-sticky-max-h)] lg:overflow-x-hidden lg:overflow-y-auto lg:overscroll-y-contain">
-              <ProductInfo onBuy={() => setIsCartOpen(true)} />
+              <ProductInfo onBuy={() => setIsCartOpen(true)} buyCtaRef={buyCtaRef} />
             </div>
           </div>
         </section>
 
         <ProductEditorialDescription />
 
-        <ProductRailSection
-          items={productRailItems}
-          eyebrow="Produtos"
-          title="Produtos relacionados"
-          description="Outros cuidados Ybera para completar sua rotina com brilho, leveza e movimento."
-        />
+        <div className="[&>#produtos]:pt-6 md:[&>#produtos]:pt-[60px]">
+          <ProductRailSection
+            items={productRailItems}
+            eyebrow="Produtos"
+            title="Produtos relacionados"
+            description="Outros cuidados Ybera para completar sua rotina com brilho, leveza e movimento."
+          />
+        </div>
       </main>
       <FooterSection />
+      <StickyBuyBar
+        visible={showStickyBuyBar && !isCartOpen}
+        onBuy={() => setIsCartOpen(true)}
+      />
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}

@@ -1570,7 +1570,7 @@ export function RoutineSection({ steps }) {
                     aria-selected={isActive}
                     tabIndex={0}
                     className={cn(
-                      "relative grid cursor-pointer gap-3 py-4 pl-1 pr-1 transition-[color,opacity] duration-200 ease-out md:grid-cols-[110px_minmax(0,1fr)_2rem] md:items-start md:gap-x-4 md:px-0 md:pr-2 lg:py-5",
+                      "relative grid cursor-pointer gap-3 py-4 pl-1 pr-1 transition-[color,opacity] duration-200 ease-out md:grid-cols-[110px_minmax(0,1fr)] md:items-start md:gap-x-4 md:px-0 md:pr-2 lg:py-5",
                       isActive ? "opacity-100" : "opacity-[0.52]",
                     )}
                     onMouseEnter={() => activateStep(index)}
@@ -1591,9 +1591,15 @@ export function RoutineSection({ steps }) {
                           key={`${activeStep}-${stepRevealKey}`}
                           className="animate-routine-metodo-step-reveal"
                         >
-                          <h3 className="font-display text-[22px] font-bold leading-[1.28] text-[#0a0a0a] md:text-3xl md:leading-none lg:text-4xl">
-                        {step.title}
-                      </h3>
+                          <h3 className="inline-flex items-center gap-3 font-display text-[22px] font-bold leading-[1.28] text-[#0a0a0a] md:text-3xl md:leading-none lg:text-4xl">
+                            <span>{step.title}</span>
+                            <span
+                              aria-hidden
+                              className="text-[0.95rem] font-normal leading-none text-[#0a0a0a]/50 motion-safe:animate-routine-method-arrow-in md:text-[1.05rem] lg:text-[1.125rem]"
+                            >
+                              →
+                            </span>
+                          </h3>
                           <p className="mt-2 text-[16px] leading-[1.58] text-ink md:text-[15px] md:leading-7 lg:mt-2.5 lg:text-base lg:leading-relaxed">
                         {step.description}
                       </p>
@@ -1620,19 +1626,6 @@ export function RoutineSection({ steps }) {
                       )}
         </div>
 
-                    <div
-                      className="pointer-events-none flex min-h-[1.25em] items-start justify-end self-start pt-0.5 md:col-start-3 md:pt-1.5"
-                      aria-hidden={!isActive}
-                    >
-                      {isActive ? (
-                        <span
-                          aria-hidden
-                          className="absolute right-4 top-5 text-[0.95rem] font-normal leading-none text-[#0a0a0a]/50 motion-safe:animate-routine-method-arrow-in md:relative md:right-auto md:top-auto md:text-[1.05rem] lg:text-[1.125rem]"
-                        >
-                          →
-                        </span>
-                      ) : null}
-                    </div>
               </article>
                 );
               })}
