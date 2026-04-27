@@ -20,7 +20,7 @@ const prefersReducedMotion = () =>
 
 /**
  * Vitrine 3 — narrativa visual: transição coreografada (sem slide de carousel),
- * auto-rotação com pausa em hover / foco / interação; navegação inferior entre produtos.
+ * auto-rotação com pausa em hover / foco / interação; navegação no topo (desktop) ou após o hero (mobile).
  */
 export function Vitrine3Section({ items = [] }) {
   const list = React.useMemo(() => items.filter(Boolean), [items]);
@@ -179,9 +179,9 @@ export function Vitrine3Section({ items = [] }) {
       onFocusCapture={onSectionFocusIn}
       onBlurCapture={onSectionFocusOut}
     >
-      <div className="grid min-h-0 grid-cols-1 grid-rows-[auto_auto_auto_auto] lg:grid-cols-[55%_45%] lg:grid-rows-[auto_auto]">
-        {/* Coluna imagem 55% — min(80vh,900px) mínimo; h-full preenche a linha quando a coluna direita é mais alta (evita faixa vazia até ao nav) */}
-        <div className="group/imageCol relative row-start-1 h-[400px] max-lg:max-h-[440px] max-lg:min-h-[360px] w-full shrink-0 overflow-hidden lg:col-start-1 lg:row-start-1 lg:h-full lg:min-h-[min(80vh,900px)] lg:max-h-none lg:w-full">
+      <div className="grid min-h-0 grid-cols-1 grid-rows-[auto_auto_auto_auto] lg:grid-cols-[55%_45%] lg:grid-rows-[auto_auto] lg:gap-y-0">
+        {/* Coluna imagem 55% — min(80vh,900px); na segunda linha da grelha em desktop (abaixo da barra de categorias) */}
+        <div className="group/imageCol relative row-start-1 h-[400px] max-lg:max-h-[440px] max-lg:min-h-[360px] w-full shrink-0 overflow-hidden lg:col-start-1 lg:row-start-2 lg:h-full lg:min-h-[min(80vh,900px)] lg:max-h-none lg:w-full">
           {/* Hero idle ou reduced motion */}
           {idleHero ? (
             <div className="absolute inset-0 z-[1]" aria-hidden={false}>
@@ -297,14 +297,15 @@ export function Vitrine3Section({ items = [] }) {
         </div>
 
       <nav
-        className="sticky top-[4.75rem] z-40 row-start-2 border-t border-ink/[0.06] border-b border-ink/[0.04] bg-pearl shadow-[0_1px_0_rgba(0,0,0,0.05)] sm:top-[5.25rem] lg:col-span-2 lg:col-start-1 lg:row-start-2"
+        id="ybera-top-bar-alignment-fix-v2"
+        className="sticky top-[4.75rem] z-40 row-start-2 border-b border-ink/[0.04] bg-pearl shadow-[0_1px_0_rgba(0,0,0,0.05)] sm:top-[5.25rem] max-lg:border-t max-lg:border-ink/[0.06] lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:flex lg:min-h-[3.5rem] lg:items-center lg:border-t-0 lg:border-ink/[0.06] lg:py-0 lg:shadow-[0_1px_0_rgba(0,0,0,0.04)]"
         aria-label="Selecionar produto na vitrine"
       >
-        <div className="mx-auto flex w-full max-w-site flex-col items-stretch gap-0 py-2.5 max-lg:px-4 lg:relative lg:items-center lg:justify-center lg:py-5 lg:shell-px">
-          <div className="flex w-full min-w-0 justify-center overflow-x-auto overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] lg:justify-center lg:overflow-visible [&::-webkit-scrollbar]:hidden">
+        <div className="mx-auto flex w-full max-w-site flex-col items-stretch gap-0 py-2.5 max-lg:px-4 lg:relative lg:h-full lg:min-h-0 lg:flex-1 lg:flex-row lg:items-center lg:justify-center lg:py-0 lg:shell-px">
+          <div className="flex w-full min-w-0 justify-center overflow-x-auto overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] lg:h-full lg:items-center lg:justify-center lg:overflow-visible lg:py-0 [&::-webkit-scrollbar]:hidden">
             <div
               role="tablist"
-              className="mx-auto flex max-w-none min-w-min flex-nowrap items-center justify-center gap-x-1 text-center sm:gap-x-2 lg:max-w-[960px]"
+              className="mx-auto flex max-w-none min-w-min flex-nowrap items-center justify-center gap-x-1 text-center sm:gap-x-2 lg:h-full lg:max-w-[960px] lg:items-center"
             >
               {list.map((item, index) => {
                 const isActive = activeIndex === index;
@@ -315,8 +316,8 @@ export function Vitrine3Section({ items = [] }) {
                       tabIndex={0}
                       aria-selected={isActive}
                       className={cn(
-                        "relative inline-block whitespace-nowrap cursor-pointer border-0 px-2 pt-2 pb-0 text-[14px] leading-snug tracking-[-0.01em] no-underline decoration-transparent outline-none sm:text-[15px]",
-                        "after:pointer-events-none after:absolute after:left-2 after:top-full after:block after:h-px after:translate-y-2 after:bg-[#1a1a1a] after:content-[''] after:transition-[width,opacity] after:duration-300 after:ease-out",
+                        "relative inline-block whitespace-nowrap cursor-pointer border-0 px-2 text-[14px] leading-snug tracking-[-0.01em] no-underline decoration-transparent outline-none sm:text-[15px] max-lg:pt-2 max-lg:pb-0 lg:py-2.5",
+                        "after:pointer-events-none after:absolute after:left-2 after:top-full after:block after:h-px after:translate-y-2 after:bg-[#1a1a1a] after:content-[''] after:transition-[width,opacity] after:duration-300 after:ease-out lg:after:translate-y-1.5",
                         "focus-visible:ring-1 focus-visible:ring-ink/25 focus-visible:ring-offset-2 focus-visible:ring-offset-pearl",
                         "transition-[color,font-weight,transform] duration-300 ease-out",
                         isActive
@@ -361,7 +362,7 @@ export function Vitrine3Section({ items = [] }) {
       </nav>
 
         {/* Coluna produto 45% — altura reservada + crossfade (sem colapso entre fases) */}
-        <div className="relative row-start-3 flex w-full min-h-0 flex-col items-center justify-center bg-[#f2efe8] px-4 py-4 sm:px-5 lg:col-start-2 lg:row-start-1 lg:min-h-[min(80vh,900px)] lg:w-full lg:px-14 lg:py-20 xl:px-16">
+        <div className="relative row-start-3 flex w-full min-h-0 flex-col items-center justify-center bg-[#f2efe8] px-4 py-4 sm:px-5 lg:col-start-2 lg:row-start-2 lg:min-h-[min(80vh,900px)] lg:w-full lg:px-14 lg:py-20 xl:px-16">
           {!useDualLayerRight ? (
             <div className="relative mx-auto w-full max-w-[460px] min-h-[29rem] px-1 py-1 sm:min-h-[30.5rem] sm:px-2 lg:min-h-[36rem] xl:min-h-[38rem]">
               <RightProductBlock item={list[activeIndex]} revealMotion={false} />

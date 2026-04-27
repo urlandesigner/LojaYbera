@@ -29,6 +29,37 @@ import ProductPage from "./components/ProductPage";
 import CatalogPage from "./components/CatalogPage";
 import CurationSection from "./components/CurationSection";
 
+/** Após abrir a home com hash (ex.: /#rotina), garante scroll à secção quando o DOM estiver pronto. */
+function HomeHashScroll() {
+  React.useEffect(() => {
+    const raw = window.location.hash?.replace(/^#/, "");
+    if (!raw) {
+      return undefined;
+    }
+    const reduceMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    const behavior = reduceMotion ? "auto" : "smooth";
+
+    const scrollToTarget = () => {
+      const el = document.getElementById(raw);
+      if (el) {
+        el.scrollIntoView({ behavior, block: "start" });
+      }
+    };
+
+    scrollToTarget();
+    const t1 = window.setTimeout(scrollToTarget, 120);
+    const t2 = window.setTimeout(scrollToTarget, 400);
+    return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+    };
+  }, []);
+
+  return null;
+}
+
 export default function App() {
   const pathname = window.location.pathname;
   // Section oculta temporariamente por não agregar valor na jornada atual.
@@ -50,12 +81,13 @@ export default function App() {
   return (
     <div className="min-h-screen bg-pearl text-ink">
       <Header />
+      <HomeHashScroll />
       <main>
         <HeroSection stats={heroStats} visuals={heroVisuals} />
         <ProductRailSection items={productRailItems} />
         <ManifestoSection />
         <LaunchesSection items={productRailItems} />
-        <section id="curadoria" className="bg-[#f7f2ec] section-y-cards max-lg:!pt-8 max-lg:!pb-6">
+        <section id="curadoria" className="bg-[#f7f2ec] section-y-cards max-lg:!pt-6 max-lg:!pb-5">
           {showResultadoRealSection && <SensoryBlock />}
           <CurationSection />
         </section>

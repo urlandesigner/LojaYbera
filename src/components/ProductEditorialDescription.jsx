@@ -190,7 +190,10 @@ export default function ProductEditorialDescription() {
       </section>
 
       {/* 5. COMO USAR */}
-      <section className="relative z-[1] bg-[#f6f3ef] px-0">
+      <section
+        id="pdp-como-usar"
+        className="relative z-[1] scroll-mt-[calc(var(--header-height)+12px)] bg-[#f6f3ef] px-0"
+      >
         <div className="mx-auto w-full max-w-site px-6 py-12 sm:px-10 md:py-14 lg:px-14 lg:py-16 xl:px-20">
           <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch xl:gap-16">
             <div className="order-1 lg:sticky lg:top-28 lg:h-full">
@@ -258,7 +261,10 @@ export default function ProductEditorialDescription() {
       </section>
 
       {/* 6. INFORMAÇÕES ESSENCIAIS */}
-      <section className="bg-white px-6 py-16 text-center sm:px-10 md:py-20 lg:px-14 lg:py-24 xl:px-20">
+      <section
+        id="pdp-informacoes-essenciais"
+        className="scroll-mt-[calc(var(--header-height)+12px)] bg-white px-6 py-16 text-center sm:px-10 md:py-20 lg:px-14 lg:py-24 xl:px-20"
+      >
         <p className="section-kicker mx-auto justify-center text-ink/48 before:bg-ink/24">Informações essenciais</p>
         <h2 className="mt-5 font-display text-[clamp(1.6rem,2.4vw,2.3rem)] leading-[1.1] tracking-[-0.02em] text-ink lg:text-[40px]">
           Essencial, sem excesso.

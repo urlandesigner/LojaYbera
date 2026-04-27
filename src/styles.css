@@ -314,6 +314,17 @@ button {
   }
 }
 
+@keyframes curation-editorial-reveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 7px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 @layer utilities {
   /* Playfair Display: leve ajuste de rastreio e ligaduras para português */
   .font-display {

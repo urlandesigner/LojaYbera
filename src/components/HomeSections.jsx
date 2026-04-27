@@ -160,15 +160,29 @@ function TikTokIcon({ className = "" }) {
   );
 }
 
+/** Menu principal — intenção: catálogo (página), cuidados/resultados (âncoras na home), profissionais (externo). */
+const YBERA_NAV_PROFISSIONAIS_HREF = "https://www.ybera.com.br/";
+
+const PRIMARY_HEADER_NAV = [
+  { id: "catalogo", label: "Catálogo", href: "/catalogo", emphasis: true },
+  { id: "cuidados", label: "Cuidados", href: "/#rotina", sectionId: "rotina" },
+  { id: "resultados", label: "Resultados", href: "/#resultado", sectionId: "resultado" },
+  {
+    id: "profissionais",
+    label: "Profissionais",
+    href: YBERA_NAV_PROFISSIONAIS_HREF,
+    external: true,
+  },
+];
+
+function isAppHomePathname() {
+  const p = window.location.pathname;
+  return p === "/" || p === "";
+}
+
 export function Header({ solid = false }) {
   const [isPastHero, setIsPastHero] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const navLinks = [
-    { href: "#curadoria", label: "Produtos" },
-    { href: "#rotina", label: "Como usar" },
-    { href: "#resultado", label: "Resultados" },
-    { href: "#profissionais", label: "Profissionais" },
-  ];
 
   React.useEffect(() => {
     if (solid) {
@@ -215,6 +229,32 @@ export function Header({ solid = false }) {
     setIsMobileMenuOpen(false);
   }, []);
 
+  const onHomeSectionNavClick = React.useCallback(
+    (event, sectionId) => {
+      if (!sectionId || !isAppHomePathname()) {
+        return;
+      }
+      event.preventDefault();
+      closeMobileMenu();
+      const el = document.getElementById(sectionId);
+      if (!el) {
+        return;
+      }
+      const reduceMotion =
+        typeof window !== "undefined" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      el.scrollIntoView({
+        behavior: reduceMotion ? "auto" : "smooth",
+        block: "start",
+      });
+      const next = `#${sectionId}`;
+      if (window.location.hash !== next) {
+        window.history.replaceState(null, "", next);
+      }
+    },
+    [closeMobileMenu],
+  );
+
   const headerForeground = isPastHero ? "text-ink" : "text-white";
   const menuTone = isPastHero ? "text-ink/84" : "text-white";
   const menuHoverTone = isPastHero ? "hover:text-ink" : "hover:text-white";
@@ -222,6 +262,7 @@ export function Header({ solid = false }) {
   return (
     <>
       <header
+        id="ybera-menu-refactor-navigation-v1"
         className={`fixed inset-x-0 top-0 z-50 pointer-events-auto transition-[background-color,border-color,color,backdrop-filter] duration-300 ${
           isPastHero
             ? "border-b border-black/[0.05] bg-[linear-gradient(180deg,rgba(246,244,242,0.9),rgba(246,244,242,0.82))] backdrop-blur-[7px]"
@@ -243,11 +284,22 @@ export function Header({ solid = false }) {
             className={`hidden items-center gap-8 transition-colors duration-300 md:flex ${headerForeground}`}
           >
             <nav className="flex items-center gap-10 text-[12px] font-medium uppercase tracking-[0.22em]">
-              {navLinks.map((link) => (
+              {PRIMARY_HEADER_NAV.map((link) => (
                 <a
-                  key={link.href}
+                  key={link.id}
                   href={link.href}
-                  className={`transition ${isPastHero ? "text-ink/74 hover:text-ink" : "text-white/92 hover:text-white"}`}
+                  onClick={(e) => onHomeSectionNavClick(e, link.sectionId)}
+                  {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className={cn(
+                    "transition",
+                    link.emphasis
+                      ? isPastHero
+                        ? "font-semibold text-ink hover:text-ink"
+                        : "font-semibold text-white hover:text-white"
+                      : isPastHero
+                        ? "text-ink/74 hover:text-ink"
+                        : "text-white/92 hover:text-white",
+                  )}
                 >
                   {link.label}
                 </a>
@@ -344,12 +396,21 @@ export function Header({ solid = false }) {
             </button>
           </div>
           <nav className="mt-10 flex flex-col gap-6">
-            {navLinks.map((link) => (
+            {PRIMARY_HEADER_NAV.map((link) => (
               <a
-                key={link.href}
+                key={link.id}
                 href={link.href}
-                onClick={closeMobileMenu}
-                className="font-display text-[22px] leading-[1.3] tracking-[-0.012em] text-white/92 transition hover:text-white md:text-[clamp(28px,4.5vw,32px)] md:leading-[1.06]"
+                onClick={(e) => {
+                  onHomeSectionNavClick(e, link.sectionId);
+                  if (!link.sectionId || !isAppHomePathname()) {
+                    closeMobileMenu();
+                  }
+                }}
+                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className={cn(
+                  "font-display text-[22px] leading-[1.3] tracking-[-0.012em] transition md:text-[clamp(28px,4.5vw,32px)] md:leading-[1.06]",
+                  link.emphasis ? "font-semibold text-white hover:text-white" : "text-white/92 hover:text-white",
+                )}
               >
                 {link.label}
               </a>
@@ -608,10 +669,7 @@ export function HeroSection({ stats, visuals }) {
           </h1>
 
           <div className="mt-8 flex items-center md:mt-10 notebook:mt-6 wide:mt-10">
-            <a
-              href="#curadoria"
-              className="button-editorial-dark"
-            >
+            <a href="/catalogo" className="button-editorial-dark">
               Conhecer produtos
             </a>
           </div>
@@ -855,7 +913,7 @@ export function ResultsSection({ items }) {
     <section
       id="resultado"
       ref={sectionRef}
-      className="bg-[#0B0B0B] section-y text-white max-lg:!py-6"
+      className="scroll-mt-[calc(var(--header-height)+10px)] bg-[#0B0B0B] section-y text-white max-lg:!py-6"
       style={{ backgroundColor: "#0B0B0B", backgroundImage: "none", boxShadow: "none" }}
     >
       <div className="mx-auto w-full max-w-none shell-px">
@@ -936,9 +994,12 @@ export function ResultsSection({ items }) {
                 </span>
               </div>
             </div>
-            <p className="mx-auto mt-3 block px-6 text-center font-display text-[14px] leading-snug tracking-wide text-white/62 lg:hidden">
-              Resposta desde o primeiro uso.
-            </p>
+
+            <div className="flex min-h-[6.5rem] flex-col items-center justify-center bg-[#0B0B0B] px-4 py-8 text-center sm:min-h-[7rem] sm:px-5 sm:py-10 lg:hidden">
+              <p className="mx-auto max-w-none text-center font-display text-[clamp(0.9375rem,3.25vw,1.125rem)] font-light leading-tight tracking-[0.02em] text-white/88 max-lg:whitespace-nowrap">
+                Resposta desde o primeiro uso.
+              </p>
+            </div>
           </article>
         </div>
       </div>
@@ -1281,7 +1342,9 @@ function LaunchEditorialCta({ href, label, align = "center", emphasis = "soft", 
       : align === "end"
         ? cn("self-end", pt)
         : cn("self-center", pt);
-  const btnClass = compact ? "button-editorial-compact no-underline" : "button-editorial no-underline";
+  const btnClass = compact
+    ? "button-editorial-compact no-underline h-12"
+    : "button-editorial no-underline";
   return (
     <div className={wrap}>
       <a href={href} className={btnClass}>
@@ -1374,7 +1437,7 @@ export function LaunchesSection({ items }) {
   return (
     <section
       id="lancamentos"
-      className="overflow-x-hidden bg-[#ffffff] section-y-cards max-md:!pb-12"
+      className="overflow-x-hidden bg-[#ffffff] section-y-cards max-md:!pt-12 max-md:!pb-[102px] md:max-lg:!pt-[120px] md:max-lg:!pb-[140px]"
     >
       <div className="mx-auto w-full max-w-site shell-px">
         <div className="max-w-4xl section-lead">
@@ -1390,10 +1453,13 @@ export function LaunchesSection({ items }) {
         </div>
       </div>
 
-      <div className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 pb-0 lg:hidden">
+      <div
+        id="ybera-lancamentos-spacing-double-v1"
+        className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 lg:hidden"
+      >
         <div className="grid grid-cols-2 gap-x-0 gap-y-10 sm:gap-y-11 md:gap-y-12">
           {launchEditorialItems.map((item, index) => (
-            <article key={item.name} className="flex min-w-0 flex-col gap-3 sm:gap-4">
+            <article key={item.name} className="flex min-w-0 flex-col gap-6 pb-6 sm:gap-8 sm:pb-8">
               <div className={cn(item.mobileShell, "w-full")}>
                 <div className={item.overlayClass} aria-hidden />
                 <img
@@ -1436,7 +1502,7 @@ export function LaunchesSection({ items }) {
             <div
               key={item.name}
               className={cn(
-                "flex w-full flex-col px-6 pb-12 sm:px-10 lg:px-12 lg:pb-14 xl:px-16",
+                "flex w-full flex-col px-6 sm:px-10 lg:px-12 xl:px-16",
                 index === 0 ? "items-center" : "items-center",
               )}
             >
@@ -1458,6 +1524,167 @@ const ROUTINE_VISUAL_SRCS = [
   "/images/32.png.webp",
   "/images/frente1.png",
 ];
+
+const ROUTINE_MOBILE_CAROUSEL_MS = 5200;
+const ROUTINE_MOBILE_SWIPE_MIN = 44;
+
+/** Destinos do CTA implícito por etapa (mobile) — produto ou catálogo alinhado ao hint. */
+const ROUTINE_MOBILE_METODO_HREFS = [
+  "/produto/shampoo-multifuncao-cuidados-profundos",
+  "/catalogo",
+  "/produto/oleo-de-mirra-reparador",
+];
+
+/** Carrossel compacto só abaixo do breakpoint lg; desktop mantém a grelha existente. */
+function RoutineMetodoMobileCarousel({ steps, visualStates, activeStep, setActiveStep }) {
+  const [paused, setPaused] = React.useState(false);
+  const touchX0 = React.useRef(null);
+  const [reduceMotion, setReduceMotion] = React.useState(false);
+
+  const count = Math.min(steps.length, visualStates.length);
+
+  React.useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const fn = () => setReduceMotion(mq.matches);
+    fn();
+    mq.addEventListener("change", fn);
+    return () => mq.removeEventListener("change", fn);
+  }, []);
+
+  React.useEffect(() => {
+    if (typeof window === "undefined" || reduceMotion || count < 1) return undefined;
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const id = window.setInterval(() => {
+      if (mq.matches || paused) return;
+      setActiveStep((i) => (i + 1) % count);
+    }, ROUTINE_MOBILE_CAROUSEL_MS);
+    return () => window.clearInterval(id);
+  }, [count, paused, reduceMotion, setActiveStep]);
+
+  const resumeLater = React.useCallback(() => {
+    window.setTimeout(() => setPaused(false), 2800);
+  }, []);
+
+  const onTouchStart = React.useCallback((e) => {
+    touchX0.current = e.touches[0].clientX;
+    setPaused(true);
+  }, []);
+
+  const onTouchEnd = React.useCallback(
+    (e) => {
+      if (touchX0.current == null) return;
+      const x = e.changedTouches[0]?.clientX;
+      if (x == null) return;
+      const dx = x - touchX0.current;
+      touchX0.current = null;
+      if (dx < -ROUTINE_MOBILE_SWIPE_MIN) setActiveStep((i) => (i + 1) % count);
+      else if (dx > ROUTINE_MOBILE_SWIPE_MIN) setActiveStep((i) => (i - 1 + count) % count);
+      resumeLater();
+    },
+    [count, resumeLater, setActiveStep],
+  );
+
+  const goTo = React.useCallback(
+    (index) => {
+      setPaused(true);
+      setActiveStep(index);
+      resumeLater();
+    },
+    [resumeLater, setActiveStep],
+  );
+
+  if (!count) {
+    return null;
+  }
+
+  return (
+    <div
+      className="mt-1 w-full lg:hidden"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div
+        id="ybera-metodo-mobile-cta-implicit-v1"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Etapas do método Ybera"
+        className="relative touch-pan-y"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
+        <div className="relative h-[23.25rem] w-full overflow-hidden rounded-sm bg-[#ebe4dc] sm:h-[25rem] sm:max-h-[min(78dvh,32rem)]">
+          {steps.slice(0, count).map((step, index) => {
+            const vis = visualStates[index];
+            const active = index === activeStep;
+            const href = ROUTINE_MOBILE_METODO_HREFS[index] ?? "/catalogo";
+            return (
+              <a
+                key={step.step}
+                href={href}
+                className={cn(
+                  "group/slide absolute inset-0 block overflow-hidden rounded-sm transition-[opacity,transform] ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/45 focus-visible:ring-offset-2 focus-visible:ring-offset-black/20 active:scale-[0.99] active:opacity-[0.94] motion-reduce:active:scale-100 motion-reduce:active:opacity-100",
+                  active ? "z-[1] cursor-pointer opacity-100" : "z-0 cursor-default opacity-0 pointer-events-none",
+                  reduceMotion ? "duration-0" : "duration-500",
+                )}
+                aria-hidden={!active}
+                aria-label={`${step.step} ${step.title}: ver detalhes`}
+                tabIndex={active ? 0 : -1}
+              >
+                <img
+                  src={vis.src}
+                  alt=""
+                  role="presentation"
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  className="absolute inset-0 h-full w-full object-cover object-[center_22%]"
+                />
+                {/* Gradiente baixo → topo (base mais escura), alinhado ao tom editorial das rotinas / hero. */}
+                <div
+                  className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(14,11,9,0.06)_0%,rgba(14,11,9,0.1)_38%,rgba(14,11,9,0.38)_72%,rgba(10,8,7,0.72)_100%)]"
+                  aria-hidden
+                />
+                <div className="pointer-events-none absolute bottom-0 left-0 z-[2] max-w-[min(100%,22.5rem)] px-5 pb-14 pt-20 text-left sm:max-w-[min(100%,24rem)] sm:px-6 sm:pb-16 sm:pt-24">
+                  <p className="font-display text-[2.25rem] leading-none tracking-[-0.02em] text-white sm:text-[2.4rem]">
+                    {step.step}
+                  </p>
+                  <h3 className="mt-2.5 font-display text-[1.28rem] font-medium leading-[1.12] tracking-[-0.02em] text-white sm:mt-3 sm:text-[1.4rem]">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 line-clamp-3 text-[13px] font-light leading-relaxed text-white sm:text-[0.875rem]">
+                    {step.description}
+                  </p>
+                  {step.productHint ? (
+                    <span className="mt-2.5 inline-flex w-fit items-center gap-2 border-b border-white/55 pb-0.5 text-[10px] font-semibold uppercase leading-normal tracking-[0.14em] text-white transition-[border-color,gap] duration-200 ease-out group-hover/slide:border-white group-hover/slide:gap-2.5 sm:mt-3 sm:tracking-[0.16em]">
+                      <span>{step.productHint}</span>
+                      <span className="text-sm leading-none text-white" aria-hidden="true">
+                        →
+                      </span>
+                    </span>
+                  ) : null}
+                </div>
+              </a>
+            );
+          })}
+          <div className="pointer-events-auto absolute bottom-4 left-0 right-0 z-[3] flex justify-center gap-2 sm:bottom-5">
+            {steps.slice(0, count).map((_, i) => (
+              <button
+                key={`routine-dot-${String(i)}`}
+                type="button"
+                aria-label={`Etapa ${i + 1} de ${count}`}
+                aria-current={i === activeStep ? "true" : undefined}
+                onClick={() => goTo(i)}
+                className={cn(
+                  "h-1.5 rounded-full transition-[width,background-color] duration-300 ease-out",
+                  i === activeStep ? "w-6 bg-white" : "w-1.5 bg-white/35 hover:bg-white/55",
+                )}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function RoutineSection({ steps }) {
   const [activeStep, setActiveStep] = React.useState(2);
@@ -1513,7 +1740,10 @@ export function RoutineSection({ steps }) {
   }, []);
 
   return (
-    <section id="rotina" className="bg-white section-y max-lg:!pt-10 max-lg:!pb-7">
+    <section
+      id="rotina"
+      className="scroll-mt-[calc(var(--header-height)+10px)] bg-white section-y max-lg:!pt-10 max-lg:!pb-7"
+    >
       <div className="mx-auto w-full max-w-site shell-px">
         <div className="section-lead max-lg:!pb-4 lg:hidden">
           <p className="section-kicker">O método Ybera</p>
@@ -1525,10 +1755,17 @@ export function RoutineSection({ steps }) {
           </p>
         </div>
 
-        <div className="mt-0 grid gap-4 max-lg:gap-y-4 lg:grid-cols-[0.88fr_1.12fr] lg:items-stretch lg:gap-8 xl:gap-20">
-          <div className="order-1 max-lg:mt-1 lg:sticky lg:top-28 lg:mt-0 lg:h-full">
-            <article className="relative overflow-hidden bg-[#ebe4dc] max-lg:h-auto lg:h-full lg:min-h-0">
-              <div className="relative w-full shrink-0 overflow-hidden max-lg:h-56 max-lg:max-h-[42vh] sm:max-lg:h-[15.5rem] sm:max-lg:max-h-[40vh] lg:h-full lg:min-h-[44rem] lg:max-h-none xl:min-h-[48rem]">
+        <RoutineMetodoMobileCarousel
+          steps={steps}
+          visualStates={visualStates}
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+        />
+
+        <div className="mt-0 hidden lg:grid lg:grid-cols-[0.88fr_1.12fr] lg:items-stretch lg:gap-8 xl:gap-20">
+          <div className="order-1 lg:sticky lg:top-28 lg:h-full">
+            <article className="relative h-full min-h-0 overflow-hidden bg-[#ebe4dc]">
+              <div className="relative h-full min-h-[44rem] w-full shrink-0 overflow-hidden xl:min-h-[48rem]">
                 {visualStates.map((visual, index) => {
                   const isActive = activeStep === index;
 
@@ -1540,7 +1777,7 @@ export function RoutineSection({ steps }) {
                       loading="eager"
                       decoding="async"
                       className={cn(
-                        "pointer-events-none absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-300 ease-in-out max-lg:object-[center_24%]",
+                        "pointer-events-none absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-300 ease-in-out",
                         isActive ? "opacity-100" : "opacity-0",
                       )}
                     />
@@ -1551,11 +1788,12 @@ export function RoutineSection({ steps }) {
                     "pointer-events-none absolute inset-0",
                     currentVisual.overlayClass,
                   )}
+                  aria-hidden
                 />
                 <div className="pointer-events-none absolute left-4 top-4 md:left-8 md:top-8">
                   <p
                     key={currentVisual.label}
-                    className="animate-routine-metodo-label-reveal text-[12px] uppercase leading-[1.35] tracking-[0.2em] text-white/52 max-lg:tracking-[0.19em] md:text-[10px] md:leading-normal md:tracking-[0.24em]"
+                    className="animate-routine-metodo-label-reveal text-[12px] uppercase leading-[1.35] tracking-[0.2em] text-white/52 md:text-[10px] md:leading-normal md:tracking-[0.24em]"
                   >
                     {currentVisual.label}
                   </p>
@@ -1565,7 +1803,7 @@ export function RoutineSection({ steps }) {
           </div>
 
           <div className="order-2 flex min-h-0 flex-col lg:h-full">
-            <div className="hidden shrink-0 lg:block lg:pb-6 xl:pb-8">
+            <div className="shrink-0 lg:pb-6 xl:pb-8">
               <SectionHeading
                 eyebrow="O método Ybera"
                 title="O resultado não acontece por acaso."
@@ -1588,7 +1826,7 @@ export function RoutineSection({ steps }) {
                       aria-selected={isActive}
                       tabIndex={0}
                       className={cn(
-                        "relative grid cursor-pointer gap-2 py-2 pl-1 pr-1 transition-[color,opacity] duration-200 ease-out max-lg:gap-y-1.5 max-lg:py-2 sm:max-lg:py-2.5 md:grid-cols-[110px_minmax(0,1fr)] md:items-start md:gap-x-4 md:gap-y-3 md:px-0 md:py-4 md:pr-2 lg:gap-3 lg:py-5",
+                        "relative grid cursor-pointer gap-3 py-5 pl-1 pr-1 transition-[color,opacity] duration-200 ease-out md:grid-cols-[110px_minmax(0,1fr)] md:items-start md:gap-x-4 md:px-0 md:pr-2",
                         isActive ? "opacity-100" : "opacity-[0.52]",
                       )}
                       onMouseEnter={() => activateStep(index)}
@@ -1874,7 +2112,7 @@ export function ProfessionalSection() {
   return (
     <section
       id="profissionais"
-      className="relative overflow-hidden bg-[#0B0B0B] bg-[url('/images/bg-pro.png')] bg-cover bg-center bg-no-repeat px-0 section-y text-white"
+      className="relative overflow-hidden bg-[#0B0B0B] bg-[url('/images/bg-pro.png')] bg-cover bg-no-repeat px-0 section-y text-white max-lg:bg-left lg:bg-center"
     >
       <div
         className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/50 via-black/45 to-black/60"
@@ -1885,7 +2123,7 @@ export function ProfessionalSection() {
           <img
             src="/images/pro-art-people.png"
             alt="Profissionais Ybera em ambiente de salão"
-            className="h-[26rem] w-full object-cover object-center grayscale-[8%] transition duration-700 hover:scale-[1.02] md:h-[34rem] lg:h-[42rem]"
+            className="h-[26rem] w-full object-cover grayscale-[8%] transition duration-700 hover:scale-[1.02] max-lg:object-left md:h-[34rem] lg:h-[42rem]"
           />
         </div>
 
@@ -1948,9 +2186,12 @@ export function FinalCtaSection({ cta }) {
           {cta.description}
         </p>
         <div className="mt-12 flex justify-center">
-          <a href={primaryHref} className="button-editorial-dark cursor-pointer">
+          <a
+            href={primaryHref}
+            className="inline-flex h-[52px] cursor-pointer items-center justify-center gap-2 border border-white bg-white px-8 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink no-underline transition-all duration-300 ease-out hover:border-white hover:bg-white/95 active:scale-[0.98]"
+          >
             {cta.primary}
-            <span className="text-base leading-none transition duration-300">
+            <span className="text-base leading-none text-ink transition duration-300">
               →
             </span>
           </a>

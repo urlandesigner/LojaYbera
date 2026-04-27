@@ -113,6 +113,6 @@ export const editorialProductExperience = {
     title: "Um gesto pequeno. Uma mudança visível.",
     body: "Quando o cuidado é intencional, o resultado deixa de ser promessa e vira hábito — o tipo de hábito que as pessoas notam antes de você contar.",
     ctaPrimary: { label: "Quero levar para casa", href: "/produto/oleo-de-mirra-reparador" },
-    ctaSecondary: { label: "Voltar à curadoria", href: "/#curadoria" },
+    ctaSecondary: { label: "Ver catálogo", href: "/catalogo" },
   },
 };

@@ -266,6 +266,26 @@ function ProductInfo({ onBuy, buyCtaRef }) {
           {product.description}
         </p>
 
+        <nav
+          aria-label="Secções do produto"
+          className="mt-5 flex flex-wrap items-center gap-x-1 gap-y-2 text-[10px] font-semibold uppercase leading-none tracking-[0.2em] text-ink/46 sm:mt-6 sm:text-[11px] sm:tracking-[0.18em]"
+        >
+          <a
+            href="#pdp-como-usar"
+            className="border-b border-transparent pb-0.5 transition hover:border-ink/30 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7F4F0]"
+          >
+            Como usar
+          </a>
+          <span className="select-none px-2 text-ink/22" aria-hidden>
+            ·
+          </span>
+          <a
+            href="#pdp-informacoes-essenciais"
+            className="border-b border-transparent pb-0.5 transition hover:border-ink/30 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7F4F0]"
+          >
+            Informações essenciais
+          </a>
+        </nav>
       </div>
 
       <div className="order-2 mt-7 min-w-0 max-w-full pt-6 max-lg:border-t max-lg:border-black/[0.06] lg:mt-9 lg:border-t lg:border-black/10">
