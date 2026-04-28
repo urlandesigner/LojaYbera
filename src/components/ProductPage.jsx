@@ -258,7 +258,7 @@ function ProductInfo({ onBuy, buyCtaRef }) {
     <div className="flex min-w-0 w-full max-w-full flex-col lg:max-w-[32rem] lg:justify-self-end xl:max-w-[36rem]">
       <div className="order-1 max-lg:pt-1">
         <p className="section-kicker max-w-full text-ink/50 before:bg-mocha/45">{product.eyebrow}</p>
-        <h1 className="mt-4 w-full max-w-none whitespace-normal font-display text-[32px] leading-[1.1] tracking-[-0.01em] text-ink [word-break:normal] [overflow-wrap:break-word] hyphens-none sm:mt-5 lg:mt-6 lg:text-[48px] lg:leading-[1.08] lg:text-balance">
+        <h1 className="mt-4 w-full max-w-none whitespace-normal font-display text-[32px] leading-[1.1] tracking-[-0.01em] text-ink [word-break:normal] [overflow-wrap:break-word] hyphens-none sm:mt-5 lg:mt-6 lg:text-[43px] lg:leading-[1.08] lg:text-balance">
           {product.name}
         </h1>
 
@@ -335,13 +335,13 @@ function ProductInfo({ onBuy, buyCtaRef }) {
             inputMode="numeric"
             placeholder="Digite seu CEP"
             aria-label="Digite seu CEP para calcular o frete"
-            className="h-12 min-w-0 w-full border border-black/12 bg-white px-3.5 text-sm text-ink outline-none transition duration-300 placeholder:text-ink/32 focus:border-ink/40 sm:h-[52px] sm:px-4"
+            className="h-12 min-w-0 w-full border border-black/12 bg-white px-3.5 text-sm text-ink outline-none transition duration-300 placeholder:text-ink/32 focus:border-ink/40 sm:px-4"
           />
           <button
             type="button"
-            className="inline-flex h-12 min-w-[5.75rem] shrink-0 items-center justify-center whitespace-nowrap border border-ink/70 px-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink transition duration-300 hover:bg-ink hover:text-white active:scale-[0.98] sm:h-[52px] sm:min-w-0 sm:px-6"
+            className="inline-flex h-12 min-w-[5.75rem] shrink-0 items-center justify-center whitespace-nowrap border border-ink/70 px-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink transition duration-300 hover:bg-ink hover:text-white active:scale-[0.98] sm:min-w-0 sm:px-6"
           >
-            Calcular frete
+            Calcular
           </button>
         </div>
         <a
@@ -600,11 +600,14 @@ export default function ProductPage() {
   return (
     <div className="min-h-screen bg-white text-ink">
       <Header solid />
-      <main className="mt-0">
-        <section id="pdp-hero" className="overflow-x-clip bg-[#F7F4F0] px-0 pb-10 pt-[calc(5rem+1px+24px)] max-lg:px-0 lg:pt-[calc(5rem+1px+80px)] md:pb-[120px]">
+      <main className="pdp-main mt-0">
+        <section
+          id="pdp-hero"
+          className="pdp-hero-section overflow-x-clip bg-[#F7F4F0] px-0 pb-10 max-lg:px-0 md:pb-[120px]"
+        >
           <div className="mx-auto mt-0 grid min-w-0 w-full max-w-site shell-px grid-cols-1 items-start gap-y-5 gap-x-0 md:gap-8 lg:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)] lg:gap-x-10 lg:gap-y-0 xl:gap-x-12">
             <ProductGallery />
-            <div className="min-h-0 min-w-0 px-0 lg:sticky lg:top-[var(--pdp-sticky-top)] lg:self-start lg:max-h-[var(--pdp-sticky-max-h)] lg:overflow-x-hidden lg:overflow-y-auto lg:overscroll-y-contain">
+            <div className="pdp-info-column min-h-0 min-w-0 px-0 lg:sticky lg:top-[var(--pdp-sticky-top)] lg:self-start lg:max-h-[var(--pdp-sticky-max-h)] lg:overflow-x-hidden lg:overflow-y-auto lg:overscroll-y-contain">
               <ProductInfo onBuy={() => setIsCartOpen(true)} buyCtaRef={buyCtaRef} />
             </div>
           </div>

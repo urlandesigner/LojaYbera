@@ -29,6 +29,7 @@ import ProductPage from "./components/ProductPage";
 import CatalogPage from "./components/CatalogPage";
 import CurationSection from "./components/CurationSection";
 import ProfessionalLinePage from "./components/ProfessionalLinePage";
+import BrandInstitutionalPage from "./components/BrandInstitutionalPage";
 
 /** Após abrir a home com hash (ex.: /#rotina), garante scroll à secção quando o DOM estiver pronto. */
 function HomeHashScroll() {
@@ -81,6 +82,10 @@ export default function App() {
 
   if (pathname.startsWith("/linha-profissional")) {
     return <ProfessionalLinePage />;
+  }
+
+  if (pathname.startsWith("/marca")) {
+    return <BrandInstitutionalPage />;
   }
 
   return (

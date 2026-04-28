@@ -50,8 +50,8 @@ export default function EditorialProductCard({
     "mt-auto flex w-full shrink-0 flex-col items-center px-0.5 pt-3 lg:pt-4";
 
   const titleClass = isRail
-    ? "mx-auto max-w-[min(100%,28ch)] overflow-hidden text-balance text-pretty font-display text-[17px] font-semibold leading-[1.24] tracking-[-0.02em] text-ink transition-all duration-300 ease-out max-md:line-clamp-2 md:line-clamp-2 md:max-h-[5.5rem] md:max-w-[min(100%,31ch)] md:text-[1.2rem] md:group-hover:max-h-0 md:group-hover:opacity-0 lg:max-w-[min(100%,34ch)] lg:text-[1.98rem] lg:font-light lg:leading-[1.08] lg:tracking-[-0.03em] xl:text-[2.08rem]"
-    : "mx-auto max-w-[min(100%,28ch)] overflow-hidden text-balance text-pretty font-display text-[17px] font-semibold leading-[1.24] tracking-[-0.02em] text-ink line-clamp-2 sm:text-[18px] md:max-w-[min(100%,31ch)] md:text-[1.2rem] lg:max-w-[min(100%,34ch)] lg:text-[1.98rem] lg:font-light lg:leading-[1.08] lg:tracking-[-0.03em] xl:text-[2.08rem]";
+    ? "mx-auto max-w-[min(100%,28ch)] overflow-hidden text-balance text-pretty font-display text-[17px] font-semibold leading-[1.24] tracking-[-0.02em] text-ink transition-all duration-300 ease-out max-md:line-clamp-2 md:line-clamp-2 md:max-h-[5.5rem] md:max-w-[min(100%,31ch)] md:text-[1.2rem] md:group-hover:max-h-0 md:group-hover:opacity-0 lg:max-w-[min(100%,34ch)] lg:text-[calc(1.98rem-2px)] lg:font-light lg:leading-[1.08] lg:tracking-[-0.03em] xl:text-[calc(2.08rem-2px)]"
+    : "mx-auto max-w-[min(100%,28ch)] overflow-hidden text-balance text-pretty font-display text-[17px] font-semibold leading-[1.24] tracking-[-0.02em] text-ink line-clamp-2 sm:text-[18px] md:max-w-[min(100%,31ch)] md:text-[1.2rem] lg:max-w-[min(100%,34ch)] lg:text-[calc(1.98rem-2px)] lg:font-light lg:leading-[1.08] lg:tracking-[-0.03em] xl:text-[calc(2.08rem-2px)]";
 
   const subtitleClass = isRail
     ? "mx-auto mt-1 line-clamp-2 max-w-[min(100%,28ch)] text-center text-[12.5px] font-light leading-[1.42] text-ink/60 max-md:mt-1 md:max-w-[min(100%,31ch)] md:text-[13px] lg:mt-3.5 lg:max-w-[min(100%,42ch)] lg:text-[1rem] lg:leading-relaxed"

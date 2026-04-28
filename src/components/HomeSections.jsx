@@ -86,7 +86,7 @@ function BagIcon({ className = "" }) {
         y="8.35"
         width="9.7"
         height="9.9"
-        rx="0"
+        rx="1.2"
         stroke="currentColor"
         strokeWidth="1.1"
       />
@@ -136,7 +136,7 @@ function InstagramIcon({ className = "" }) {
         y="4.75"
         width="14.5"
         height="14.5"
-        rx="0"
+        rx="4.2"
         stroke="currentColor"
         strokeWidth="1.35"
       />
@@ -167,7 +167,7 @@ const PRIMARY_HEADER_NAV = [
     label: "Linha profissional",
     href: "/linha-profissional",
   },
-  { id: "marca", label: "A marca", href: "/#historias-resultado", sectionId: "historias-resultado" },
+  { id: "marca", label: "A marca", href: "/marca" },
 ];
 
 function isAppHomePathname() {
@@ -280,24 +280,29 @@ export function Header({ solid = false }) {
           >
             <nav className="flex items-center gap-10 text-[12px] font-medium uppercase tracking-[0.22em]">
               {PRIMARY_HEADER_NAV.map((link) => (
-                <a
-                  key={link.id}
-                  href={link.href}
-                  onClick={(e) => onHomeSectionNavClick(e, link.sectionId)}
-                  {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className={cn(
-                    "transition",
-                    link.emphasis
-                      ? isPastHero
-                        ? "font-semibold text-ink hover:text-ink"
-                        : "font-semibold text-white hover:text-white"
-                      : isPastHero
-                        ? "text-ink/74 hover:text-ink"
-                        : "text-white/92 hover:text-white",
-                  )}
-                >
-                  {link.label}
-                </a>
+                (() => {
+                  const currentPath = window.location.pathname;
+                  const isActivePage =
+                    !link.sectionId &&
+                    (currentPath === link.href || (link.href !== "/" && currentPath.startsWith(link.href)));
+
+                  return (
+                    <a
+                      key={link.id}
+                      href={link.href}
+                      onClick={(e) => onHomeSectionNavClick(e, link.sectionId)}
+                      {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                      className={cn(
+                        "relative inline-block text-current transition-[opacity] duration-300 after:pointer-events-none after:absolute after:left-0 after:top-full after:block after:h-px after:w-0 after:translate-y-0.5 after:bg-current after:opacity-0 after:content-[''] after:transition-[width,opacity] after:duration-300 after:ease-out hover:after:w-[84%] hover:after:opacity-55",
+                        "font-medium",
+                        isPastHero ? "opacity-[0.74] hover:opacity-100" : "opacity-[0.92] hover:opacity-100",
+                        isActivePage && "opacity-100 after:w-[84%] after:opacity-55",
+                      )}
+                    >
+                      {link.label}
+                    </a>
+                  );
+                })()
               ))}
             </nav>
 
@@ -642,12 +647,12 @@ export function HeroSection({ stats, visuals }) {
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,10,9,0.18)_0%,rgba(12,10,9,0.12)_38%,rgba(12,10,9,0.68)_100%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_46%,rgba(0,0,0,0.28),transparent_32%),radial-gradient(circle_at_82%_18%,rgba(255,255,255,0.05),transparent_18%)]" />
 
-      <div className="relative mx-auto flex min-h-[100dvh] min-h-screen w-full max-w-site flex-col shell-px pt-[80px]">
+      <div className="hero-shell relative mx-auto flex min-h-[100dvh] min-h-screen w-full max-w-site flex-col shell-px pt-[80px]">
         <div
-          className="min-h-0 flex-1 notebook:flex-none notebook:min-h-0 notebook:h-[min(10dvh,5.5rem)]"
+          className="min-h-0 flex-1 lg:hidden notebook:flex-none notebook:min-h-0 notebook:h-[min(10dvh,5.5rem)]"
           aria-hidden="true"
         />
-        <div className="hero-content max-w-[84rem] w-full pb-10 pt-6 [text-shadow:0_2px_24px_rgba(0,0,0,0.38)] md:pb-14 md:pt-0 notebook:pb-7 notebook:pt-1">
+        <div className="hero-content max-w-[84rem] w-full pb-10 pt-6 [text-shadow:0_2px_24px_rgba(0,0,0,0.38)] md:pb-14 md:pt-0 lg:pb-0 lg:pt-0 notebook:pb-7 notebook:pt-1">
           <div className="inline-flex items-center gap-3">
             <span className="h-px w-10 bg-white/35" aria-hidden="true" />
             <p className="text-[13px] font-medium uppercase leading-[1.4] tracking-[0.26em] text-white/58 md:text-[11px] md:leading-normal">
@@ -774,7 +779,7 @@ export function HeroSection({ stats, visuals }) {
                       {stat.label}
                     </p>
                     <p
-                      className={`hero-card-text mt-1 max-w-none font-normal transition-colors duration-[250ms] ease-out group-hover/cta:text-white ${
+                      className={`hero-card-text mt-0.5 max-w-none font-normal transition-colors duration-[250ms] ease-out group-hover/cta:text-white ${
                         activeHeroId === stat.id ? "text-white/86" : "text-white/66"
                       }`}
                     >
@@ -1008,8 +1013,13 @@ export function ProductRailSection({
   eyebrow = "Cuidado em movimento",
   title = (
     <>
-      <span className="lg:whitespace-nowrap">Os mais usados por quem busca</span>
-      <br />
+      <span className="lg:whitespace-nowrap">
+        Os mais usados por
+        <br className="md:hidden" />
+        quem busca
+        <span className="md:hidden"> </span>
+        <br className="hidden md:block" />
+      </span>
       <em className="italic">resultado real</em>.
     </>
   ),
@@ -1339,8 +1349,8 @@ function LaunchEditorialCta({ href, label, align = "center", emphasis = "soft", 
         ? cn("self-end", pt)
         : cn("self-center", pt);
   const btnClass = compact
-    ? "button-editorial-compact no-underline h-12"
-    : "button-editorial no-underline";
+    ? "button-editorial-compact launches-cta launches-cta-compact no-underline h-12"
+    : "button-editorial launches-cta no-underline";
   return (
     <div className={wrap}>
       <a href={href} className={btnClass}>
@@ -1391,9 +1401,9 @@ function LaunchProductBlock({ item, headingClass, columnIndex = 0, compact = fal
 
   const descriptionTone = cn(
     compact
-      ? "text-center text-[12.5px] font-light leading-[1.42] text-ink/60 sm:text-[13px] md:text-[13px]"
+      ? "text-center text-[13.5px] font-light leading-[1.42] text-ink/60 sm:text-[13.5px] md:text-[13.5px]"
       : "text-[1rem] font-light leading-[1.7] sm:text-[1.0625rem] sm:leading-[1.72]",
-    !compact && (isLeft ? "text-ink/42" : "text-[#1f1f1f]/76"),
+    !compact && (isLeft ? "text-ink/60" : "text-[#1f1f1f]/60"),
   );
 
   const ctaAlign = "center";
@@ -1516,9 +1526,9 @@ export function LaunchesSection({ items }) {
 }
 
 const ROUTINE_VISUAL_SRCS = [
-  "/images/costas.png",
   "/images/32.png.webp",
-  "/images/frente1.png",
+  "/images/23.jpg.webp",
+  "/images/13.png",
 ];
 
 const ROUTINE_MOBILE_CAROUSEL_MS = 5200;
@@ -1608,7 +1618,7 @@ function RoutineMetodoMobileCarousel({ steps, visualStates, activeStep, setActiv
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
-        <div className="relative h-[23.25rem] w-full overflow-hidden rounded-sm bg-[#ebe4dc] sm:h-[25rem] sm:max-h-[min(78dvh,32rem)]">
+        <div className="relative h-[23.25rem] w-full overflow-hidden rounded-sm bg-[#ebe4dc] shadow-[0_26px_60px_-36px_rgba(24,21,18,0.34)] sm:h-[25rem] sm:max-h-[min(78dvh,32rem)]">
           {steps.slice(0, count).map((step, index) => {
             const vis = visualStates[index];
             const active = index === activeStep;
@@ -1691,21 +1701,21 @@ export function RoutineSection({ steps }) {
     () => [
       {
         label: "Preparar",
-        src: "/images/costas.png",
+        src: "/images/32.png.webp",
         alt: "Cabelo em estado natural, antes do ritual de tratamento",
         overlayClass:
           "bg-[linear-gradient(180deg,rgba(14,11,9,0.08),rgba(14,11,9,0.2)_72%,rgba(14,11,9,0.34))]",
       },
       {
         label: "Tratar",
-        src: "/images/32.png.webp",
+        src: "/images/23.jpg.webp",
         alt: "Textura em transformação — tratamento e resposta do fio",
         overlayClass:
           "bg-[linear-gradient(180deg,rgba(14,11,9,0.06),rgba(14,11,9,0.18)_72%,rgba(14,11,9,0.3))]",
       },
       {
         label: "Sustentar",
-        src: "/images/frente1.png",
+        src: "/images/13.png",
         alt: "Resultado final com brilho, alinhamento e movimento",
         overlayClass:
           "bg-[linear-gradient(180deg,rgba(14,11,9,0.04),rgba(14,11,9,0.14)_68%,rgba(14,11,9,0.26))]",
@@ -1760,7 +1770,7 @@ export function RoutineSection({ steps }) {
 
         <div className="mt-0 hidden lg:grid lg:grid-cols-[0.88fr_1.12fr] lg:items-stretch lg:gap-8 xl:gap-20">
           <div className="order-1 lg:sticky lg:top-28 lg:h-full">
-            <article className="relative h-full min-h-0 overflow-hidden bg-[#ebe4dc]">
+            <article className="relative h-full min-h-0 overflow-hidden bg-[#ebe4dc] shadow-[0_26px_60px_-36px_rgba(24,21,18,0.34)]">
               <div className="relative h-full min-h-[44rem] w-full shrink-0 overflow-hidden xl:min-h-[48rem]">
                 {visualStates.map((visual, index) => {
                   const isActive = activeStep === index;
@@ -1927,6 +1937,14 @@ export function SocialProofEditorialSection({ stories = [] }) {
     transitionToOrder((prev) => (prev.length > 1 ? [prev[prev.length - 1], ...prev.slice(0, -1)] : prev));
   }, [transitionToOrder]);
 
+  const setActiveBySourceIndex = React.useCallback((sourceIndex) => {
+    transitionToOrder((prev) => {
+      const clickedIdx = prev.indexOf(sourceIndex);
+      if (clickedIdx <= 0) return prev;
+      return [...prev.slice(clickedIdx), ...prev.slice(0, clickedIdx)];
+    });
+  }, [transitionToOrder]);
+
   React.useEffect(() => {
     if (list.length <= 1 || isPaused || isAnimating || !isContentVisible) return undefined;
     const id = window.setTimeout(goNext, AUTO_ROTATE_MS);
@@ -1956,7 +1974,10 @@ export function SocialProofEditorialSection({ stories = [] }) {
   if (!list.length) return null;
 
   const active = list[order[0]];
-  const compactCards = order.slice(1).map((sourceIndex) => list[sourceIndex]);
+  const compactCards = order.slice(1).map((sourceIndex) => ({
+    sourceIndex,
+    item: list[sourceIndex],
+  }));
 
   const activeMeta = [active.profession || active.type, active.city || active.location].filter(Boolean).join(" · ");
 
@@ -2005,7 +2026,7 @@ export function SocialProofEditorialSection({ stories = [] }) {
                 <div
                   className={`absolute inset-x-0 bottom-0 z-[1] p-5 transition-[opacity,transform] duration-700 ease-in-out sm:p-6 ${isContentVisible ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"}`}
                 >
-                  <p className="line-clamp-6 max-w-none text-pretty font-display text-[clamp(1.5rem,5.2vw,1.75rem)] font-light leading-snug tracking-[-0.012em] text-white">
+                  <p className="line-clamp-6 max-w-none text-pretty font-display text-[clamp(1.5rem,5.2vw,1.75rem)] font-light leading-[1.58] tracking-[-0.012em] text-white">
                     &ldquo;{active.quote}&rdquo;
                   </p>
                   <div className="mt-4 w-10 border-t border-white/30" />
@@ -2050,7 +2071,7 @@ export function SocialProofEditorialSection({ stories = [] }) {
                   aria-hidden
                 />
                 <div className={`absolute inset-x-0 bottom-0 p-6 lg:p-8 transition-[opacity,transform] duration-700 ease-in-out ${isContentVisible ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"}`}>
-                  <p className="line-clamp-4 max-w-[24rem] text-pretty font-display text-[1.18rem] font-light leading-[1.24] tracking-[-0.01em] text-white lg:text-[1.3rem] xl:text-[1.45rem]">
+                  <p className="line-clamp-4 max-w-[24rem] text-pretty font-display text-[1.18rem] font-light leading-[1.43] tracking-[-0.01em] text-white lg:text-[1.3rem] xl:text-[1.45rem]">
                     &ldquo;{active.quote}&rdquo;
                   </p>
                   <div className="mt-4 w-12 border-t border-white/30" />
@@ -2061,10 +2082,20 @@ export function SocialProofEditorialSection({ stories = [] }) {
                 </div>
               </article>
 
-              {compactCards.map((item, idx) => (
+              {compactCards.map(({ sourceIndex, item }, idx) => (
               <article
                   key={`social-compact-${item.name}-${idx}`}
-                  className="group relative flex h-[62%] w-[var(--card-w)] shrink-0 flex-col items-start overflow-hidden rounded-[8px] border border-black/[0.045] bg-[#f3f0ea] px-7 py-5 text-left opacity-[0.8] transition-[opacity,transform,background-color] duration-500 ease-out hover:bg-[#f6f3ee] hover:opacity-[0.97]"
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Ver depoimento de ${item.name}`}
+                  onClick={() => setActiveBySourceIndex(sourceIndex)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      setActiveBySourceIndex(sourceIndex);
+                    }
+                  }}
+                  className="group relative flex h-[62%] w-[var(--card-w)] shrink-0 cursor-pointer flex-col items-start overflow-hidden rounded-[8px] border border-black/[0.045] bg-[#f3f0ea] px-7 py-5 text-left opacity-[0.8] transition-[opacity,transform,background-color] duration-500 ease-out hover:bg-[#f6f3ee] hover:opacity-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f5f2]"
                 >
                   <div className="flex min-w-0 items-start gap-3.5">
                     <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-[#e5dfd6]">
@@ -2084,7 +2115,7 @@ export function SocialProofEditorialSection({ stories = [] }) {
                     </div>
                   </div>
                   <div className="mt-6 min-w-0">
-                    <p className="line-clamp-3 font-display text-[20px] leading-[1.2] text-ink/72">
+                    <p className="line-clamp-3 font-display text-[20px] leading-[1.38] text-ink/72">
                       &ldquo;{item.quote}&rdquo;
                   </p>
                 </div>
@@ -2137,7 +2168,7 @@ export function ProfessionalSection() {
           </p>
 
           <div className="mt-6">
-            <a href="#" className="button-editorial-dark">
+            <a href="/linha-profissional" className="button-editorial-dark">
               CONHECER LINHA PROFISSIONAL
               <span className="text-base leading-none">→</span>
             </a>
@@ -2224,8 +2255,8 @@ export function FooterSection() {
               className="h-10 w-auto brightness-0 invert"
             />
             <p className="mt-6 w-full max-w-none text-sm leading-[1.6] text-white/60">
-              O cuidado certo muda o brilho, o toque e a confiança.
-              {" "}Todos os dias.
+              Resultado não se promete.
+              {" "}Se constrói.
             </p>
 
             <div className="mt-6 flex flex-col gap-2.5 text-sm text-white/62">
@@ -2360,14 +2391,14 @@ export function FooterSection() {
                 aria-label="Instagram"
                 className="inline-flex items-center justify-center text-white/62 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:opacity-100 hover:text-white"
               >
-                <InstagramIcon className="h-[18px] w-[18px]" />
+                <InstagramIcon className="h-[20px] w-[20px]" />
               </a>
               <a
                 href="#"
                 aria-label="TikTok"
                 className="inline-flex items-center justify-center text-white/62 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:opacity-100 hover:text-white"
               >
-                <TikTokIcon className="h-[18px] w-[18px]" />
+                <TikTokIcon className="h-[20px] w-[20px]" />
               </a>
             </div>
             <p className="mt-5 text-center text-sm text-white/40">
@@ -2383,9 +2414,9 @@ export function FooterSection() {
               alt="Ybera"
               className="h-10 w-auto brightness-0 invert sm:h-11"
             />
-            <p className="mt-8 max-w-sm text-sm leading-7 text-white/60 md:text-base">
-              Cuidado capilar profissional com resultado visível, brilho contínuo
-              e uma rotina que acompanha o fio no dia a dia.
+            <p className="mt-5 max-w-sm text-sm leading-7 text-white/60 md:text-base">
+              Resultado não se promete.
+              {" "}Se constrói.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 text-sm text-white/58">
@@ -2403,14 +2434,14 @@ export function FooterSection() {
                 aria-label="Instagram"
                 className="inline-flex items-center justify-center text-white/62 transition hover:text-white"
               >
-                <InstagramIcon className="h-[18px] w-[18px]" />
+                <InstagramIcon className="h-[20px] w-[20px]" />
               </a>
               <a
                 href="#"
                 aria-label="TikTok"
                 className="inline-flex items-center justify-center text-white/62 transition hover:text-white"
               >
-                <TikTokIcon className="h-[18px] w-[18px]" />
+                <TikTokIcon className="h-[20px] w-[20px]" />
               </a>
             </div>
           </div>

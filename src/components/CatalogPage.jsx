@@ -113,7 +113,7 @@ const catalogItems = [
     note: "Controla o frizz e preserva o movimento.",
     price: "R$ 249,90",
     image: "/images/16.png",
-    href: "#produtos",
+    href: "/produto/oleo-de-mirra-reparador",
     resultados: ["leveza", "alinhamento", "brilho", "maciez", "forca"],
   },
   {
@@ -123,7 +123,7 @@ const catalogItems = [
     note: "Repõe hidratação e alinha a textura.",
     price: "R$ 107,90",
     image: "/images/15.png",
-    href: "#produtos",
+    href: "/produto/oleo-de-mirra-reparador",
     resultados: ["maciez", "alinhamento", "forca", "brilho"],
   },
   {
@@ -133,7 +133,7 @@ const catalogItems = [
     note: "Alinha os fios e prolonga o brilho.",
     price: "R$ 99,90",
     image: "/images/17.png",
-    href: "#produtos",
+    href: "/produto/oleo-de-mirra-reparador",
     resultados: ["alinhamento", "brilho", "forca", "maciez", "leveza"],
   },
   {
@@ -143,7 +143,7 @@ const catalogItems = [
     note: "Facilita a finalização e reduz o frizz.",
     price: "R$ 89,90",
     image: "/images/18.png",
-    href: "#produtos",
+    href: "/produto/oleo-de-mirra-reparador",
     resultados: ["alinhamento", "leveza", "maciez", "brilho"],
   },
   {
@@ -153,7 +153,7 @@ const catalogItems = [
     note: "Realça o brilho e reduz a opacidade.",
     price: "R$ 119,90",
     image: "/images/19.png",
-    href: "#produtos",
+    href: "/produto/oleo-de-mirra-reparador",
     resultados: ["brilho", "leveza", "maciez", "alinhamento"],
   },
   {
@@ -163,7 +163,7 @@ const catalogItems = [
     note: "Nutre os fios e devolve maciez.",
     price: "R$ 139,90",
     image: "/images/20.png",
-    href: "#produtos",
+    href: "/produto/oleo-de-mirra-reparador",
     resultados: ["maciez", "forca", "brilho"],
   },
   {
@@ -173,7 +173,7 @@ const catalogItems = [
     note: "Mantém brilho e controle no dia a dia.",
     price: "R$ 159,90",
     image: "/images/31.png",
-    href: "#produtos",
+    href: "/produto/oleo-de-mirra-reparador",
     resultados: ["brilho", "alinhamento", "maciez", "forca", "leveza"],
   },
 ];

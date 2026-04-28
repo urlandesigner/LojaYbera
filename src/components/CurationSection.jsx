@@ -14,9 +14,9 @@ const RESULT_GOALS = [
   {
     title: "Brilho",
     text: "Reflexo imediato, com aparência saudável e luminosa.",
-    image: "/images/frente1.png",
+    image: "/images/brilho.png",
     imageAlt: "Cabelo com brilho e reflexo luminoso",
-    imgClass: "object-cover object-[center_28%]",
+    imgClass: "object-cover object-center",
     ctaLabel: "Explorar cuidados para brilho",
     catalogSlug: "brilho",
     desktopCtaLabel: "Ver produtos para brilho →",
@@ -24,9 +24,9 @@ const RESULT_GOALS = [
   {
     title: "Maciez",
     text: "Toque suave desde o primeiro uso, com mais maleabilidade.",
-    image: "/images/frente2.png",
+    image: "/images/maciez.png",
     imageAlt: "Textura macia ao toque e movimento natural",
-    imgClass: "object-cover object-[center_42%]",
+    imgClass: "object-cover object-center",
     ctaLabel: "Explorar cuidados para maciez",
     catalogSlug: "maciez",
     desktopCtaLabel: "Ver produtos para maciez →",
@@ -34,9 +34,9 @@ const RESULT_GOALS = [
   {
     title: "Alinhamento",
     text: "Fio disciplinado, com menos frizz e mais controle ao longo do dia.",
-    image: "/images/costas.png",
+    image: "/images/alinhamento.png",
     imageAlt: "Fios alinhados e disciplinados",
-    imgClass: "object-cover object-[center_35%]",
+    imgClass: "object-cover object-center",
     ctaLabel: "Explorar disciplina e alinhamento",
     catalogSlug: "alinhamento",
     desktopCtaLabel: "Ver produtos para alinhamento →",
@@ -44,9 +44,9 @@ const RESULT_GOALS = [
   {
     title: "Força",
     text: "Mais resistência e menos quebra, com estrutura visivelmente recuperada.",
-    image: "/images/mirra5.jpg.webp",
+    image: "/images/forca.png",
     imageAlt: "Fios com estrutura forte e recuperada",
-    imgClass: "object-cover object-[center_30%]",
+    imgClass: "object-cover object-center",
     ctaLabel: "Ver produtos para força",
     catalogSlug: "forca",
     desktopCtaLabel: "Ver produtos para força →",
@@ -54,9 +54,9 @@ const RESULT_GOALS = [
   {
     title: "Leveza",
     text: "Movimento natural, sem pesar ou comprometer o volume.",
-    image: "/images/24.jpg.webp",
+    image: "/images/leveza.png",
     imageAlt: "Cabelo leve com movimento natural",
-    imgClass: "object-cover object-[center_25%]",
+    imgClass: "object-cover object-center",
     ctaLabel: "Explorar leveza e movimento",
     catalogSlug: "leveza",
     desktopCtaLabel: "Ver produtos para leveza →",
@@ -90,7 +90,7 @@ function CurationMobileEditorial({ activeIndex, onSelectIndex }) {
                   }
                 }}
                 className={cn(
-                  "inline-flex shrink-0 cursor-pointer select-none flex-col items-stretch border-0 bg-transparent p-0 text-left font-display text-[14px] font-normal leading-[1.15] tracking-[-0.02em] text-black outline-none transition-opacity duration-200 ease-out focus-visible:ring-1 focus-visible:ring-black/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f2ec] sm:text-[15px] md:text-[16px]",
+                  "inline-flex shrink-0 cursor-pointer select-none flex-col items-stretch border-0 bg-transparent p-0 text-left font-display text-[16px] font-medium leading-[1.15] tracking-[-0.02em] text-black outline-none transition-opacity duration-200 ease-out focus-visible:ring-1 focus-visible:ring-black/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f2ec] sm:text-[17px] md:text-[18px]",
                   isActive ? "opacity-100" : "opacity-50 hover:opacity-100",
                 )}
               >
@@ -195,7 +195,7 @@ export default function CurationSection() {
 
   return (
     <div id="ybera-escolha-resultado-text-color-fix-v1" className="mx-auto w-full max-w-site shell-px">
-      <div className="grid min-w-0 gap-4 max-lg:gap-y-0.5 lg:grid-cols-[0.95fr_1.05fr] lg:items-start lg:gap-14 xl:gap-20">
+      <div className="grid min-w-0 gap-4 max-lg:gap-y-0 lg:grid-cols-[0.95fr_1.05fr] lg:items-start lg:gap-14 xl:gap-20">
         <div className="section-lead min-w-0 max-w-full max-lg:!pb-0 max-lg:!pt-0 lg:sticky lg:top-28">
           <p className="section-kicker">ESCOLHA PELO RESULTADO</p>
           <h2 className="mt-1 max-w-2xl font-display text-[28px] leading-[1.2] tracking-[-0.01em] text-ink md:mt-3 md:text-7xl md:leading-[1.16] lg:mt-4">
@@ -209,7 +209,7 @@ export default function CurationSection() {
         </div>
 
         <div
-          className="order-2 flex min-w-0 w-full max-w-full flex-col gap-1 max-lg:gap-3 lg:gap-8"
+          className="order-2 flex min-w-0 w-full max-w-full flex-col gap-1 max-lg:gap-1 lg:gap-8"
           onMouseEnter={() => setRotationPaused(true)}
           onMouseLeave={() => setRotationPaused(false)}
         >
@@ -219,20 +219,24 @@ export default function CurationSection() {
 
           <div className="hidden lg:flex lg:flex-col lg:gap-8">
             <div className="order-1 flex flex-col gap-4 lg:order-2 lg:gap-6">
-              <div className="divide-y divide-black/[0.09]">
+              <div className="result-list">
                 {RESULT_GOALS.map((item, index) => {
                   const isActive = index === activeIndex;
-                  const panelId = `curation-panel-${index}`;
                   const headerId = `curation-header-${index}`;
 
                   return (
-                    <div key={item.title} className="lg:py-4">
+                    <div
+                      key={item.title}
+                      className={cn(
+                        "result-item",
+                        isActive && "result-item-active",
+                      )}
+                    >
                       <div
                         id={headerId}
                         role="button"
                         tabIndex={0}
                         aria-expanded={isActive}
-                        aria-controls={panelId}
                         onClick={() => selectIndex(index)}
                         onKeyDown={(e) => {
                           if (e.key === "Enter" || e.key === " ") {
@@ -242,63 +246,37 @@ export default function CurationSection() {
                         }}
                         className="group/need flex w-full cursor-pointer flex-col text-left outline-none transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:ring-2 focus-visible:ring-black/15 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f2ec]"
                       >
-                        <div className="min-h-0 lg:min-h-[3.25rem]">
-                            <h3
-                              className={cn(
-                                "font-display text-[1.15rem] leading-[1.18] tracking-[-0.02em] transition-[color,font-weight,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:text-[1.65rem] md:leading-[1.18] lg:text-[1.55rem] lg:leading-[1.16]",
-                                isActive
-                                  ? "font-semibold text-ink"
-                                  : "font-normal text-ink/[0.52] group-hover/need:text-ink/[0.72]",
-                              )}
-                            >
+                        {isActive ? (
+                          <div
+                            key={`${index}-${activeIndex}`}
+                            className="result-item-active-content motion-safe:animate-[curation-editorial-reveal_0.48s_cubic-bezier(0.22,1,0.36,1)_both] motion-reduce:animate-none"
+                          >
+                            <h3 className="result-item-active-title font-display text-[1.55rem] font-semibold leading-[1.16] tracking-[-0.02em] text-ink">
                               {item.title}
                             </h3>
+                            <p className="result-item-active-description max-w-lg text-[15px] leading-[1.58] text-ink md:text-[15px] md:leading-relaxed lg:max-w-xl lg:text-[15px]">
+                              {item.text}
+                            </p>
+                            <a
+                              data-curation-catalog-cta
+                              href={`${CURATION_CATALOG_HREF}?resultado=${item.catalogSlug}`}
+                              key={`curation-cta-${index}-${activeIndex}`}
+                              className="result-item-active-cta no-underline inline-flex max-w-full items-center gap-2 self-start border-b border-ink/20 px-1 pb-px text-left text-[13px] font-medium leading-snug tracking-wide text-ink/72 transition-[color,border-color,opacity] duration-300 ease-out hover:border-ink/45 hover:text-ink lg:whitespace-nowrap"
+                            >
+                              {item.desktopCtaLabel}
+                            </a>
                           </div>
-
-                          <div
-                            id={panelId}
-                            role="region"
-                            aria-labelledby={headerId}
+                        ) : (
+                          <h3
                             className={cn(
-                              "grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
-                              isActive ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+                              "result-item-title font-display text-[1.15rem] leading-[1.18] tracking-[-0.02em] transition-[color,font-weight,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:text-[1.65rem] md:leading-[1.18] lg:text-[1.55rem] lg:leading-[1.16]",
+                              "font-normal text-ink/50 group-hover/need:text-ink/[0.72]",
                             )}
                           >
-                            <div className="min-h-0 overflow-hidden">
-                              <div
-                                key={`${index}-${isActive ? activeIndex : "off"}`}
-                                className={cn(
-                                  isActive &&
-                                    "motion-safe:animate-[curation-editorial-reveal_0.48s_cubic-bezier(0.22,1,0.36,1)_both] motion-reduce:animate-none",
-                                )}
-                              >
-                                <p
-                                  className={cn(
-                                    "max-w-lg text-[15px] leading-[1.58] transition-opacity duration-300 ease-out md:text-[15px] md:leading-relaxed lg:max-w-xl lg:text-[15px]",
-                                    isActive
-                                      ? "pb-0.5 pt-1 text-ink opacity-100 md:pt-1.5 lg:min-h-[4.9rem]"
-                                      : "pointer-events-none pt-0 leading-[1.62] opacity-0 lg:min-h-[4.9rem]",
-                                  )}
-                                >
-                                  {item.text}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      {isActive ? (
-                        <a
-                          data-curation-catalog-cta
-                          href={`${CURATION_CATALOG_HREF}?resultado=${item.catalogSlug}`}
-                          key={`curation-cta-${index}-${activeIndex}`}
-                          className={cn(
-                            "no-underline mt-2.5 inline-flex max-w-full items-center gap-2 self-start border-b border-ink/20 px-1 pb-px text-left text-[13px] font-medium leading-snug tracking-wide text-ink/72 transition-[color,border-color,opacity] duration-300 ease-out hover:border-ink/45 hover:text-ink",
-                            "motion-safe:animate-[curationDesktopCta_0.38s_cubic-bezier(0.22,1,0.36,1)_both] motion-reduce:animate-none",
-                          )}
-                        >
-                          {item.desktopCtaLabel}
-                        </a>
-                      ) : null}
+                            {item.title}
+                          </h3>
+                        )}
+                      </div>
                     </div>
                   );
                 })}
