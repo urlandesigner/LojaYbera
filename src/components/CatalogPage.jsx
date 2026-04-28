@@ -45,9 +45,9 @@ function CatalogHeroBanner() {
             <p className="mt-3 text-[14px] font-light leading-[1.55] text-white sm:mt-3.5 sm:text-[15px] md:mt-4 md:max-w-[32ch] md:text-base md:leading-relaxed">
               Hidratação, nutrição e reconstrução para acompanhar cada fase do seu cabelo.
             </p>
-            <span className="mt-6 inline-flex h-11 items-center justify-center gap-2 border border-white bg-white/10 px-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition duration-300 group-hover:border-white group-hover:bg-white/18 sm:mt-7 md:mt-8 md:h-12 md:px-7">
+            <span className="mt-6 inline-flex h-11 items-center justify-center gap-2 border border-white bg-white/10 px-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition duration-300 group-hover:border-white group-hover:bg-white group-hover:text-[#14110f] sm:mt-7 md:mt-8 md:h-12 md:px-7">
               Ver kit cronograma
-              <span className="text-sm font-normal leading-none text-white" aria-hidden>
+              <span className="text-sm font-normal leading-none text-white group-hover:text-[#14110f]" aria-hidden>
                 →
               </span>
             </span>

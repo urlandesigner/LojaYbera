@@ -105,7 +105,7 @@ export default function ProfessionalLinePage() {
               </p>
               <a
                 href="#cadastro-profissional"
-                className="mt-9 inline-flex h-12 items-center justify-center gap-2 border border-white/75 bg-white/12 px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-white no-underline transition duration-300 hover:bg-white/20"
+                className="mt-9 inline-flex h-12 items-center justify-center gap-2 border border-white/75 bg-white/12 px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-white no-underline transition duration-300 hover:border-white hover:bg-white hover:text-[#14110f]"
               >
                 Quero fazer parte
                 <span aria-hidden>→</span>

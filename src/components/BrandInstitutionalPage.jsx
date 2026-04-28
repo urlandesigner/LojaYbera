@@ -55,7 +55,10 @@ export default function BrandInstitutionalPage() {
       if (brandsCarouselPaused) return;
       const nextIndex = (brandsCarouselIndexRef.current + 1) % items.length;
       brandsCarouselIndexRef.current = nextIndex;
-      rail.scrollTo({ left: items[nextIndex].offsetLeft, behavior: "smooth" });
+      const el = items[nextIndex];
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+      }
     }, 3600);
 
     return () => window.clearInterval(id);
@@ -89,7 +92,7 @@ export default function BrandInstitutionalPage() {
               </p>
               <a
                 href="/catalogo"
-                className="mt-9 inline-flex h-12 items-center justify-center gap-2 border border-white/75 bg-white/12 px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-white no-underline transition duration-300 hover:bg-white/20"
+                className="mt-9 inline-flex h-12 items-center justify-center gap-2 border border-white/75 bg-white/12 px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-white no-underline transition duration-300 hover:border-white hover:bg-white hover:text-[#14110f]"
               >
                 Conhecer produtos
                 <span aria-hidden>→</span>
@@ -218,14 +221,14 @@ export default function BrandInstitutionalPage() {
                 onMouseLeave={() => setBrandsCarouselPaused(false)}
                 onTouchStart={() => setBrandsCarouselPaused(true)}
                 onTouchEnd={() => setBrandsCarouselPaused(false)}
-                className="overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-px-6 scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] lg:hidden [&::-webkit-scrollbar]:hidden"
+                className="brand-brands-carousel lg:hidden"
               >
-                <div className="flex min-w-min snap-x snap-mandatory gap-8 pl-6 pr-6 md:gap-10">
+                <div className="brand-brands-carousel-track">
                   {GROUP_BRANDS.map((brand) => (
                     <article
                       key={brand.name}
                       data-brand-item
-                      className="w-[84%] min-w-0 shrink-0 snap-start md:w-[46%]"
+                      className="brand-brands-carousel-slide min-w-0 max-w-full"
                     >
                       <img
                         src={brand.logo}
@@ -234,7 +237,7 @@ export default function BrandInstitutionalPage() {
                         loading="lazy"
                         decoding="async"
                       />
-                      <p className="mt-3 line-clamp-2 max-w-full text-[14px] font-light leading-[1.68] text-[#3a332d]/70 md:text-[15px]">
+                      <p className="mt-3 max-w-full text-wrap text-[14px] font-light leading-[1.68] text-[#3a332d]/70 md:text-[15px]">
                         {brand.description}
                       </p>
                     </article>
@@ -279,7 +282,7 @@ export default function BrandInstitutionalPage() {
               </p>
               <a
                 href="/catalogo"
-                className="mt-8 inline-flex h-12 items-center justify-center gap-2 border border-white/75 bg-white/12 px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-white no-underline transition duration-300 hover:bg-white/20"
+                className="mt-8 inline-flex h-12 items-center justify-center gap-2 border border-white/75 bg-white/12 px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-white no-underline transition duration-300 hover:border-white hover:bg-white hover:text-[#14110f]"
               >
                 Explorar produtos
                 <span aria-hidden>→</span>
