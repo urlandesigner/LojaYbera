@@ -160,19 +160,14 @@ function TikTokIcon({ className = "" }) {
   );
 }
 
-/** Menu principal — intenção: catálogo (página), cuidados/resultados (âncoras na home), profissionais (externo). */
-const YBERA_NAV_PROFISSIONAIS_HREF = "https://www.ybera.com.br/";
-
 const PRIMARY_HEADER_NAV = [
-  { id: "catalogo", label: "Catálogo", href: "/catalogo", emphasis: true },
-  { id: "cuidados", label: "Cuidados", href: "/#rotina", sectionId: "rotina" },
-  { id: "resultados", label: "Resultados", href: "/#resultado", sectionId: "resultado" },
+  { id: "produtos", label: "Produtos", href: "/catalogo", emphasis: true },
   {
-    id: "profissionais",
-    label: "Profissionais",
-    href: YBERA_NAV_PROFISSIONAIS_HREF,
-    external: true,
+    id: "linha-profissional",
+    label: "Linha profissional",
+    href: "/linha-profissional",
   },
+  { id: "marca", label: "A marca", href: "/#historias-resultado", sectionId: "historias-resultado" },
 ];
 
 function isAppHomePathname() {
@@ -659,7 +654,7 @@ export function HeroSection({ stats, visuals }) {
               Jeito Ybera de ser
             </p>
           </div>
-          <h1 className="mt-5 max-w-[320px] font-display text-[44px] leading-[1.1] tracking-[-0.008em] text-white md:mt-5 md:max-w-[min(100%,26ch)] md:text-[length:clamp(44px,5vw,64px)] md:leading-[1.06] md:tracking-[-0.01em] notebook:mt-4 notebook:max-w-[min(100%,24ch)] notebook:text-[length:clamp(48px,5vw,64px)] notebook:leading-[1.05] wide:mt-5 wide:max-w-[min(100%,54rem)] wide:text-[7.9rem] wide:leading-[1.1] wide:tracking-[-0.008em]">
+          <h1 className="hero-title mt-5 max-w-[320px] font-display text-[44px] leading-[1.1] tracking-[-0.008em] text-white md:mt-5 md:max-w-[min(100%,26ch)] md:text-[length:clamp(44px,5vw,64px)] md:leading-[1.06] md:tracking-[-0.01em] notebook:mt-4 notebook:max-w-[min(100%,24ch)] notebook:text-[length:clamp(48px,5vw,64px)] notebook:leading-[1.05] wide:mt-5 wide:max-w-[min(100%,54rem)] wide:text-[7.9rem] wide:leading-[1.1] wide:tracking-[-0.008em]">
             <span className="block md:whitespace-nowrap notebook:font-medium wide:whitespace-nowrap wide:font-medium">
               Revelar a beleza
             </span>
@@ -1012,7 +1007,7 @@ export function ProductRailSection({
   eyebrow = "Cuidado em movimento",
   title = (
     <>
-      Os mais usados por quem busca
+      <span className="lg:whitespace-nowrap">Os mais usados por quem busca</span>
       <br />
       <em className="italic">resultado real</em>.
     </>

@@ -286,9 +286,10 @@ function ProductInfo({ onBuy, buyCtaRef }) {
             Informações essenciais
           </a>
         </nav>
+        <div className="mt-5 border-t border-black/[0.08] sm:mt-6 lg:hidden" aria-hidden />
       </div>
 
-      <div className="order-2 mt-7 min-w-0 max-w-full pt-6 max-lg:border-t max-lg:border-black/[0.06] lg:mt-9 lg:border-t lg:border-black/10">
+      <div className="order-2 mt-0 min-w-0 max-w-full pt-6 lg:mt-9 lg:border-t lg:border-black/10">
         <div className="flex min-w-0 flex-col gap-3 lg:gap-3.5">
           <div className="flex min-w-0 flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-end lg:gap-x-5 lg:gap-y-0.5">
             <p className="shrink-0 font-display text-[22px] leading-[1.3] tracking-[-0.012em] text-ink sm:text-[2.25rem] sm:leading-[1.08] md:text-[2.65rem] md:leading-[1.14] lg:text-5xl lg:leading-[1.12]">

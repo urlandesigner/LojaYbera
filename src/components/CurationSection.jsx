@@ -276,8 +276,8 @@ export default function CurationSection() {
                                   className={cn(
                                     "max-w-lg text-[15px] leading-[1.58] transition-opacity duration-300 ease-out md:text-[15px] md:leading-relaxed lg:max-w-xl lg:text-[15px]",
                                     isActive
-                                      ? "pb-0.5 pt-1 text-ink opacity-100 md:pt-1.5"
-                                      : "pointer-events-none pt-0 leading-[1.62] opacity-0",
+                                      ? "pb-0.5 pt-1 text-ink opacity-100 md:pt-1.5 lg:min-h-[4.9rem]"
+                                      : "pointer-events-none pt-0 leading-[1.62] opacity-0 lg:min-h-[4.9rem]",
                                   )}
                                 >
                                   {item.text}

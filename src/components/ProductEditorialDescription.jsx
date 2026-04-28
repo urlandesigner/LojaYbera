@@ -115,39 +115,32 @@ export default function ProductEditorialDescription() {
       </section>
 
       {/* 3. PROVA VISUAL */}
-      <section className="bg-[#f6f3ef] px-6 py-14 sm:px-10 md:py-16 lg:px-14 lg:py-20 xl:px-20">
-        <div className="mx-auto max-w-site">
-          <header className="max-w-2xl">
-            <p className="section-kicker text-ink/48 before:bg-ink/24">Prova visual</p>
-            <h2 className="mt-5 font-display text-[clamp(1.6rem,2.4vw,2.3rem)] leading-[1.1] tracking-[-0.02em] text-ink lg:text-[40px]">
-              Diferença visível no alinhamento e no brilho.
-            </h2>
-            <p className="mt-4 text-[15px] font-light leading-[1.75] text-ink/62 sm:text-base">
-              Compare o antes e depois: menos frizz aparente, superfície mais uniforme e movimento mais limpo.
-            </p>
-          </header>
-          <div className="mt-8 grid gap-4 md:grid-cols-2 md:gap-5">
-            <figure className="relative overflow-hidden bg-[#e9e4dd]">
+      <section className="bg-[#f6f3ef] px-4 py-24 sm:px-8 lg:px-14 lg:py-28 xl:px-20 xl:py-[7.5rem]">
+        <div className="mx-auto max-w-[1320px]">
+          <div className="grid items-start gap-y-10 lg:grid-cols-[minmax(0,38%)_minmax(0,62%)] lg:gap-x-16 xl:gap-x-20">
+            <header className="max-w-[26.25rem]">
+              <p className="section-kicker text-ink/48 before:bg-ink/24">PROVA VISUAL</p>
+              <h2 className="mt-5 font-display text-[clamp(1.6rem,2.4vw,2.3rem)] leading-[1.1] tracking-[-0.02em] text-ink lg:text-[40px]">
+                Diferença visível no brilho e alinhamento.
+              </h2>
+              <p className="mt-5 w-full max-w-none pr-0 text-[15px] font-light leading-relaxed text-ink/58 sm:text-base">
+                Resultado real desde a primeira aplicação.
+              </p>
+            </header>
+
+            <figure className="relative w-full overflow-hidden bg-[#e9e4dd] shadow-[0_26px_60px_-36px_rgba(24,21,18,0.34)]">
               <img
-                src="/images/costas.png"
-                alt="Antes do uso do óleo reparador"
-                className="aspect-[4/5] w-full object-cover object-center"
+                src="/images/37.jpg"
+                alt="Resultado visível no cabelo com brilho e alinhamento"
+                className="block h-auto w-full object-contain object-center"
                 loading="lazy"
                 decoding="async"
               />
-              <span className="absolute left-4 top-4 bg-black/45 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-white">
+              <div className="pointer-events-none absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-white/55" aria-hidden />
+              <span className="pointer-events-none absolute left-4 top-4 text-[9px] font-medium uppercase tracking-[0.16em] text-white/82 sm:left-5 sm:top-5 sm:text-[9.5px]">
                 Antes
               </span>
-            </figure>
-            <figure className="relative overflow-hidden bg-[#e9e4dd]">
-              <img
-                src="/images/mirra5.jpg.webp"
-                alt="Depois do uso do óleo reparador"
-                className="aspect-[4/5] w-full object-cover object-center"
-                loading="lazy"
-                decoding="async"
-              />
-              <span className="absolute left-4 top-4 bg-black/45 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-white">
+              <span className="pointer-events-none absolute right-4 top-4 text-[9px] font-medium uppercase tracking-[0.16em] text-white/82 sm:right-5 sm:top-5 sm:text-[9.5px]">
                 Depois
               </span>
             </figure>

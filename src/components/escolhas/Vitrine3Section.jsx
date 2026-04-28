@@ -317,7 +317,7 @@ export function Vitrine3Section({ items = [] }) {
                       aria-selected={isActive}
                       className={cn(
                         "relative inline-block whitespace-nowrap cursor-pointer border-0 px-2 text-[14px] leading-snug tracking-[-0.01em] no-underline decoration-transparent outline-none sm:text-[15px] max-lg:pt-2 max-lg:pb-0 lg:py-2.5",
-                        "after:pointer-events-none after:absolute after:left-2 after:top-full after:block after:h-px after:translate-y-2 after:bg-[#1a1a1a] after:content-[''] after:transition-[width,opacity] after:duration-300 after:ease-out lg:after:translate-y-1.5",
+                        "after:pointer-events-none after:absolute after:left-2 after:top-full after:block after:h-px after:translate-y-1 after:bg-[#1a1a1a] after:content-[''] after:transition-[width,opacity] after:duration-300 after:ease-out lg:after:translate-y-0.5",
                         "focus-visible:ring-1 focus-visible:ring-ink/25 focus-visible:ring-offset-2 focus-visible:ring-offset-pearl",
                         "transition-[color,font-weight,transform] duration-300 ease-out",
                         isActive

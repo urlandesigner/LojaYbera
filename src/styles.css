@@ -342,6 +342,14 @@ button {
   }
 }
 
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: clamp(40px, min(5vw, 7vh), 72px);
+    line-height: 1.05;
+    max-width: 12ch;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

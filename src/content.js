@@ -102,7 +102,7 @@ export const productHighlights = [
     name: "Escova progressiva",
     note: "Alinha e trata em um ritual contínuo, com acabamento limpo e fio leve ao longo do dia.",
     image: "/images/29.jpg.webp",
-    href: "#produtos",
+    href: "/produto/escova-progressiva",
   },
   {
     name: "Shampoo",
@@ -120,13 +120,13 @@ export const productHighlights = [
     name: "Máscara",
     note: "Nutre a fibra, melhora a textura e prolonga o cuidado sem pesar.",
     image: "/images/32.png.webp",
-    href: "#produtos",
+    href: "/produto/mascara-2-em-1-protect-control",
   },
   {
     name: "Soro Vello",
     note: "Disciplina o fio, controla o frizz e mantém o movimento natural.",
     image: "/images/30.jpg.webp",
-    href: "#produtos",
+    href: "/produto/soro-vello-alfa-lactobaby",
   },
 ];
 
@@ -160,7 +160,7 @@ export const vitrine3Items = [
       "Disciplina o fio com leveza, revelando um acabamento contínuo — sem excesso, sem peso.",
     packshot: "/images/16.png",
     price: "A partir de R$ 99,90",
-    href: "#produtos",
+    href: "/produto/oleo-de-mirra-reparador",
   },
   {
     editorialImage: "/images/27.jpg.webp",
@@ -190,7 +190,7 @@ export const vitrine3Items = [
       "Onde o cuidado se torna permanência.\nRecompõe, nutre e sustenta o que o fio precisa ao longo do tempo.",
     packshot: "/images/18.png",
     price: "A partir de R$ 107,90",
-    href: "#produtos",
+    href: "/produto/oleo-de-mirra-reparador",
   },
   {
     editorialImage: "/images/38.jpg.webp",
@@ -205,7 +205,7 @@ export const vitrine3Items = [
       "Movimento com intenção.\nControla o frizz sem interromper a leveza natural do cabelo.",
     packshot: "/images/45.png",
     price: "A partir de R$ 249,90",
-    href: "#produtos",
+    href: "/produto/oleo-de-mirra-reparador",
   },
 ];
 
@@ -278,6 +278,16 @@ export const productRailItems = [
  */
 export const socialProofStories = [
   {
+    name: "Ana Castela",
+    age: 27,
+    city: "",
+    profession: "Profissional",
+    type: "Grupo de clientes",
+    location: "",
+    quote: "É uma honra ser embaixadora da marca Ybera",
+    image: "/images/51.jpg",
+  },
+  {
     name: "Renata",
     age: 41,
     city: "Curitiba - PR",
@@ -289,21 +299,10 @@ export const socialProofStories = [
       "https://images.unsplash.com/photo-1655837804588-472faea586ad?auto=format&fit=crop&w=1400&q=80",
   },
   {
-    name: "Juliana",
-    age: 27,
-    city: "São Paulo - SP",
-    profession: "Influencer",
-    type: "Grupo de clientes",
-    location: "São Paulo · Grupo de clientes",
-    quote: "Comecei com amigas. Hoje é o que me sustenta.",
-    image:
-      "https://images.unsplash.com/photo-1775159878152-4dfd9f184ef3?auto=format&fit=crop&w=1400&q=80",
-  },
-  {
     name: "Marina",
     age: 34,
     city: "Belo Horizonte - MG",
-    profession: "Artista",
+    profession: "Profissional",
     type: "Salão parceiro",
     location: "Belo Horizonte · Salão parceiro",
     quote: "Hoje eu trabalho com algo que faz sentido pra mim.",
