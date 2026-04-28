@@ -342,10 +342,46 @@ button {
   }
 }
 
+@layer components {
+  .hero-cards {
+    align-items: end;
+  }
+
+  .hero-card {
+    height: 88px;
+    min-height: 88px;
+    padding: 18px 24px;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .hero-card-title {
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    opacity: 0.6;
+    margin-bottom: 6px;
+  }
+
+  .hero-card-text {
+    font-size: 16px;
+    line-height: 1.4;
+    min-height: 2.8em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .hero-card-progress {
+    left: 0;
+    right: 0;
+  }
+}
+
 @media (min-width: 1024px) {
   .hero-title {
-    font-size: clamp(40px, min(5vw, 7vh), 72px);
-    line-height: 1.05;
+    font-size: clamp(90px, 10vh, 120px);
+    line-height: 0.95;
     max-width: 12ch;
   }
 }

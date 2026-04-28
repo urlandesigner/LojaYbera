@@ -654,7 +654,7 @@ export function HeroSection({ stats, visuals }) {
               Jeito Ybera de ser
             </p>
           </div>
-          <h1 className="hero-title mt-5 max-w-[320px] font-display text-[44px] leading-[1.1] tracking-[-0.008em] text-white md:mt-5 md:max-w-[min(100%,26ch)] md:text-[length:clamp(44px,5vw,64px)] md:leading-[1.06] md:tracking-[-0.01em] notebook:mt-4 notebook:max-w-[min(100%,24ch)] notebook:text-[length:clamp(48px,5vw,64px)] notebook:leading-[1.05] wide:mt-5 wide:max-w-[min(100%,54rem)] wide:text-[7.9rem] wide:leading-[1.1] wide:tracking-[-0.008em]">
+          <h1 className="hero-title mt-5 max-w-[320px] font-display text-[44px] leading-[1.1] tracking-[-0.008em] text-white md:mt-5 md:max-w-[min(100%,26ch)] md:tracking-[-0.01em] notebook:mt-4 notebook:max-w-[min(100%,24ch)] wide:mt-5 wide:max-w-[min(100%,54rem)] wide:tracking-[-0.008em]">
             <span className="block md:whitespace-nowrap notebook:font-medium wide:whitespace-nowrap wide:font-medium">
               Revelar a beleza
             </span>
@@ -742,7 +742,7 @@ export function HeroSection({ stats, visuals }) {
             </div>
           </div>
 
-          <div className="hidden max-w-[78rem] grid-cols-3 gap-4 sm:mt-10 sm:grid lg:gap-5 notebook:mt-7 notebook:gap-3 wide:mt-10 wide:gap-5">
+          <div className="hero-cards hidden max-w-[78rem] grid-cols-3 gap-4 sm:mt-10 sm:grid lg:gap-5 notebook:mt-7 notebook:gap-3 wide:mt-10 wide:gap-5">
             {stats.map((stat) => (
               <a
                 key={stat.id}
@@ -757,10 +757,10 @@ export function HeroSection({ stats, visuals }) {
                   activateHero(stat.id);
                 }}
                 onBlur={() => setIsPaused(false)}
-                className={`group/cta relative flex min-h-[52px] cursor-pointer flex-col overflow-hidden px-5 py-5 text-left no-underline [-webkit-tap-highlight-color:transparent] transition-[background-color,backdrop-filter,box-shadow,opacity,filter] duration-[250ms] ease-out focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#13100e] lg:px-6 lg:py-6 notebook:min-h-[48px] notebook:px-4 notebook:py-4 ${
+                className={`hero-card group/cta relative flex cursor-pointer flex-col overflow-hidden text-left no-underline [-webkit-tap-highlight-color:transparent] transition-[background-color,backdrop-filter,box-shadow,opacity,filter] duration-[250ms] ease-out focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#13100e] ${
                   activeHeroId === stat.id
-                    ? "scale-[1.02] bg-[rgba(255,255,255,0.052)] opacity-100 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.075),0_6px_26px_rgba(0,0,0,0.08)] backdrop-blur-[9px] hover:bg-[rgba(255,255,255,0.078)] hover:backdrop-blur-[12px] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.11),0_12px_40px_rgba(0,0,0,0.11)] hover:brightness-[1.04]"
-                    : "scale-100 bg-[rgba(255,255,255,0.028)] opacity-90 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.055),0_2px_16px_rgba(0,0,0,0.06)] backdrop-blur-[8px] hover:bg-[rgba(255,255,255,0.045)] hover:opacity-100 hover:backdrop-blur-[10px] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.085),0_8px_30px_rgba(0,0,0,0.09)] hover:brightness-[1.03]"
+                    ? "scale-[1.01] bg-[rgba(0,0,0,0.35)] opacity-100 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.065),0_4px_18px_rgba(0,0,0,0.12)] backdrop-blur-[8px] hover:bg-[rgba(0,0,0,0.42)] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.085),0_8px_24px_rgba(0,0,0,0.16)]"
+                    : "scale-100 bg-[rgba(0,0,0,0.24)] opacity-88 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),0_2px_10px_rgba(0,0,0,0.08)] backdrop-blur-[8px] hover:bg-[rgba(0,0,0,0.32)] hover:opacity-100 hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.07),0_6px_18px_rgba(0,0,0,0.13)]"
                 }`}
                 aria-label={`${stat.label}: ${stat.value}. Ver produto em destaque`}
               >
@@ -768,13 +768,13 @@ export function HeroSection({ stats, visuals }) {
                   <div className="min-w-0 flex-1">
                     <p
                       className={`text-[10px] uppercase tracking-editorial transition-colors duration-[250ms] ease-out group-hover/cta:text-white/54 ${
-                        activeHeroId === stat.id ? "text-white/48" : "text-white/36"
+                        activeHeroId === stat.id ? "hero-card-title text-white/60" : "hero-card-title text-white/50"
                       }`}
                     >
                       {stat.label}
                     </p>
                     <p
-                      className={`mt-4 max-w-none text-[1.02rem] font-normal leading-7 transition-colors duration-[250ms] ease-out group-hover/cta:text-white md:text-[1.08rem] lg:text-[1.18rem] notebook:mt-3 notebook:leading-[1.55] wide:mt-4 wide:leading-7 ${
+                      className={`hero-card-text mt-1 max-w-none font-normal transition-colors duration-[250ms] ease-out group-hover/cta:text-white ${
                         activeHeroId === stat.id ? "text-white/86" : "text-white/66"
                       }`}
                     >
@@ -789,9 +789,10 @@ export function HeroSection({ stats, visuals }) {
                   </span>
                 </div>
                 {activeHeroId === stat.id ? (
-                  <div className="mt-8 h-px w-full overflow-hidden bg-white/8 notebook:mt-5 wide:mt-8">
+                  <div className="hero-card-progress absolute bottom-0 h-px">
+                    <div className="h-full w-full bg-white/18" />
                     <div
-                      className="h-full bg-white/45 transition-[width] duration-75 linear"
+                      className="absolute inset-y-0 left-0 bg-white/55 transition-[width] duration-75 linear"
                       style={{ width: `${progress * 100}%` }}
                     />
                   </div>

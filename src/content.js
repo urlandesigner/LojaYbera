@@ -252,7 +252,7 @@ export const productRailItems = [
     productName: "Máscara 2 em 1 Protect Control",
     note: "Cada uso soma camadas de cuidado e uniformidade no toque.",
     image: "/images/15.png",
-    href: "#produtos",
+    href: "/produto/oleo-de-mirra-reparador",
   },
   {
     tag: "Ao longo da semana",
@@ -260,7 +260,7 @@ export const productRailItems = [
     productName: "Tratamento nutritivo",
     note: "Rotina estável para corpo, maciez e brilho contidos.",
     image: "/images/20.png",
-    href: "#produtos",
+    href: "/produto/oleo-de-mirra-reparador",
   },
   {
     tag: "Ritmo profundo",
@@ -268,7 +268,7 @@ export const productRailItems = [
     productName: "Shampoo Protect Control",
     note: "Limpeza que respeita o fio e preserva a estrutura.",
     image: "/images/24.png",
-    href: "/catalogo",
+    href: "/produto/shampoo-multifuncao-cuidados-profundos",
   },
 ];
 
